@@ -1,0 +1,77 @@
+.sidebar {
+  width: 260px;
+  background-color: #1f1f1f;
+  color: white;
+  height: 100vh;
+  padding-top: 1rem;
+  position: fixed;
+  overflow-y: auto; /* Agregar barra de desplazamiento */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease-in-out;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background-color: #e53935;
+  color: white;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submenu {
+  display: none;
+  padding-left: 1rem;
+}
+
+.submenu.show {
+  display: block;
+}
+
+.chevron {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.chevron.rotate {
+  transform: rotate(180deg);
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+/* Opcional: Barra de desplazamiento personalizada */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

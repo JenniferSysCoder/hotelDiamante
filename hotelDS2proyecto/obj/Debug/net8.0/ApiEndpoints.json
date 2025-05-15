@@ -1,0 +1,694 @@
+[
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ClientesController",
+    "Method": "Editar",
+    "RelativePath": "api/Clientes/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cliente",
+        "Type": "hotelDS2proyecto.Models.Cliente",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ClientesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Clientes/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ClientesController",
+    "Method": "Get",
+    "RelativePath": "api/Clientes/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ClientesController",
+    "Method": "Nuevo",
+    "RelativePath": "api/Clientes/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cliente",
+        "Type": "hotelDS2proyecto.Models.Cliente",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ClientesController",
+    "Method": "Get",
+    "RelativePath": "api/Clientes/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.EmpleadosController",
+    "Method": "Editar",
+    "RelativePath": "api/Empleados/Editar/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.EmpleadoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.EmpleadosController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Empleados/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.EmpleadosController",
+    "Method": "Get",
+    "RelativePath": "api/Empleados/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.EmpleadosController",
+    "Method": "Create",
+    "RelativePath": "api/Empleados/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.EmpleadoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.EmpleadosController",
+    "Method": "Get",
+    "RelativePath": "api/Empleados/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.FacturasController",
+    "Method": "Edit",
+    "RelativePath": "api/Facturas/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.FacturaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.FacturasController",
+    "Method": "Delete",
+    "RelativePath": "api/Facturas/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.FacturasController",
+    "Method": "Get",
+    "RelativePath": "api/Facturas/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.FacturasController",
+    "Method": "Create",
+    "RelativePath": "api/Facturas/Nueva",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.FacturaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.FacturasController",
+    "Method": "Get",
+    "RelativePath": "api/Facturas/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HabitacionesController",
+    "Method": "Editar",
+    "RelativePath": "api/Habitaciones/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "habitacionDTO",
+        "Type": "hotelDS2proyecto.ModelsDTOs.HabitacionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HabitacionesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Habitaciones/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HabitacionesController",
+    "Method": "Get",
+    "RelativePath": "api/Habitaciones/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HabitacionesController",
+    "Method": "CreateHabitacion",
+    "RelativePath": "api/Habitaciones/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "habitacionDTO",
+        "Type": "hotelDS2proyecto.ModelsDTOs.HabitacionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HabitacionesController",
+    "Method": "Get",
+    "RelativePath": "api/Habitaciones/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HotelesController",
+    "Method": "Editar",
+    "RelativePath": "api/Hoteles/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objeto",
+        "Type": "hotelDS2proyecto.Models.Hotele",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HotelesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Hoteles/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HotelesController",
+    "Method": "Get",
+    "RelativePath": "api/Hoteles/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HotelesController",
+    "Method": "Nuevo",
+    "RelativePath": "api/Hoteles/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objeto",
+        "Type": "hotelDS2proyecto.Models.Hotele",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.HotelesController",
+    "Method": "Get",
+    "RelativePath": "api/Hoteles/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.LimpiezasController",
+    "Method": "Edit",
+    "RelativePath": "api/Limpiezas/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.LimpiezaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.LimpiezasController",
+    "Method": "Delete",
+    "RelativePath": "api/Limpiezas/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.LimpiezasController",
+    "Method": "Get",
+    "RelativePath": "api/Limpiezas/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.LimpiezasController",
+    "Method": "Create",
+    "RelativePath": "api/Limpiezas/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.LimpiezaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.LimpiezasController",
+    "Method": "Get",
+    "RelativePath": "api/Limpiezas/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PagosController",
+    "Method": "Edit",
+    "RelativePath": "api/Pagos/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.PagoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PagosController",
+    "Method": "Delete",
+    "RelativePath": "api/Pagos/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PagosController",
+    "Method": "Get",
+    "RelativePath": "api/Pagos/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PagosController",
+    "Method": "Create",
+    "RelativePath": "api/Pagos/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.PagoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PagosController",
+    "Method": "Get",
+    "RelativePath": "api/Pagos/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
+    "Method": "Editar",
+    "RelativePath": "api/Reservas/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.ReservaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Reservas/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
+    "Method": "Get",
+    "RelativePath": "api/Reservas/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
+    "Method": "Create",
+    "RelativePath": "api/Reservas/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.ReservaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
+    "Method": "Get",
+    "RelativePath": "api/Reservas/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ServiciosAdicionalesController",
+    "Method": "Editar",
+    "RelativePath": "api/ServiciosAdicionales/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "servicio",
+        "Type": "hotelDS2proyecto.Models.ServiciosAdicionale",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ServiciosAdicionalesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/ServiciosAdicionales/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ServiciosAdicionalesController",
+    "Method": "Get",
+    "RelativePath": "api/ServiciosAdicionales/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ServiciosAdicionalesController",
+    "Method": "Nuevo",
+    "RelativePath": "api/ServiciosAdicionales/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "servicio",
+        "Type": "hotelDS2proyecto.Models.ServiciosAdicionale",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ServiciosAdicionalesController",
+    "Method": "Get",
+    "RelativePath": "api/ServiciosAdicionales/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[hotelDS2proyecto.WeatherForecast, hotelDS2proyecto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

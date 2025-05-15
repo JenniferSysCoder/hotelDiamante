@@ -1,0 +1,45 @@
+/* Header */
+.header {
+  background-color: #d32f2f;
+  color: white;
+  display: flex;
+  justify-content: space-between; /* separa izquierda/derecha */
+  align-items: center;
+  padding: 10px 20px;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+  font-size: 1.3em;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.logout-btn {
+  background-color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background-color: #eee;
+}
