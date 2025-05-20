@@ -523,6 +523,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReporteReservaController",
+    "Method": "GetReporteReservas",
+    "RelativePath": "api/ReporteReserva/Reservas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
     "Method": "Editar",
     "RelativePath": "api/Reservas/Editar",

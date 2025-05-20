@@ -1,12 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import { FaHotel, FaBed, FaUserFriends, FaUsersCog, FaUserShield, FaConciergeBell, FaCalendarAlt, FaFileAlt, FaTachometerAlt, FaTools, FaChevronDown, FaCalendarCheck, FaBroom, FaCreditCard, FaFileInvoice } from 'react-icons/fa';
+import {
+  FaHotel, FaBed, FaUserFriends, FaUsersCog, FaUserShield, FaConciergeBell,
+  FaCalendarAlt, FaFileAlt, FaTachometerAlt, FaTools, FaChevronDown,
+  FaCalendarCheck, FaBroom, FaCreditCard, FaFileInvoice
+} from 'react-icons/fa';
 import './Sidebar.css';
 
 export default function Sidebar() {
   const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({
     controles: false,
     operaciones: false,
+    informes: false, // ✅ nuevo menú para informes
   });
 
   const toggleMenu = (menu: string) => {
@@ -54,11 +59,17 @@ export default function Sidebar() {
             </ul>
           </li>
 
+          {/* Menú Informes con submenú */}
           <li>
-            <NavLink to="/informes" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
-              <FaFileAlt className="icon" /> Informes
-            </NavLink>
+            <button className="menu-item dropdown-toggle" onClick={() => toggleMenu('informes')}>
+              <FaFileAlt className="icon" /> Informes <FaChevronDown className={`chevron ${openMenus.informes ? 'rotate' : ''}`} />
+            </button>
+            <ul className={`submenu ${openMenus.informes ? 'show' : ''}`}>
+              <li><NavLink to="/ReporteReserva" className="menu-item"><FaFileAlt className="icon" /> Reporte Reservas</NavLink></li>
+              {/* Puedes agregar más reportes aquí si deseas */}
+            </ul>
           </li>
+
           <li>
             <NavLink to="/calendario" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
               <FaCalendarAlt className="icon" /> Calendario

@@ -856,6 +856,18 @@
         }
       }
     },
+    "/api/ReporteReserva/Reservas": {
+      "get": {
+        "tags": [
+          "ReporteReserva"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Reservas/Lista": {
       "get": {
         "tags": [

@@ -12,6 +12,7 @@ import AppServicios from './serviciosAdicionales/AppServicios';
 import AppLimpiezas from './Limpiezas/AppLimpiezas';
 import AppFacturas from './Facturas/AppFacturas';
 import AppPagos from './Pagos/AppPagos';
+import AppReporteReservas from './ReporteReservas/AppReporteReservas';
 
 import './App.css';
 
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/limpiezas/*" element={<AppLimpiezas />} />
               <Route path="/facturas/*" element={<AppFacturas />} />
               <Route path="/pagos/*" element={<AppPagos />} />
+              <Route path='/ReporteReserva/*' element={<AppReporteReservas/>}/>
             </Routes>
           </main>
         </div>

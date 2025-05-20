@@ -35,6 +35,7 @@ public partial class Ds2proyectoContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
 
