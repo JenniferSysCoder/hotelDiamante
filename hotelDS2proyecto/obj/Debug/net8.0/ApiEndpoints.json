@@ -74,6 +74,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "hotelDS2proyecto.Controllers.DashboardController",
+    "Method": "GetHabitacionesPopulares",
+    "RelativePath": "api/Dashboard/habitacionesPopulares",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.DashboardController",
+    "Method": "GetServiciosPopulares",
+    "RelativePath": "api/Dashboard/serviciosPopulares",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "hotelDS2proyecto.Controllers.EmpleadosController",
     "Method": "Editar",
     "RelativePath": "api/Empleados/Editar/{id}",
@@ -526,6 +546,16 @@
     "ContainingType": "hotelDS2proyecto.Controllers.ReporteReservaController",
     "Method": "GetReporteReservas",
     "RelativePath": "api/ReporteReserva/Reservas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.ReporteServicioController",
+    "Method": "GetServiciosMasSolicitados",
+    "RelativePath": "api/ReporteServicio/ServiciosSolicitados",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
 import Sidebar from './sidebar';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,6 +13,9 @@ import AppLimpiezas from './Limpiezas/AppLimpiezas';
 import AppFacturas from './Facturas/AppFacturas';
 import AppPagos from './Pagos/AppPagos';
 import AppReporteReservas from './ReporteReservas/AppReporteReservas';
+import AppReporteServicios  from './ReporteServicios/AppReporteServicios';
+import { DashboardHabitaciones } from './Dashboard/components/DSHabitacion';
+import AppDashboard from './Dashboard/AppDashboard';
 
 import './App.css';
 
@@ -35,6 +38,10 @@ export default function App() {
               <Route path="/facturas/*" element={<AppFacturas />} />
               <Route path="/pagos/*" element={<AppPagos />} />
               <Route path='/ReporteReserva/*' element={<AppReporteReservas/>}/>
+              <Route path='/ReporteServicio/*' element={<AppReporteServicios/>}/>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<AppDashboard />} />
+              <Route path="/dashboardHabitaciones" element={<DashboardHabitaciones />} />
             </Routes>
           </main>
         </div>

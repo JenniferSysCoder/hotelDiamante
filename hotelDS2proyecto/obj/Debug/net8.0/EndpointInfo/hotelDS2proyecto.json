@@ -125,6 +125,30 @@
         }
       }
     },
+    "/api/Dashboard/habitacionesPopulares": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/serviciosPopulares": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Empleados/Lista": {
       "get": {
         "tags": [
@@ -860,6 +884,18 @@
       "get": {
         "tags": [
           "ReporteReserva"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ReporteServicio/ServiciosSolicitados": {
+      "get": {
+        "tags": [
+          "ReporteServicio"
         ],
         "responses": {
           "200": {

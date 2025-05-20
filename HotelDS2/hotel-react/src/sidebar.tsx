@@ -27,7 +27,7 @@ export default function Sidebar() {
         <ul>
           <li>
             <NavLink to="/dashboard" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
-              <FaTachometerAlt className="icon" /> Dashboard
+              <FaTachometerAlt className="icon" /> 
             </NavLink>
           </li>
 
@@ -65,6 +65,7 @@ export default function Sidebar() {
             </button>
             <ul className={`submenu ${openMenus.informes ? 'show' : ''}`}>
               <li><NavLink to="/ReporteReserva" className="menu-item"><FaFileAlt className="icon" /> Reporte Reservas</NavLink></li>
+              <li><NavLink to="/ReporteServicio" className="menu-item"><FaFileAlt className="icon" /> Reporte Servicio</NavLink></li>
               {/* Puedes agregar más reportes aquí si deseas */}
             </ul>
           </li>
