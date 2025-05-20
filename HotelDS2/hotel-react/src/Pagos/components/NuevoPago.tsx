@@ -53,13 +53,26 @@ export function NuevoPago() {
         fetchFacturas();
     }, []);
 
-    const inputChangeValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+    const inputChangeValue = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    if (name === "idFactura") {
+        const idFacturaSeleccionada = Number(value);
+        const facturaSeleccionada = facturas.find(f => f.idFactura === idFacturaSeleccionada);
+
         setPago({
             ...pago,
-            [name]: name === "idFactura" ? Number(value) : value,
+            idFactura: idFacturaSeleccionada,
+            monto: facturaSeleccionada ? facturaSeleccionada.total : 0
         });
-    };
+    } else {
+        setPago({
+            ...pago,
+            [name]: value
+        });
+    }
+};
+
 
     const guardar = async () => {
         // Validación de campos
@@ -127,7 +140,7 @@ export function NuevoPago() {
                                 type="number" 
                                 name="monto" 
                                 value={pago.monto} 
-                                onChange={inputChangeValue} 
+                                readOnly 
                             />
                         </FormGroup>
                         <FormGroup>

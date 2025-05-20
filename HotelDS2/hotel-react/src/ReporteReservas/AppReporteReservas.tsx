@@ -6,7 +6,7 @@ function AppReportes() {
     return (
         <Routes>
             <Route path="/" element={<ListarReporteReserva />} />
-            {/* Aquí puedes agregar otros reportes más adelante */}
+            {}
         </Routes>
     );
 }

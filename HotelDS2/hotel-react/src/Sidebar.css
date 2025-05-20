@@ -14,6 +14,10 @@ nav ul {
   margin: 0;
 }
 
+nav ul li {
+  list-style: none; /* Asegurarse de que los items de la lista no tengan marcadores */
+}
+
 .menu-item {
   display: flex;
   align-items: center;
@@ -38,6 +42,9 @@ nav ul {
   text-align: left;
   cursor: pointer;
   font-size: 1rem;
+  appearance: none; /* Remover estilos nativos del botón que puedan incluir marcadores */
+  -webkit-appearance: none; /* Para navegadores basados en WebKit */
+  -moz-appearance: none; /* Para Firefox */
 }
 
 .submenu {

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import {
-  FaHotel, FaBed, FaUserFriends, FaUsersCog, FaUserShield, FaConciergeBell,
+  FaHotel, FaBed, FaUserFriends, FaUsersCog, FaConciergeBell,
   FaCalendarAlt, FaFileAlt, FaTachometerAlt, FaTools, FaChevronDown,
   FaCalendarCheck, FaBroom, FaCreditCard, FaFileInvoice
 } from 'react-icons/fa';
@@ -41,7 +41,6 @@ export default function Sidebar() {
               <li><NavLink to="/habitaciones" className="menu-item"><FaBed className="icon" /> Habitaciones</NavLink></li>
               <li><NavLink to="/clientes" className="menu-item"><FaUserFriends className="icon" /> Clientes</NavLink></li>
               <li><NavLink to="/empleados" className="menu-item"><FaUsersCog className="icon" /> Empleados</NavLink></li>
-              <li><NavLink to="/usuarios" className="menu-item"><FaUserShield className="icon" /> Usuarios</NavLink></li>
               <li><NavLink to="/servicios" className="menu-item"><FaConciergeBell className="icon" /> Servicios</NavLink></li>
             </ul>
           </li>
@@ -69,10 +68,14 @@ export default function Sidebar() {
               {/* Puedes agregar más reportes aquí si deseas */}
             </ul>
           </li>
-
           <li>
             <NavLink to="/calendario" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
               <FaCalendarAlt className="icon" /> Calendario
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/usuarios" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
+              <FaCalendarAlt className="icon" /> Usuarios
             </NavLink>
           </li>
         </ul>

@@ -102,9 +102,10 @@ export function EditarPago() {
                                 type="number" 
                                 name="monto" 
                                 value={pago.monto} 
-                                onChange={inputChangeValue} 
+                                readOnly 
                             />
                         </FormGroup>
+
                         <FormGroup>
                             <Label>Método de Pago</Label>
                             <Input 

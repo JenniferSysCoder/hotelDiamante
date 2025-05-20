@@ -83,6 +83,15 @@ namespace hotelDS2proyecto.Controllers
             if (habitacionDTO == null)
                 return BadRequest("Los datos de la habitación no son válidos.");
 
+            // Validar duplicado
+            bool existeDuplicado = await dbContext.Habitaciones.AnyAsync(h =>
+                h.Numero == habitacionDTO.Numero && h.IdHotel == habitacionDTO.IdHotel);
+
+            if (existeDuplicado)
+            {
+                return BadRequest(new { mensaje = "Ya existe una habitación con ese número en el hotel seleccionado." });
+            }
+
             var habitacion = new Habitacione
             {
                 Numero = habitacionDTO.Numero,
@@ -98,6 +107,7 @@ namespace hotelDS2proyecto.Controllers
             return StatusCode(StatusCodes.Status201Created, new { mensaje = "Habitación creada correctamente." });
         }
 
+
         [HttpPut("Editar")]
         public async Task<IActionResult> Editar([FromBody] HabitacionDTO habitacionDTO)
         {
@@ -106,7 +116,18 @@ namespace hotelDS2proyecto.Controllers
             if (habitacion == null)
                 return NotFound(new { mensaje = "Habitación no encontrada" });
 
-            // Validación: no permitir marcar como "Ocupada" si no tiene reservas activas ahora
+            // Validar duplicado, excluyendo la misma habitación que se está editando
+            bool existeDuplicado = await dbContext.Habitaciones.AnyAsync(h =>
+                h.Numero == habitacionDTO.Numero &&
+                h.IdHotel == habitacionDTO.IdHotel &&
+                h.IdHabitacion != habitacionDTO.IdHabitacion);
+
+            if (existeDuplicado)
+            {
+                return BadRequest(new { mensaje = "Ya existe una habitación con ese número en el hotel seleccionado." });
+            }
+
+            // Validación para estado "Ocupada" que ya tienes
             if (habitacionDTO.Estado == "Ocupada")
             {
                 var hayReservaActiva = await dbContext.Reservas.AnyAsync(r =>
