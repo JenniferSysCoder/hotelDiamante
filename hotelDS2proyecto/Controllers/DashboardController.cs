@@ -49,6 +49,29 @@ namespace hotelDS2proyecto.Controllers
 
             return Ok(datos);
         }
+
+        [HttpGet("totalClientes")]
+        public async Task<IActionResult> GetTotalClientes()
+        {
+            var totalClientes = await _context.Clientes.CountAsync();
+            return Ok(new { total = totalClientes });
+        }
+
+        [HttpGet("habitacionesDisponibles")]
+        public async Task<IActionResult> GetHabitacionesDisponibles()
+        {
+            var total = await _context.Habitaciones
+                .CountAsync(h => h.Estado == "Disponible");
+
+            return Ok(new { total });
+        }
+
+        [HttpGet("totalServicios")]
+        public async Task<IActionResult> GetTotalServicios()
+        {
+            var total = await _context.ServiciosAdicionales.CountAsync();
+            return Ok(new { total });
+        }
     }
 
 }

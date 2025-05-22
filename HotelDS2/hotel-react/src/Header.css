@@ -20,6 +20,11 @@
   margin: 0;
 }
 
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .user-info {
   display: flex;
   align-items: center;
