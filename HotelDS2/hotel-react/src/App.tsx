@@ -16,6 +16,8 @@ import AppReporteReservas from './ReporteReservas/AppReporteReservas';
 import AppReporteServicios  from './ReporteServicios/AppReporteServicios';
 import { DashboardHabitaciones } from './Dashboard/components/DSHabitacion';
 import AppDashboard from './Dashboard/AppDashboard';
+import { DashboardProyeccionReservas } from './Dashboard/components/DHProyeccionReservas';
+
 
 import './App.css';
 
@@ -42,6 +44,9 @@ export default function App() {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<AppDashboard />} />
               <Route path="/dashboardHabitaciones" element={<DashboardHabitaciones />} />
+              <Route path="/dashboardProyeccion" element={<DashboardProyeccionReservas />} />
+
+
             </Routes>
           </main>
         </div>

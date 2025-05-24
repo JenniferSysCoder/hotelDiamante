@@ -4,6 +4,8 @@ import { ContadorHabitaciones } from "./components/DHHabitacionesDisponible";
 import { ContadorServicios } from "./components/contadorServicios";
 import { DashboardHabitaciones } from "./components/DSHabitacion";
 import { DashboardServicios } from "./components/DHServicio";
+import { DashboardProyeccionReservas } from "./components/DHProyeccionReservas";
+
 
 export default function AppDashboard() {
   return (
@@ -18,6 +20,10 @@ export default function AppDashboard() {
         <DashboardHabitaciones />
         <DashboardServicios />
       </Row>
+      <Row className="mt-4">
+  <DashboardProyeccionReservas />
+</Row>
+
     </div>
   );
 }
