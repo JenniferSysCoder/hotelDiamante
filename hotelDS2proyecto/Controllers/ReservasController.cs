@@ -77,34 +77,32 @@ namespace hotelDS2proyecto.Controllers
             // Validar si ya existe una reserva activa para la misma habitación en esas fechas
             bool existeConflicto = await dbContext.Reservas.AnyAsync(r =>
                 r.IdHabitacion == dto.IdHabitacion &&
-                (r.Estado == "Confirmada" || r.Estado == "Pendiente") &&
+                r.Estado == "Reservada" &&
                 r.FechaInicio < dto.FechaFin && dto.FechaInicio < r.FechaFin);
 
             if (existeConflicto)
                 return Conflict(new
                 {
-                    mensaje = "La habitación ya está reservada u ocupada en esas fechas. Por favor seleccione otra habitación o fechas distintas."
+                    mensaje = "La habitación ya está reservada en esas fechas."
                 });
 
             var reserva = new Reserva
             {
                 FechaInicio = dto.FechaInicio,
                 FechaFin = dto.FechaFin,
-                Estado = dto.Estado,
+                Estado = "Reservada",
                 IdCliente = dto.IdCliente,
                 IdHabitacion = dto.IdHabitacion
             };
 
             dbContext.Reservas.Add(reserva);
 
-            // Actualizar estado de habitación
+            // Cambiar estado habitación a "Ocupada"
             var habitacion = await dbContext.Habitaciones.FindAsync(dto.IdHabitacion);
             if (habitacion != null)
             {
-                if (dto.Estado == "Confirmada")
-                    habitacion.Estado = "Ocupada";
-                else if (dto.Estado == "Pendiente")
-                    habitacion.Estado = "Reservada";
+                habitacion.Estado = "Ocupada";
+                dbContext.Habitaciones.Update(habitacion);  // Forzar actualización
             }
 
             await dbContext.SaveChangesAsync();
@@ -121,15 +119,15 @@ namespace hotelDS2proyecto.Controllers
                 return NotFound(new { mensaje = "Reserva no encontrada" });
 
             // Validar estado
-            var estadosValidos = new[] { "Completada", "Cancelada", "Confirmada", "Pendiente" };
+            var estadosValidos = new[] { "Reservada", "Cancelada", "Finalizada" };
             if (!estadosValidos.Contains(dto.Estado))
-                return BadRequest(new { mensaje = "Estado no válido. Los valores permitidos son: Completada, Cancelada, Confirmada o Pendiente." });
+                return BadRequest(new { mensaje = "Estado no válido. Los valores permitidos son: Reservada, Cancelada o Finalizada." });
 
             // Validar si hay conflicto con otra reserva (misma habitación, traslape de fechas)
             bool conflicto = await dbContext.Reservas.AnyAsync(r =>
                 r.IdHabitacion == dto.IdHabitacion &&
                 r.IdReserva != dto.IdReserva &&
-                (r.Estado == "Confirmada" || r.Estado == "Pendiente") &&
+                r.Estado == "Reservada" &&
                 r.FechaInicio < dto.FechaFin && dto.FechaInicio < r.FechaFin);
 
             if (conflicto)
@@ -147,11 +145,9 @@ namespace hotelDS2proyecto.Controllers
             var habitacion = await dbContext.Habitaciones.FindAsync(dto.IdHabitacion);
             if (habitacion != null)
             {
-                if (dto.Estado == "Confirmada")
-                    habitacion.Estado = "Ocupada";
-                else if (dto.Estado == "Pendiente")
-                    habitacion.Estado = "Reservada";
-                else if (dto.Estado == "Cancelada" || dto.Estado == "Completada")
+                if (dto.Estado == "Reservada")
+                    habitacion.Estado = "Ocupada";  // Aquí se cambia a "Ocupada" para mantener la consistencia con la DB
+                else if (dto.Estado == "Cancelada" || dto.Estado == "Finalizada")
                     habitacion.Estado = "Disponible";
             }
 
@@ -171,7 +167,7 @@ namespace hotelDS2proyecto.Controllers
             dbContext.Reservas.Remove(reserva);
 
             var habitacion = await dbContext.Habitaciones.FindAsync(reserva.IdHabitacion);
-            if (habitacion != null && (reserva.Estado == "Confirmada" || reserva.Estado == "Pendiente"))
+            if (habitacion != null && reserva.Estado == "Reservada")
             {
                 habitacion.Estado = "Disponible";
             }

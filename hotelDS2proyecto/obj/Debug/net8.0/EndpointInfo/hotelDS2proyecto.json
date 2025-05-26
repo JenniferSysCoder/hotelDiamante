@@ -5,6 +5,29 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Calendario/FechasOcupadas/{idHabitacion}": {
+      "get": {
+        "tags": [
+          "Calendario"
+        ],
+        "parameters": [
+          {
+            "name": "idHabitacion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Clientes/Lista": {
       "get": {
         "tags": [
@@ -174,6 +197,18 @@
       }
     },
     "/api/Dashboard/totalServicios": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/reservasPorMes": {
       "get": {
         "tags": [
           "Dashboard"

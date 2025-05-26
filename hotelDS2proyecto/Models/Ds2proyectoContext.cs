@@ -35,12 +35,8 @@ public partial class Ds2proyectoContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-
-    }
-
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=ds2proyecto;Trusted_Connection=True;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -152,7 +148,6 @@ public partial class Ds2proyectoContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Habitacio__idHot__2A164134");
         });
-
 
         modelBuilder.Entity<Hotele>(entity =>
         {

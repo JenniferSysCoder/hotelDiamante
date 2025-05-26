@@ -17,6 +17,8 @@ import AppReporteServicios  from './ReporteServicios/AppReporteServicios';
 import { DashboardHabitaciones } from './Dashboard/components/DSHabitacion';
 import AppDashboard from './Dashboard/AppDashboard';
 import { DashboardProyeccionReservas } from './Dashboard/components/DHProyeccionReservas';
+import CalendarioReservas from './Calendario/CalendarioReservas';
+
 
 
 import './App.css';
@@ -45,7 +47,7 @@ export default function App() {
               <Route path="/dashboard" element={<AppDashboard />} />
               <Route path="/dashboardHabitaciones" element={<DashboardHabitaciones />} />
               <Route path="/dashboardProyeccion" element={<DashboardProyeccionReservas />} />
-
+              <Route path="/calendario" element={<CalendarioReservas />} />
 
             </Routes>
           </main>

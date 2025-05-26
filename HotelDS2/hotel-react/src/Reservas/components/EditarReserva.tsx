@@ -153,12 +153,12 @@ export function EditarReserva() {
                 onChange={inputChangeValue}
               >
                 <option value="">Seleccione un estado</option>
-                <option value="Completada">Completada</option>
+                <option value="Reservada">Reservada</option>
                 <option value="Cancelada">Cancelada</option>
-                <option value="Confirmada">Confirmada</option>
-                <option value="Pendiente">Pendiente</option>
+                <option value="Finalizada">Finalizada</option>
               </Input>
             </FormGroup>
+
             <FormGroup>
               <Label>Cliente</Label>
               <Input

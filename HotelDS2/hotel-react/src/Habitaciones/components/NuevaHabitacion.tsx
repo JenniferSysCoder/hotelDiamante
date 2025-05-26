@@ -97,8 +97,9 @@ export function NuevaHabitacion() {
                         </FormGroup>
                         <FormGroup>
                             <Label>Estado</Label>
-                            <Input type="text" name="estado" value={habitacion.estado} onChange={inputChangeValue} />
+                            <Input type="text" name="estado" value={habitacion.estado} disabled />
                         </FormGroup>
+
                         <FormGroup>
                             <Label>Hotel</Label>
                             <Input 

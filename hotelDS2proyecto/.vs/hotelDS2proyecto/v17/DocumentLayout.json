@@ -1,28 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\predi.laptop-69b23de1\\downloads\\hoteldiamante-main\\hoteldiamante-main\\hotelds2proyecto\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\predi.laptop-69b23de1\\downloads\\hoteldiamante-main\\hoteldiamante-main\\hotelds2proyecto\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\predi.laptop-69b23de1\\downloads\\hoteldiamante-main\\hoteldiamante-main\\hotelds2proyecto\\controllers\\reporteserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\reporteserviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\predi.laptop-69b23de1\\downloads\\hoteldiamante-main\\hoteldiamante-main\\hotelds2proyecto\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\predi.laptop-69b23de1\\downloads\\hoteldiamante-main\\hoteldiamante-main\\hotelds2proyecto\\controllers\\reportereservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\reportereservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamante\\hotelDS2proyecto\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,11 +9,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 22,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
               "$type": "Bookmark",
@@ -115,71 +98,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:140:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DashboardController.cs",
-              "DocumentMoniker": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\DashboardController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
-              "ToolTip": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\DashboardController.cs",
-              "RelativeToolTip": "Controllers\\DashboardController.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAkwEkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T20:42:16.75Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T20:06:43.724Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Reserva.cs",
-              "DocumentMoniker": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Models\\Reserva.cs",
-              "RelativeDocumentMoniker": "Models\\Reserva.cs",
-              "ToolTip": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Models\\Reserva.cs",
-              "RelativeToolTip": "Models\\Reserva.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAA5wBcAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T16:01:00.022Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ReporteServicioController.cs",
-              "DocumentMoniker": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\ReporteServicioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ReporteServicioController.cs",
-              "ToolTip": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\ReporteServicioController.cs",
-              "RelativeToolTip": "Controllers\\ReporteServicioController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:56:17.689Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ReporteReservaController.cs",
-              "DocumentMoniker": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\ReporteReservaController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ReporteReservaController.cs",
-              "ToolTip": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\Controllers\\ReporteReservaController.cs",
-              "RelativeToolTip": "Controllers\\ReporteReservaController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwBgAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:35:18.002Z"
             }
           ]
         }

@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "hotelDS2proyecto.Controllers.CalendarioController",
+    "Method": "ObtenerFechasOcupadas",
+    "RelativePath": "api/Calendario/FechasOcupadas/{idHabitacion}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idHabitacion",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "hotelDS2proyecto.Controllers.ClientesController",
     "Method": "Editar",
     "RelativePath": "api/Clientes/Editar",
@@ -87,6 +103,16 @@
     "ContainingType": "hotelDS2proyecto.Controllers.DashboardController",
     "Method": "GetHabitacionesPopulares",
     "RelativePath": "api/Dashboard/habitacionesPopulares",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.DashboardController",
+    "Method": "GetReservasMensuales",
+    "RelativePath": "api/Dashboard/reservasPorMes",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

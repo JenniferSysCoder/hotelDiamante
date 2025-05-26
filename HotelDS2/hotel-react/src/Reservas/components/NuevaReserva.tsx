@@ -20,7 +20,7 @@ const initialReserva: IReserva = {
     idReserva: 0,
     fechaInicio: "",
     fechaFin: "",
-    estado: "",
+    estado: "Reservada",
     idCliente: 0,
     idHabitacion: 0,
     nombreCliente: "",
@@ -53,13 +53,20 @@ export function NuevaReserva() {
         });
     };
 
-    // Función para guardar la nueva reserva
-    const guardar = async () => {
-        if (reserva.idCliente === 0 || reserva.idHabitacion === 0 || !reserva.fechaInicio || !reserva.fechaFin) {
-            Swal.fire("Faltan datos", "Todos los campos son obligatorios", "warning");
-            return;
-        }
+   const guardar = async () => {
+    if (reserva.idCliente === 0 || reserva.idHabitacion === 0 || !reserva.fechaInicio || !reserva.fechaFin) {
+        Swal.fire("Faltan datos", "Todos los campos son obligatorios", "warning");
+        return;
+    }
 
+    if (new Date(reserva.fechaInicio) > new Date(reserva.fechaFin)) {
+        Swal.fire("Error", "La fecha de inicio no puede ser mayor que la fecha de fin", "error");
+        return;
+    }
+
+    console.log("Enviando reserva:", reserva);
+
+    try {
         const response = await fetch(`${appsettings.apiUrl}Reservas/Nuevo`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -70,10 +77,19 @@ export function NuevaReserva() {
             Swal.fire("Guardado", "Reserva creada correctamente", "success");
             navigate("/reservas");
         } else {
-            const errorData = await response.json();
-            Swal.fire("Error", errorData.mensaje || "No se pudo guardar la reserva", "error");
+            let errorText = await response.text();
+            try {
+                const errorData = JSON.parse(errorText);
+                Swal.fire("Error", errorData.mensaje || "No se pudo guardar la reserva", "error");
+            } catch {
+                Swal.fire("Error", errorText || "No se pudo guardar la reserva", "error");
+            }
         }
-    };
+    } catch (error) {
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+        console.error("Error al guardar reserva:", error);
+    }
+};
 
     // Volver a la lista de reservas
     const volver = () => {
@@ -143,13 +159,14 @@ export function NuevaReserva() {
                                 type="select" 
                                 name="estado" 
                                 value={reserva.estado} 
-                                onChange={inputChangeValue}
+                                disabled
                             >
                                 <option value="Reservada">Reservada</option>
                                 <option value="Cancelada">Cancelada</option>
-                                <option value="Confirmada">Confirmada</option>
+                                <option value="Finalizada">Finalizada</option>
                             </Input>
                         </FormGroup>
+
                     </Form>
                     <Button color="primary" className="me-4" onClick={guardar}>Guardar</Button>
                     <Button color="secondary" onClick={volver}>Volver</Button>
