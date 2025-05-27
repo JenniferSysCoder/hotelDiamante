@@ -525,6 +525,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "hotelDS2proyecto.Controllers.LoginController",
+    "Method": "Registrar",
+    "RelativePath": "api/Login/Registrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.LoginController",
+    "Method": "Validar",
+    "RelativePath": "api/Login/Validar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.ModelsDTOs.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "hotelDS2proyecto.Controllers.PagosController",
     "Method": "Edit",
     "RelativePath": "api/Pagos/Editar",

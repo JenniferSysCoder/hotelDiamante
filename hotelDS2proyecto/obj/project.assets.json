@@ -5157,23 +5157,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jennifer Tatiana GF\\.nuget\\packages\\": {},
+    "C:\\Users\\predi.LAPTOP-69B23DE1\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
+      "projectUniqueName": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
       "projectName": "hotelDS2proyecto",
-      "projectPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
-      "packagesPath": "C:\\Users\\Jennifer Tatiana GF\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamante\\hotelDS2proyecto\\obj\\",
+      "projectPath": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
+      "packagesPath": "C:\\Users\\predi.LAPTOP-69B23DE1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\predi.LAPTOP-69B23DE1\\Downloads\\hotelDiamante-main\\hotelDiamante-main\\hotelDS2proyecto\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Jennifer Tatiana GF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\predi.LAPTOP-69B23DE1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

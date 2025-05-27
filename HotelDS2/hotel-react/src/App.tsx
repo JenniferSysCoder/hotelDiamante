@@ -19,13 +19,17 @@ import AppDashboard from './Dashboard/AppDashboard';
 import { DashboardProyeccionReservas } from './Dashboard/components/DHProyeccionReservas';
 import CalendarioReservas from './Calendario/CalendarioReservas';
 
+import Login from './Login/Login'; 
+
 
 
 import './App.css';
 
 export default function App() {
+  const isAuthenticated = localStorage.getItem('usuario');
   return (
     <Router>
+      {isAuthenticated ? (
       <div className="app-container">
         <Header />
         <div className="layout">
@@ -53,6 +57,12 @@ export default function App() {
           </main>
         </div>
       </div>
+      ) : (
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        )}
     </Router>
   );
 }

@@ -11,7 +11,15 @@ export default function Header() {
       </div>
       <div className="user-info">
         <span className="username">Administrador</span>
-        <button className="logout-btn">Cerrar sesión</button>
+        <button
+          className="logout-btn"
+          onClick={() => {
+            localStorage.removeItem('usuario');
+            window.location.href = '/login';
+          }}
+        >
+          Cerrar sesión
+        </button>
       </div>
     </header>
   );
