@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardBody, Col } from "reactstrap";
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
   Legend,
-  LabelList, 
-  Cell
+  Scatter
 } from "recharts";
 import { appsettings } from "../../settings/appsettings";
 
@@ -46,10 +44,13 @@ export function DashboardProyeccionReservas() {
 
           const mesProyeccion = `${siguienteMes.toString().padStart(2, "0")}/${siguienteAño}`;
 
-          const dataExtendida = [...data, {
-            mes: mesProyeccion,
-            cantidadReservas: Math.round(promedio)
-          }];
+          const dataExtendida = [
+            ...data,
+            {
+              mes: mesProyeccion,
+              cantidadReservas: Math.round(promedio),
+            },
+          ];
 
           setDatos(dataExtendida);
         }
@@ -66,37 +67,30 @@ export function DashboardProyeccionReservas() {
       <Card>
         <CardHeader>Reservas Mensuales con Proyección</CardHeader>
         <CardBody style={{ height: "400px" }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
+          <LineChart
+            width={800}
+            height={350}
+            data={datos}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="mes" />
+            <YAxis allowDecimals={false} />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="linear"
+              dataKey="cantidadReservas"
+              name="Reservas"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+            <Scatter
               data={datos}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="mes" />
-              <YAxis allowDecimals={false} />
-              <Tooltip />
-              <Legend />
-              <Bar
-                dataKey="cantidadReservas"
-                name="Reservas"
-                label={{ position: "top" }}
-                >
-                {
-                    datos.map((_, index) => {
-                    const isProjection = index === datos.length - 1;
-                    return (
-                        <Cell
-                        key={`cell-${index}`}
-                        fill={isProjection ? "#8884d8" : "#82ca9d"} // púrpura para proyección
-                        />
-                    );
-                    })
-                }
-                <LabelList dataKey="cantidadReservas" position="top" />
-                </Bar>
-
-            </BarChart>
-          </ResponsiveContainer>
+              dataKey="cantidadReservas"
+              fill="#82ca9d"
+            />
+          </LineChart>
         </CardBody>
       </Card>
     </Col>

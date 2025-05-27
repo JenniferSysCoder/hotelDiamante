@@ -2,8 +2,9 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import {
   FaHotel, FaBed, FaUserFriends, FaUsersCog, FaConciergeBell,
-  FaCalendarAlt, FaFileAlt, FaTachometerAlt, FaTools, FaChevronDown,
-  FaCalendarCheck, FaBroom, FaCreditCard, FaFileInvoice
+  FaCalendarAlt, FaFileAlt, FaTachometerAlt, FaTools,
+  FaCalendarCheck, FaBroom, FaCreditCard, FaFileInvoice, FaChevronDown, FaInfoCircle, FaWrench,
+  FaUser
 } from 'react-icons/fa';
 import './Sidebar.css';
 
@@ -34,8 +35,11 @@ export default function Sidebar() {
           {/* Menú Controles */}
           <li>
             <button className="menu-item dropdown-toggle" onClick={() => toggleMenu('controles')}>
-              <FaTools className="icon" /> Controles <FaChevronDown className={`chevron ${openMenus.controles ? 'rotate' : ''}`} />
+              <FaWrench className="icon" />
+              <span>Controles</span>
+              <FaChevronDown className={`chevron ${openMenus.controles ? 'rotate' : ''}`} />
             </button>
+
             <ul className={`submenu ${openMenus.controles ? 'show' : ''}`}>
               <li><NavLink to="/hotel" className="menu-item"><FaHotel className="icon" /> Hoteles</NavLink></li>
               <li><NavLink to="/habitaciones" className="menu-item"><FaBed className="icon" /> Habitaciones</NavLink></li>
@@ -48,8 +52,11 @@ export default function Sidebar() {
           {/* Menú Operaciones */}
           <li>
             <button className="menu-item dropdown-toggle" onClick={() => toggleMenu('operaciones')}>
-              <FaTools className="icon" /> Operaciones <FaChevronDown className={`chevron ${openMenus.operaciones ? 'rotate' : ''}`} />
+              <FaTools className="icon" />
+              <span>Operaciones</span>
+              <FaChevronDown className={`chevron ${openMenus.operaciones ? 'rotate' : ''}`} />
             </button>
+
             <ul className={`submenu ${openMenus.operaciones ? 'show' : ''}`}>
               <li><NavLink to="/reservas" className="menu-item"><FaCalendarCheck className="icon" /> Reservas</NavLink></li>
               <li><NavLink to="/limpiezas" className="menu-item"><FaBroom className="icon" /> Limpiezas</NavLink></li>
@@ -61,8 +68,11 @@ export default function Sidebar() {
           {/* Menú Informes con submenú */}
           <li>
             <button className="menu-item dropdown-toggle" onClick={() => toggleMenu('informes')}>
-              <FaFileAlt className="icon" /> Informes <FaChevronDown className={`chevron ${openMenus.informes ? 'rotate' : ''}`} />
+              <FaFileAlt className="icon" />
+              <span>Informes</span>
+              <FaChevronDown className={`chevron ${openMenus.informes ? 'rotate' : ''}`} />
             </button>
+
             <ul className={`submenu ${openMenus.informes ? 'show' : ''}`}>
               <li><NavLink to="/ReporteReserva" className="menu-item"><FaFileAlt className="icon" /> Reporte Reservas</NavLink></li>
               <li><NavLink to="/ReporteServicio" className="menu-item"><FaFileAlt className="icon" /> Reporte Servicio</NavLink></li>
@@ -75,8 +85,13 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/usuarios" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
-              <FaCalendarAlt className="icon" /> Usuarios
+            <NavLink to="/userprofile" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
+              <FaUser className="icon" /> Usuarios
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/acercade" className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}>
+              <FaInfoCircle className="icon" /> Acerca De
             </NavLink>
           </li>
         </ul>

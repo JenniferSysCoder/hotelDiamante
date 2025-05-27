@@ -16,7 +16,7 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        localStorage.setItem('usuario', response.data.usuario);
+        sessionStorage.setItem('usuario', response.data.usuario);
         window.location.href = '/dashboard';
       } else {
         setError(response.data.mensaje || 'Error desconocido');

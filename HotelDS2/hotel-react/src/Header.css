@@ -25,6 +25,11 @@
   color: inherit;
 }
 
+.logo img {
+  border-radius: 8px; 
+}
+
+
 .user-info {
   display: flex;
   align-items: center;

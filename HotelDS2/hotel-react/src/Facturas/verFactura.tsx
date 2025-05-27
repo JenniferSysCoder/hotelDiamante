@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { appsettings } from "../settings/appsettings";
 import type { IFactura } from "./Interfaces/IFactura";
 import { Card, CardBody, Button } from "reactstrap";
@@ -9,6 +9,7 @@ export function VistaFactura() {
     const { id } = useParams();
     const [factura, setFactura] = useState<IFactura | null>(null);
     const printRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const obtenerFactura = async () => {
@@ -62,14 +63,14 @@ export function VistaFactura() {
             <Card className="shadow border-0" style={{ width: "700px" }}>
                 <CardBody>
                     <div ref={printRef} style={{ width: "100%" }}>
-                        {/* Encabezado dentro del Card correctamente alineado */}
+                        {/* Encabezado */}
                         <div className="d-flex justify-content-between align-items-center border-bottom mb-4 pb-2" style={{ borderColor: "#d32f2f" }}>
                             <div>
                                 <h1 style={{ color: "#d32f2f", marginBottom: "5px" }}>Hotel Diamante</h1>
                                 <p className="mb-0">
-                                    Calle Principal 123, Ciudad, País<br />
-                                    Tel: +123 456 7890<br />
-                                    Email: info@eldiamante.com
+                                    Sonzacate, Sonsonate, El Salvador<br />
+                                    Tel: +503 7531-9174<br />
+                                    Email: hoteldiamante@gmail.com
                                 </p>
                             </div>
                         </div>
@@ -101,6 +102,12 @@ export function VistaFactura() {
                         <Button color="danger" onClick={handlePrint}>
                             <FaPrint className="me-2" />
                             Imprimir / Guardar como PDF
+                        </Button>
+                    </div>
+
+                    <div className="text-center mt-2">
+                        <Button color="secondary" onClick={() => navigate('/facturas')}>
+                            Volver a la lista
                         </Button>
                     </div>
                 </CardBody>

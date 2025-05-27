@@ -4,6 +4,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import bootstrap5Plugin from "@fullcalendar/bootstrap5";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 
 // Interfaces
 interface HabitacionSimple {
@@ -25,7 +28,6 @@ const CalendarioReservas: React.FC = () => {
   const [idSeleccionado, setIdSeleccionado] = useState<number | null>(null);
   const [eventos, setEventos] = useState<EventoReserva[]>([]);
 
-  // Cargar habitaciones disponibles
   useEffect(() => {
     fetch("https://localhost:7287/api/Habitaciones/Lista")
       .then((res) => {
@@ -45,7 +47,6 @@ const CalendarioReservas: React.FC = () => {
       });
   }, []);
 
-  // Cargar fechas ocupadas de la habitación seleccionada
   useEffect(() => {
     if (idSeleccionado !== null) {
       fetch(`https://localhost:7287/api/Calendario/FechasOcupadas/${idSeleccionado}`)
@@ -53,24 +54,22 @@ const CalendarioReservas: React.FC = () => {
           if (!res.ok) throw new Error("Error al cargar fechas ocupadas");
           return res.json();
         })
-            .then((fechas: { fechaInicio: string; fechaFin: string }[]) => {
-    const eventosOcupados: EventoReserva[] = fechas.map((r, index) => {
-        // Crear una fecha para fechaFin y sumarle un día
-        const fechaFinPlusOne = new Date(r.fechaFin);
-        fechaFinPlusOne.setDate(fechaFinPlusOne.getDate() + 1);
-        
-        return {
-        id: `evento-${index}`,
-        title: "Ocupado",
-        start: r.fechaInicio,
-        end: fechaFinPlusOne.toISOString().split("T")[0], // yyyy-mm-dd
-        color: "red",
-        display: "background",
-        };
-    });
-    setEventos(eventosOcupados);
-    })
+        .then((fechas: { fechaInicio: string; fechaFin: string }[]) => {
+          const eventosOcupados: EventoReserva[] = fechas.map((r, index) => {
+            const fechaFinPlusOne = new Date(r.fechaFin);
+            fechaFinPlusOne.setDate(fechaFinPlusOne.getDate() + 1);
 
+            return {
+              id: `evento-${index}`,
+              title: "Ocupado",
+              start: r.fechaInicio,
+              end: fechaFinPlusOne.toISOString().split("T")[0],
+              color: "red",
+              display: "background",
+            };
+          });
+          setEventos(eventosOcupados);
+        })
         .catch((error) => {
           console.error("Error cargando fechas ocupadas:", error);
           setEventos([]);
@@ -103,6 +102,20 @@ const CalendarioReservas: React.FC = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Leyenda con punto rojo */}
+        <div className="mb-3 d-flex align-items-center">
+          <div
+            style={{
+              width: 15,
+              height: 15,
+              backgroundColor: "red",
+              borderRadius: "50%",
+              marginRight: 8,
+            }}
+          />
+          <span>Ocupada</span>
         </div>
 
         <FullCalendar
