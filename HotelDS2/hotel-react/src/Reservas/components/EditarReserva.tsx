@@ -9,7 +9,7 @@ import {
   FormGroup,
   Label,
   Input,
-  Button
+  Button,
 } from "reactstrap";
 import { appsettings } from "../../settings/appsettings";
 import type { IReserva } from "../Interfaces/IReserva";
@@ -22,7 +22,7 @@ const initialReserva: IReserva = {
   fechaFin: "",
   estado: "",
   idCliente: 0,
-  idHabitacion: 0
+  idHabitacion: 0,
 };
 
 export function EditarReserva() {
@@ -38,16 +38,15 @@ export function EditarReserva() {
         const [resReserva, resClientes, resHabitaciones] = await Promise.all([
           fetch(`${appsettings.apiUrl}Reservas/Obtener/${id}`),
           fetch(`${appsettings.apiUrl}Clientes/Lista`),
-          fetch(`${appsettings.apiUrl}Habitaciones/Lista`)
+          fetch(`${appsettings.apiUrl}Habitaciones/Lista`),
         ]);
 
         if (resReserva.ok) {
           const data = await resReserva.json();
-          // Cortamos a "YYYY-MM-DD" si viene con hora
           setReserva({
             ...data,
             fechaInicio: data.fechaInicio?.split("T")[0] ?? "",
-            fechaFin: data.fechaFin?.split("T")[0] ?? ""
+            fechaFin: data.fechaFin?.split("T")[0] ?? "",
           });
         } else {
           Swal.fire("Error", "No se pudo obtener la reserva", "error");
@@ -63,11 +62,14 @@ export function EditarReserva() {
     obtenerDatos();
   }, [id]);
 
-  const inputChangeValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const inputChangeValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setReserva(prev => ({
+    setReserva((prev) => ({
       ...prev,
-      [name]: name === "idCliente" || name === "idHabitacion" ? Number(value) : value
+      [name]:
+        name === "idCliente" || name === "idHabitacion" ? Number(value) : value,
     }));
   };
 
@@ -84,7 +86,11 @@ export function EditarReserva() {
     }
 
     if (reserva.fechaFin < reserva.fechaInicio) {
-      Swal.fire("Fechas inválidas", "La fecha de fin no puede ser menor que la de inicio", "warning");
+      Swal.fire(
+        "Fechas inválidas",
+        "La fecha de fin no puede ser menor que la de inicio",
+        "warning"
+      );
       return;
     }
 
@@ -92,7 +98,7 @@ export function EditarReserva() {
       const response = await fetch(`${appsettings.apiUrl}Reservas/Editar`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reserva)
+        body: JSON.stringify(reserva),
       });
 
       const responseText = await response.text();
@@ -108,10 +114,18 @@ export function EditarReserva() {
         Swal.fire("Guardado", "Reserva actualizada correctamente", "success");
         navigate("/reservas");
       } else {
-        Swal.fire("Error", parsedResponse.mensaje || "No se pudo actualizar la reserva", "error");
+        Swal.fire(
+          "Error",
+          parsedResponse.mensaje || "No se pudo actualizar la reserva",
+          "error"
+        );
       }
     } catch (error) {
-      Swal.fire("Error", "Hubo un problema con la solicitud. Intenta más tarde.", "error");
+      Swal.fire(
+        "Error",
+        "Hubo un problema con la solicitud. Intenta más tarde.",
+        "error"
+      );
     }
   };
 
@@ -168,7 +182,7 @@ export function EditarReserva() {
                 onChange={inputChangeValue}
               >
                 <option value={0}>Seleccione un cliente</option>
-                {clientes.map(cliente => (
+                {clientes.map((cliente) => (
                   <option key={cliente.idCliente} value={cliente.idCliente}>
                     {cliente.nombre}
                   </option>
@@ -184,7 +198,7 @@ export function EditarReserva() {
                 onChange={inputChangeValue}
               >
                 <option value={0}>Seleccione una habitación</option>
-                {habitaciones.map(h => (
+                {habitaciones.map((h) => (
                   <option key={h.idHabitacion} value={h.idHabitacion}>
                     {h.numero}
                   </option>
@@ -192,8 +206,12 @@ export function EditarReserva() {
               </Input>
             </FormGroup>
           </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>Guardar</Button>
-          <Button color="secondary" onClick={volver}>Volver</Button>
+          <Button color="primary" className="me-4" onClick={guardar}>
+            Guardar
+          </Button>
+          <Button color="secondary" onClick={volver}>
+            Volver
+          </Button>
         </Col>
       </Row>
     </Container>

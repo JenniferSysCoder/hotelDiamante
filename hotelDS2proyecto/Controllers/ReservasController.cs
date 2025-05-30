@@ -102,7 +102,7 @@ namespace hotelDS2proyecto.Controllers
             if (habitacion != null)
             {
                 habitacion.Estado = "Ocupada";
-                dbContext.Habitaciones.Update(habitacion);  // Forzar actualización
+                dbContext.Habitaciones.Update(habitacion); 
             }
 
             await dbContext.SaveChangesAsync();
@@ -118,12 +118,10 @@ namespace hotelDS2proyecto.Controllers
             if (reserva == null)
                 return NotFound(new { mensaje = "Reserva no encontrada" });
 
-            // Validar estado
             var estadosValidos = new[] { "Reservada", "Cancelada", "Finalizada" };
             if (!estadosValidos.Contains(dto.Estado))
                 return BadRequest(new { mensaje = "Estado no válido. Los valores permitidos son: Reservada, Cancelada o Finalizada." });
 
-            // Validar si hay conflicto con otra reserva (misma habitación, traslape de fechas)
             bool conflicto = await dbContext.Reservas.AnyAsync(r =>
                 r.IdHabitacion == dto.IdHabitacion &&
                 r.IdReserva != dto.IdReserva &&

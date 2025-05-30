@@ -11,7 +11,7 @@ import {
   CardHeader,
   Button,
 } from "reactstrap";
-import logo from '../../../img/logoHotelDiamante.png';
+import logo from "../../../img/logoHotelDiamante.png";
 
 interface ReporteReservaDTO {
   idReserva: number;
@@ -30,7 +30,9 @@ export function ListarReporteReserva() {
 
   const obtenerReservas = async () => {
     try {
-      const response = await fetch(`${appsettings.apiUrl}ReporteReserva/Reservas`);
+      const response = await fetch(
+        `${appsettings.apiUrl}ReporteReserva/Reservas`
+      );
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) {
@@ -48,7 +50,9 @@ export function ListarReporteReserva() {
 
   const formatearFecha = (fecha: string) => {
     const fechaObj = new Date(fecha);
-    return isNaN(fechaObj.getTime()) ? "Fecha inválida" : fechaObj.toLocaleDateString();
+    return isNaN(fechaObj.getTime())
+      ? "Fecha inválida"
+      : fechaObj.toLocaleDateString();
   };
 
   const reservasFiltradas = reservas.filter((r) => {
@@ -65,7 +69,11 @@ export function ListarReporteReserva() {
   const generarPDF = () => {
     if (printRef.current) {
       const contenido = printRef.current.innerHTML;
-      const ventanaImpresion = window.open("", "_blank", "width=900,height=700");
+      const ventanaImpresion = window.open(
+        "",
+        "_blank",
+        "width=900,height=700"
+      );
       if (ventanaImpresion) {
         ventanaImpresion.document.write(`
           <html>
@@ -141,11 +149,17 @@ export function ListarReporteReserva() {
             </head>
             <body>
               <div class="header">
-                <img src="${window.location.origin}/logoHotelDiamante.png" alt="Logo del Hotel" />
+                <img src="${
+                  window.location.origin
+                }/logoHotelDiamante.png" alt="Logo del Hotel" />
                 <h2>Hotel <span>Diamante</span></h2>
               </div>
               <h3 class="titulo-detalle">Reporte de Reservas</h3>
-              <p class="filtro-fechas"><strong>Desde:</strong> ${fechaInicio || "N/A"} &nbsp;&nbsp;&nbsp; <strong>Hasta:</strong> ${fechaFin || "N/A"}</p>
+              <p class="filtro-fechas"><strong>Desde:</strong> ${
+                fechaInicio || "N/A"
+              } &nbsp;&nbsp;&nbsp; <strong>Hasta:</strong> ${
+          fechaFin || "N/A"
+        }</p>
               ${contenido}
               <div class="footer">Generado el ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}</div>
             </body>
@@ -161,85 +175,85 @@ export function ListarReporteReserva() {
 
   const estilos = {
     container: {
-      backgroundColor: '#f8f9fa',
-      minHeight: '100vh',
-      paddingTop: '40px',
+      backgroundColor: "#f8f9fa",
+      minHeight: "100vh",
+      paddingTop: "40px",
     },
     card: {
-      borderRadius: '0.375rem',
-      boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)',
-      border: '1px solid #dee2e6',
+      borderRadius: "0.375rem",
+      boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)",
+      border: "1px solid #dee2e6",
     },
     cardHeader: {
-      backgroundColor: '#fff',
-      borderBottom: '1px solid #dee2e6',
-      padding: '1rem 1.25rem',
-      borderTopLeftRadius: '0.375rem',
-      borderTopRightRadius: '0.375rem',
-      display: 'flex',
-      alignItems: 'center',
+      backgroundColor: "#fff",
+      borderBottom: "1px solid #dee2e6",
+      padding: "1rem 1.25rem",
+      borderTopLeftRadius: "0.375rem",
+      borderTopRightRadius: "0.375rem",
+      display: "flex",
+      alignItems: "center",
     },
     logoHeader: {
-      height: '30px',
-      marginRight: '10px',
+      height: "30px",
+      marginRight: "10px",
     },
     tituloHotel: {
-      color: 'gold',
-      fontSize: '1.3rem',
-      marginBottom: '0',
+      color: "gold",
+      fontSize: "1.3rem",
+      marginBottom: "0",
     },
     tituloDiamante: {
-      color: '#c82333',
+      color: "#c82333",
     },
     subtituloReporte: {
-      color: '#6c757d',
-      fontSize: '0.9rem',
-      marginLeft: '0.5rem',
+      color: "#6c757d",
+      fontSize: "0.9rem",
+      marginLeft: "0.5rem",
     },
     cardBody: {
-      backgroundColor: '#fff',
-      padding: '1.25rem',
-      borderBottomLeftRadius: '0.375rem',
-      borderBottomRightRadius: '0.375rem',
+      backgroundColor: "#fff",
+      padding: "1.25rem",
+      borderBottomLeftRadius: "0.375rem",
+      borderBottomRightRadius: "0.375rem",
     },
     formLabel: {
-      fontWeight: 'bold',
-      marginBottom: '0.2rem',
-      display: 'block',
-      fontSize: '0.9rem',
+      fontWeight: "bold",
+      marginBottom: "0.2rem",
+      display: "block",
+      fontSize: "0.9rem",
     },
     input: {
-      borderRadius: '0.25rem',
-      borderColor: '#ced4da',
-      fontSize: '0.9rem',
-      width: '100%',
-      padding: '0.3rem 0.75rem',
+      borderRadius: "0.25rem",
+      borderColor: "#ced4da",
+      fontSize: "0.9rem",
+      width: "100%",
+      padding: "0.3rem 0.75rem",
     },
     buttonImprimir: {
-      backgroundColor: '#c82333',
-      color: 'white',
-      fontWeight: 'bold',
-      boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)',
-      fontSize: '0.8rem',
-      padding: '0.3rem 0.6rem',
-      marginTop: '0.2rem',
-      width: 'auto', // Cambiado a 'auto' para que se ajuste al contenido
+      backgroundColor: "#c82333",
+      color: "white",
+      fontWeight: "bold",
+      boxShadow: "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)",
+      fontSize: "0.8rem",
+      padding: "0.3rem 0.6rem",
+      marginTop: "0.2rem",
+      width: "auto",
     },
     tituloDetalle: {
-      color: '#343a40',
-      fontSize: '1.3rem',
-      fontWeight: 'bold',
-      marginTop: '10px',
-      marginBottom: '8px',
-      textAlign: 'center' as 'center',
+      color: "#343a40",
+      fontSize: "1.3rem",
+      fontWeight: "bold",
+      marginTop: "10px",
+      marginBottom: "8px",
+      textAlign: "center" as "center",
     },
     theadDark: {
-      backgroundColor: '#343a40',
-      color: 'white',
-      fontSize: '0.9rem',
+      backgroundColor: "#343a40",
+      color: "white",
+      fontSize: "0.9rem",
     },
     table: {
-      fontSize: '0.85rem',
+      fontSize: "0.85rem",
     },
   };
 
@@ -250,16 +264,27 @@ export function ListarReporteReserva() {
           <Col lg="10">
             <Card style={estilos.card}>
               <CardHeader style={estilos.cardHeader}>
-                <img src={logo} alt="Diamante Hotel Logo" style={estilos.logoHeader} />
+                <img
+                  src={logo}
+                  alt="Diamante Hotel Logo"
+                  style={estilos.logoHeader}
+                />
                 <div>
-                  <h2 style={estilos.tituloHotel}>Hotel <span style={estilos.tituloDiamante}>Diamante</span></h2>
+                  <h2 style={estilos.tituloHotel}>
+                    Hotel <span style={estilos.tituloDiamante}>Diamante</span>
+                  </h2>
                   <h6 style={estilos.subtituloReporte}>Reporte de Reservas</h6>
                 </div>
               </CardHeader>
               <CardBody style={estilos.cardBody}>
-                <Row className="mb-3 align-items-end"> {/* Añadida clase para alinear verticalmente */}
+                <Row className="mb-3 align-items-end">
                   <Col md="4">
-                    <label className="form-label fw-semibold" style={estilos.formLabel}>Desde:</label>
+                    <label
+                      className="form-label fw-semibold"
+                      style={estilos.formLabel}
+                    >
+                      Desde:
+                    </label>
                     <Input
                       type="date"
                       value={fechaInicio}
@@ -268,7 +293,12 @@ export function ListarReporteReserva() {
                     />
                   </Col>
                   <Col md="4">
-                    <label className="form-label fw-semibold" style={estilos.formLabel}>Hasta:</label>
+                    <label
+                      className="form-label fw-semibold"
+                      style={estilos.formLabel}
+                    >
+                      Hasta:
+                    </label>
                     <Input
                       type="date"
                       value={fechaFin}
@@ -276,7 +306,7 @@ export function ListarReporteReserva() {
                       style={estilos.input}
                     />
                   </Col>
-                  <Col md="auto"> {/* Columna que se ajusta al contenido del botón */}
+                  <Col md="auto">
                     <Button style={estilos.buttonImprimir} onClick={generarPDF}>
                       Imprimir / PDF
                     </Button>
@@ -284,7 +314,11 @@ export function ListarReporteReserva() {
                 </Row>
 
                 <h3 style={estilos.tituloDetalle}>Detalle de Reservas</h3>
-                <div ref={printRef} className="table-responsive" style={estilos.table}>
+                <div
+                  ref={printRef}
+                  className="table-responsive"
+                  style={estilos.table}
+                >
                   <Table hover className="align-middle">
                     <thead style={estilos.theadDark}>
                       <tr>
@@ -306,7 +340,9 @@ export function ListarReporteReserva() {
                             <td>{formatearFecha(r.fechaInicio)}</td>
                             <td>{formatearFecha(r.fechaFin)}</td>
                             <td>
-                              <span className="badge bg-success">{r.estado}</span>
+                              <span className="badge bg-success">
+                                {r.estado}
+                              </span>
                             </td>
                           </tr>
                         ))

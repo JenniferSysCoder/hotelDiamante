@@ -63,7 +63,7 @@ namespace hotelDS2proyecto.Controllers
             var nuevoUsuario = new Usuario
             {
                 Usuario1 = dto.Usuario,
-                Contrasenia = Encriptar(dto.Contrasenia) // HEX
+                Contrasenia = Encriptar(dto.Contrasenia) 
             };
 
             dbContext.Usuarios.Add(nuevoUsuario);

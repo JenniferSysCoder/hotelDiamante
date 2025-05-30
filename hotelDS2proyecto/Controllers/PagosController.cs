@@ -65,10 +65,15 @@ namespace hotelDS2proyecto.Controllers
             return Ok(pago);
         }
 
-        // POST: api/Pagos/Nuevo
         [HttpPost("Nuevo")]
         public async Task<IActionResult> Create([FromBody] PagoDTO dto)
         {
+            var existePago = await dbContext.Pagos.AnyAsync(p => p.IdFactura == dto.IdFactura);
+            if (existePago)
+            {
+                return BadRequest(new { mensaje = "Esta factura ya tiene un pago registrado." });
+            }
+
             var pago = new Pago
             {
                 FechaPago = dto.FechaPago,
@@ -91,6 +96,15 @@ namespace hotelDS2proyecto.Controllers
 
             if (pago == null)
                 return NotFound(new { mensaje = "Pago no encontrado" });
+
+            var otroPago = await dbContext.Pagos
+                .Where(p => p.IdFactura == dto.IdFactura && p.IdPago != dto.IdPago)
+                .FirstOrDefaultAsync();
+
+            if (otroPago != null)
+            {
+                return BadRequest(new { mensaje = "Esta factura ya tiene un pago registrado." });
+            }
 
             pago.FechaPago = dto.FechaPago;
             pago.Monto = dto.Monto;

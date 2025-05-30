@@ -8,12 +8,12 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Scatter
+  Scatter,
 } from "recharts";
 import { appsettings } from "../../settings/appsettings";
 
 interface IReservasMes {
-  mes: string; // formato "MM/yyyy"
+  mes: string;
   cantidadReservas: number;
 }
 
@@ -42,7 +42,9 @@ export function DashboardProyeccionReservas() {
           const siguienteMes = mes === 12 ? 1 : mes + 1;
           const siguienteAño = mes === 12 ? año + 1 : año;
 
-          const mesProyeccion = `${siguienteMes.toString().padStart(2, "0")}/${siguienteAño}`;
+          const mesProyeccion = `${siguienteMes
+            .toString()
+            .padStart(2, "0")}/${siguienteAño}`;
 
           const dataExtendida = [
             ...data,
@@ -85,11 +87,7 @@ export function DashboardProyeccionReservas() {
               stroke="#8884d8"
               activeDot={{ r: 8 }}
             />
-            <Scatter
-              data={datos}
-              dataKey="cantidadReservas"
-              fill="#82ca9d"
-            />
+            <Scatter data={datos} dataKey="cantidadReservas" fill="#82ca9d" />
           </LineChart>
         </CardBody>
       </Card>

@@ -11,7 +11,6 @@ function AppFacturas() {
       <Route path="nuevafactura" element={<NuevaFactura />} />
       <Route path="editarfactura/:id" element={<EditarFactura />} />
       <Route path="verfactura/:id" element={<VistaFactura />} />
-
     </Routes>
   );
 }

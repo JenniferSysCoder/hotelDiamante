@@ -1,4 +1,4 @@
 export function useAuth() {
-  const usuario = sessionStorage.getItem('usuario');
+  const usuario = sessionStorage.getItem("usuario");
   return { isAuthenticated: !!usuario };
 }

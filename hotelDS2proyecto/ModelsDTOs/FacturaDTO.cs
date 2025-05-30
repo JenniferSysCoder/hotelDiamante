@@ -15,5 +15,7 @@
         public string? NombreServicio { get; set; }
 
         public string? NombreCliente { get; set; }
+
+        public string? NumeroHabitacion { get; set; }
     }
 }

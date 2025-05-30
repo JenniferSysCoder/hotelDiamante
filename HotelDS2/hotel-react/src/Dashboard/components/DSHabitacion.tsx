@@ -11,7 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  Cell
+  Cell,
 } from "recharts";
 
 export function DashboardHabitaciones() {
@@ -50,32 +50,32 @@ export function DashboardHabitaciones() {
     }
   };
   return (
-      <Col md="6">
-        <Card>
-          <CardHeader>Habitaciones Más Reservadas</CardHeader>
-          <CardBody style={{ height: "400px" }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={datos}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="nombreTipoHabitacion" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="cantidadReservas" name="Reservas">
-                  {datos.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={getColorPorTipo(entry.nombreTipoHabitacion)}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </CardBody>
-        </Card>
-      </Col>
+    <Col md="6">
+      <Card>
+        <CardHeader>Habitaciones Más Reservadas</CardHeader>
+        <CardBody style={{ height: "400px" }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={datos}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="nombreTipoHabitacion" />
+              <YAxis allowDecimals={false} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="cantidadReservas" name="Reservas">
+                {datos.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={getColorPorTipo(entry.nombreTipoHabitacion)}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </CardBody>
+      </Card>
+    </Col>
   );
 }

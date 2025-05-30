@@ -799,6 +799,80 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "hotelDS2proyecto.Controllers.UsuariosController",
+    "Method": "Editar",
+    "RelativePath": "api/Usuarios/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objeto",
+        "Type": "hotelDS2proyecto.Models.Usuario",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.UsuariosController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Usuarios/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.UsuariosController",
+    "Method": "Get",
+    "RelativePath": "api/Usuarios/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.UsuariosController",
+    "Method": "Nuevo",
+    "RelativePath": "api/Usuarios/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objeto",
+        "Type": "hotelDS2proyecto.Models.Usuario",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.UsuariosController",
+    "Method": "Get",
+    "RelativePath": "api/Usuarios/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "hotelDS2proyecto.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

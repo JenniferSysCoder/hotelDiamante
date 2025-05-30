@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\jennifer tatiana gf\\downloads\\diamantedaniel\\hotelds2proyecto\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\jennifer tatiana gf\\downloads\\diamantedaniel\\hotelds2proyecto\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\jennifer tatiana gf\\downloads\\diamantedaniel\\hotelds2proyecto\\modelsdtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:modelsdtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 22,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -111,43 +98,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:140:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "Models\\Usuario.cs",
-              "ToolTip": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Models\\Usuario.cs",
-              "RelativeToolTip": "Models\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T04:54:49.012Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAQwCwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T04:45:20.684Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\ModelsDTOs\\LoginDTO.cs",
-              "RelativeDocumentMoniker": "ModelsDTOs\\LoginDTO.cs",
-              "ToolTip": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\ModelsDTOs\\LoginDTO.cs",
-              "RelativeToolTip": "ModelsDTOs\\LoginDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T04:45:15.056Z"
             }
           ]
         }

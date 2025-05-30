@@ -17,7 +17,6 @@ namespace hotelDS2proyecto.Controllers
             dbContext = _dbContext;
         }
 
-        // GET: api/Facturas/Lista
         [HttpGet("Lista")]
         public async Task<IActionResult> Get()
         {
@@ -25,6 +24,8 @@ namespace hotelDS2proyecto.Controllers
                 .Include(f => f.IdServicioNavigation)
                 .Include(f => f.IdReservaNavigation)
                     .ThenInclude(r => r.IdClienteNavigation)
+                .Include(f => f.IdReservaNavigation)
+                    .ThenInclude(r => r.IdHabitacionNavigation)
                 .Select(f => new FacturaDTO
                 {
                     IdFactura = f.IdFactura,
@@ -33,14 +34,15 @@ namespace hotelDS2proyecto.Controllers
                     IdServicio = f.IdServicio,
                     IdReserva = f.IdReserva,
                     NombreServicio = f.IdServicioNavigation.Nombre,
-                    NombreCliente = f.IdReservaNavigation.IdClienteNavigation.Nombre
+                    NombreCliente = f.IdReservaNavigation.IdClienteNavigation.Nombre,
+                    NumeroHabitacion = f.IdReservaNavigation.IdHabitacionNavigation.Numero ?? "N/A"
                 })
                 .ToListAsync();
 
             return Ok(lista);
         }
 
-        // GET: api/Facturas/Obtener/5
+
         [HttpGet("Obtener/{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -48,6 +50,8 @@ namespace hotelDS2proyecto.Controllers
                 .Include(f => f.IdServicioNavigation)
                 .Include(f => f.IdReservaNavigation)
                     .ThenInclude(r => r.IdClienteNavigation)
+                .Include(f => f.IdReservaNavigation)
+                    .ThenInclude(r => r.IdHabitacionNavigation)
                 .Where(f => f.IdFactura == id)
                 .Select(f => new FacturaDTO
                 {
@@ -57,7 +61,8 @@ namespace hotelDS2proyecto.Controllers
                     IdServicio = f.IdServicio,
                     IdReserva = f.IdReserva,
                     NombreServicio = f.IdServicioNavigation.Nombre,
-                    NombreCliente = f.IdReservaNavigation.IdClienteNavigation.Nombre
+                    NombreCliente = f.IdReservaNavigation.IdClienteNavigation.Nombre,
+                    NumeroHabitacion = f.IdReservaNavigation.IdHabitacionNavigation.Numero ?? "N/A"
                 })
                 .FirstOrDefaultAsync();
 
@@ -67,6 +72,7 @@ namespace hotelDS2proyecto.Controllers
             return Ok(factura);
         }
 
+        // POST: api/Facturas/Nueva
         [HttpPost("Nueva")]
         public async Task<IActionResult> Create([FromBody] FacturaDTO dto)
         {
@@ -82,11 +88,9 @@ namespace hotelDS2proyecto.Controllers
             if (servicio == null)
                 return NotFound(new { mensaje = "Servicio no encontrado" });
 
-            // Calcular la cantidad de días reservados (mínimo 1)
             int dias = (reserva.FechaFin - reserva.FechaInicio).Days;
             if (dias <= 0) dias = 1;
 
-            // Precio habitación * días + precio del servicio
             decimal totalHabitacion = reserva.IdHabitacionNavigation.PrecioNoche * dias;
             decimal total = totalHabitacion + servicio.Precio;
 
@@ -104,29 +108,49 @@ namespace hotelDS2proyecto.Controllers
             return StatusCode(StatusCodes.Status201Created, new
             {
                 mensaje = "Factura registrada correctamente",
-                totalCalculado = total
+                totalCalculado = total,
+                numeroHabitacion = reserva.IdHabitacionNavigation.Numero ?? "N/A",
+                nombreCliente = reserva.IdClienteNavigation.Nombre,
+                nombreServicio = servicio.Nombre
             });
         }
 
-
-        // PUT: api/Facturas/Editar
         [HttpPut("Editar")]
         public async Task<IActionResult> Edit([FromBody] FacturaDTO dto)
         {
             var factura = await dbContext.Facturas.FindAsync(dto.IdFactura);
-
             if (factura == null)
                 return NotFound(new { mensaje = "Factura no encontrada" });
 
+            var reserva = await dbContext.Reservas
+                .Include(r => r.IdHabitacionNavigation)
+                .FirstOrDefaultAsync(r => r.IdReserva == dto.IdReserva);
+            if (reserva == null)
+                return NotFound(new { mensaje = "Reserva no encontrada" });
+
+            var servicio = await dbContext.ServiciosAdicionales.FindAsync(dto.IdServicio);
+            if (servicio == null)
+                return NotFound(new { mensaje = "Servicio no encontrado" });
+
+            // Calcular días
+            int dias = (reserva.FechaFin - reserva.FechaInicio).Days;
+            if (dias <= 0) dias = 1;
+
+            decimal totalHabitacion = reserva.IdHabitacionNavigation.PrecioNoche * dias;
+            decimal total = totalHabitacion + servicio.Precio;
+
+            // Actualizamos la factura con total calculado
             factura.FechaEmision = dto.FechaEmision;
-            factura.Total = dto.Total;
+            factura.Total = total;
             factura.IdServicio = dto.IdServicio;
             factura.IdReserva = dto.IdReserva;
 
             await dbContext.SaveChangesAsync();
 
-            return Ok(new { mensaje = "Factura actualizada correctamente" });
+            return Ok(new { mensaje = "Factura actualizada correctamente", totalCalculado = total });
         }
+
+
 
         // DELETE: api/Facturas/Eliminar/5
         [HttpDelete("Eliminar/{id:int}")]

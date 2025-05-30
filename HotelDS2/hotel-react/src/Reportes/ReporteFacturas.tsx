@@ -1,4 +1,4 @@
-import  { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import type { IFactura } from "../Facturas/Interfaces/IFactura";
 import "./ReporteFacturas.css";
@@ -24,12 +24,15 @@ const ReporteFacturas = () => {
     }
 
     try {
-      const response = await axios.get("https://localhost:7287/api/Facturas/reporte", {
-        params: {
-          fechaInicio: desde,
-          fechaFin: hasta,
-        },
-      });
+      const response = await axios.get(
+        "https://localhost:7287/api/Facturas/reporte",
+        {
+          params: {
+            fechaInicio: desde,
+            fechaFin: hasta,
+          },
+        }
+      );
 
       setFacturas(response.data);
       setMensaje("");
@@ -96,7 +99,11 @@ const ReporteFacturas = () => {
   return (
     <div className="reporte-container" ref={reporteRef}>
       <div className="logo-container">
-        <img src="/logoHotelDiamante.png" alt="Logo Hotel" className="logo-imagen" />
+        <img
+          src="/logoHotelDiamante.png"
+          alt="Logo Hotel"
+          className="logo-imagen"
+        />
         <div>
           <h1 className="hotel-titulo">
             <span className="logo-text-gold">Hotel</span>{" "}
@@ -162,7 +169,9 @@ const ReporteFacturas = () => {
                 <td>{new Date(f.fechaEmision).toLocaleDateString()}</td>
                 <td>{f.nombreCliente}</td>
                 <td>{f.nombreServicio}</td>
-                <td className="text-right total-amount">${f.total.toFixed(2)}</td>
+                <td className="text-right total-amount">
+                  ${f.total.toFixed(2)}
+                </td>
               </tr>
             ))
           )}

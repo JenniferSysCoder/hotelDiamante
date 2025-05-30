@@ -1,4 +1,3 @@
-/* ReporteFacturas.css */
 .reporte-container {
   padding: 20px;
   max-width: 960px;
@@ -29,11 +28,11 @@
 }
 
 .logo-text-gold {
-  color: #D4AF37; /* Gold */
+  color: #d4af37;
 }
 
 .logo-text-red {
-  color: #8B0000; /* Maroon */
+  color: #8b0000;
 }
 
 .reporte-subtitulo {
@@ -42,7 +41,7 @@
 }
 
 .separador {
-  border-top: 2px solid #8B0000;
+  border-top: 2px solid #8b0000;
   margin: 20px 0;
 }
 
@@ -90,7 +89,7 @@
 }
 
 .filter-button {
-  background-color: #8B0000;
+  background-color: #8b0000;
   color: white;
 }
 
@@ -99,9 +98,9 @@
 }
 
 .print-button {
-  background-color: #D4AF37;
+  background-color: #d4af37;
   color: black;
-  border: 1px solid #D4AF37;
+  border: 1px solid #d4af37;
 }
 
 .print-button:hover {
@@ -147,13 +146,13 @@
 }
 
 .total-amount {
-  color: #8B0000;
+  color: #8b0000;
   font-weight: bold;
 }
 
 .total-general-box {
-  background-color: #8B0000;
-  color: #D4AF37;
+  background-color: #8b0000;
+  color: #d4af37;
   font-size: 1.2rem;
   padding: 15px;
   border-radius: 6px;

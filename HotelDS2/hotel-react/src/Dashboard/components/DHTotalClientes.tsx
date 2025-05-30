@@ -9,7 +9,9 @@ export function ContadorClientes() {
   useEffect(() => {
     const obtenerTotal = async () => {
       try {
-        const response = await fetch(`${appsettings.apiUrl}Dashboard/totalClientes`);
+        const response = await fetch(
+          `${appsettings.apiUrl}Dashboard/totalClientes`
+        );
         if (response.ok) {
           const data = await response.json();
           setTotal(data.total);
@@ -29,7 +31,9 @@ export function ContadorClientes() {
         <CardBody>
           <div className="d-flex align-items-center justify-content-center gap-3">
             <FaUserFriends size={40} color="#4e73df" />
-            <h3 style={{ fontSize: "2.5rem", fontWeight: "bold", margin: 0 }}>{total}</h3>
+            <h3 style={{ fontSize: "2.5rem", fontWeight: "bold", margin: 0 }}>
+              {total}
+            </h3>
           </div>
         </CardBody>
       </Card>

@@ -4,11 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import bootstrap5Plugin from "@fullcalendar/bootstrap5";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-
-
-// Interfaces
 interface HabitacionSimple {
   idHabitacion: number;
   numero: string;
@@ -20,7 +17,7 @@ interface EventoReserva {
   start: string;
   end: string;
   color: string;
-  display: "background"; // Muestra solo como fondo
+  display: "background";
 }
 
 const CalendarioReservas: React.FC = () => {
@@ -49,7 +46,9 @@ const CalendarioReservas: React.FC = () => {
 
   useEffect(() => {
     if (idSeleccionado !== null) {
-      fetch(`https://localhost:7287/api/Calendario/FechasOcupadas/${idSeleccionado}`)
+      fetch(
+        `https://localhost:7287/api/Calendario/FechasOcupadas/${idSeleccionado}`
+      )
         .then((res) => {
           if (!res.ok) throw new Error("Error al cargar fechas ocupadas");
           return res.json();
@@ -104,7 +103,6 @@ const CalendarioReservas: React.FC = () => {
           </select>
         </div>
 
-        {/* Leyenda con punto rojo */}
         <div className="mb-3 d-flex align-items-center">
           <div
             style={{

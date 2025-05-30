@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { appsettings } from "../../settings/appsettings";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import type { ICliente } from "../Interfaces/ICliente";
+import type { IUsuario } from "../Interfaces/IUsuario";
 import {
   Container,
   Row,
@@ -15,34 +15,32 @@ import {
 } from "reactstrap";
 import { FaSearch } from "react-icons/fa";
 
-export function ListaClientes() {
-  const [clientes, setClientes] = useState<ICliente[]>([]);
+export function ListaUsuarios() {
+  const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
   const [busqueda, setBusqueda] = useState("");
 
-  const obtenerClientes = async () => {
+  const obtenerUsuarios = async () => {
     try {
-      const response = await fetch(`${appsettings.apiUrl}Clientes/Lista`);
+      const response = await fetch(`${appsettings.apiUrl}Usuarios/Lista`);
       if (response.ok) {
         const data = await response.json();
-        setClientes(data);
+        setUsuarios(data);
       } else {
-        console.error("Error al obtener clientes:", response.statusText);
-        Swal.fire("Error", "No se pudo obtener la lista de clientes", "error");
+        Swal.fire("Error", "No se pudo obtener la lista de usuarios", "error");
       }
     } catch (error) {
-      console.error("Error de red al obtener clientes:", error);
       Swal.fire("Error", "Hubo un problema de conexión", "error");
     }
   };
 
   useEffect(() => {
-    obtenerClientes();
+    obtenerUsuarios();
   }, []);
 
-  const Eliminar = (id: number) => {
+  const eliminar = (id: number) => {
     Swal.fire({
       title: "¿Estás seguro?",
-      text: "¡Eliminar cliente!",
+      text: "¡Eliminar usuario!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -51,40 +49,37 @@ export function ListaClientes() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const response = await fetch(
-          `${appsettings.apiUrl}Clientes/Eliminar/${id}`,
+          `${appsettings.apiUrl}Usuarios/Eliminar/${id}`,
           {
             method: "DELETE",
           }
         );
 
         if (response.ok) {
-          const data = await response.json();
-          await obtenerClientes();
-          Swal.fire("Eliminado", data.mensaje, "success");
+          await obtenerUsuarios();
+          Swal.fire("Eliminado", "Usuario eliminado correctamente", "success");
         } else {
-          Swal.fire("Error", "No se pudo eliminar el cliente", "error");
+          Swal.fire("Error", "No se pudo eliminar el usuario", "error");
         }
       }
     });
   };
 
-  const clientesFiltrados = clientes.filter((cliente) =>
-    `${cliente.nombre} ${cliente.apellido}`
-      .toLowerCase()
-      .includes(busqueda.toLowerCase())
+  const usuariosFiltrados = usuarios.filter((usuario) =>
+    usuario.usuario1.toLowerCase().includes(busqueda.toLowerCase())
   );
 
   return (
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 10, offset: 1 }}>
-          <h4>Lista de clientes</h4>
+          <h4>Lista de usuarios</h4>
           <hr />
 
           <Row className="mb-3 align-items-center">
             <Col md="6">
-              <Link className="btn btn-success" to="nuevocliente">
-                Nuevo Cliente
+              <Link className="btn btn-success" to="nuevousuario">
+                Nuevo Usuario
               </Link>
             </Col>
             <Col md="6" className="text-end">
@@ -94,7 +89,7 @@ export function ListaClientes() {
                 </InputGroupText>
                 <Input
                   type="text"
-                  placeholder="Buscar por nombre..."
+                  placeholder="Buscar por usuario..."
                   value={busqueda}
                   onChange={(e) => setBusqueda(e.target.value)}
                 />
@@ -106,34 +101,25 @@ export function ListaClientes() {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Documento</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
+                <th>Usuario</th>
+                <th>Contraseña</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {clientesFiltrados.map((cliente) => (
-                <tr key={cliente.idCliente}>
-                  <td>{cliente.idCliente}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.documento}</td>
-                  <td>{cliente.correo ?? "N/A"}</td>
-                  <td>{cliente.telefono ?? "N/A"}</td>
+              {usuariosFiltrados.map((usuario) => (
+                <tr key={usuario.id}>
+                  <td>{usuario.id}</td>
+                  <td>{usuario.usuario1}</td>
+                  <td>{usuario.contrasenia ?? "N/A"}</td>
                   <td>
                     <Link
                       className="btn btn-primary me-2"
-                      to={`editarcliente/${cliente.idCliente}`}
+                      to={`editarusuario/${usuario.id}`}
                     >
                       Editar
                     </Link>
-                    <Button
-                      color="danger"
-                      onClick={() => Eliminar(cliente.idCliente!)}
-                    >
+                    <Button color="danger" onClick={() => eliminar(usuario.id)}>
                       Eliminar
                     </Button>
                   </td>

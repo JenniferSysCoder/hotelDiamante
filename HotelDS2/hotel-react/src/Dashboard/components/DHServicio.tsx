@@ -55,7 +55,7 @@ export function DashboardServicios() {
                 outerRadius={120}
                 label
               >
-                {datos.map((entry, index) => (
+                {datos.map((_entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={colores[index % colores.length]}

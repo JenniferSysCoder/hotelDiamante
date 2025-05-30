@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import type { IReserva } from "../Reservas/Interfaces/IReserva";
-import "./ReporteFacturas.css"; // Reutiliza tu CSS de facturas
+import "./ReporteFacturas.css";
 
 const ReporteReservas = () => {
   const [reservas, setReservas] = useState<IReserva[]>([]);
@@ -24,12 +24,15 @@ const ReporteReservas = () => {
     }
 
     try {
-      const response = await axios.get("https://localhost:7287/api/Reservas/reporte", {
-        params: {
-          fechaInicio: desde,
-          fechaFin: hasta,
-        },
-      });
+      const response = await axios.get(
+        "https://localhost:7287/api/Reservas/reporte",
+        {
+          params: {
+            fechaInicio: desde,
+            fechaFin: hasta,
+          },
+        }
+      );
 
       setReservas(response.data);
       setMensaje("");
@@ -91,7 +94,11 @@ const ReporteReservas = () => {
   return (
     <div className="reporte-container" ref={reporteRef}>
       <div className="logo-container">
-        <img src="/logoHotelDiamante.png" alt="Logo Hotel" className="logo-imagen" />
+        <img
+          src="/logoHotelDiamante.png"
+          alt="Logo Hotel"
+          className="logo-imagen"
+        />
         <div>
           <h1>
             <span className="logo-text-gold">Hotel</span>{" "}
@@ -104,14 +111,26 @@ const ReporteReservas = () => {
       <div className="filter-container">
         <div className="filter-item">
           <label>Desde:</label>
-          <input type="date" value={desde} onChange={(e) => setDesde(e.target.value)} />
+          <input
+            type="date"
+            value={desde}
+            onChange={(e) => setDesde(e.target.value)}
+          />
         </div>
         <div className="filter-item">
           <label>Hasta:</label>
-          <input type="date" value={hasta} onChange={(e) => setHasta(e.target.value)} />
+          <input
+            type="date"
+            value={hasta}
+            onChange={(e) => setHasta(e.target.value)}
+          />
         </div>
-        <button onClick={obtenerReservasPorRango} className="filter-button">Filtrar</button>
-        <button onClick={imprimir} className="print-button">Imprimir / PDF</button>
+        <button onClick={obtenerReservasPorRango} className="filter-button">
+          Filtrar
+        </button>
+        <button onClick={imprimir} className="print-button">
+          Imprimir / PDF
+        </button>
       </div>
 
       {mensaje && <div className="error-message">{mensaje}</div>}
@@ -130,7 +149,9 @@ const ReporteReservas = () => {
         <tbody>
           {reservas.length === 0 ? (
             <tr>
-              <td colSpan={6} className="text-center">No hay datos disponibles.</td>
+              <td colSpan={6} className="text-center">
+                No hay datos disponibles.
+              </td>
             </tr>
           ) : (
             reservas.map((r) => (

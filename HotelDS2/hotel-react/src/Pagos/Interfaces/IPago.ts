@@ -5,4 +5,5 @@ export interface IPago {
     metodoPago: string;
     idFactura: number;
     nombreCliente: string; 
+    numeroFacturaHabitacion: string;
 }

@@ -1,21 +1,18 @@
-/* Contenedor principal */
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* Layout del contenedor que tiene el Sidebar y el contenido */
 .layout {
   display: flex;
   flex: 1;
-  margin-top: 60px; /* Ajuste para el header */
+  margin-top: 60px;
 }
 
-/* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #222222; /* Fondo oscuro */
+  background-color: #222222;
   color: #fff;
   padding: 20px;
   height: 100vh;
@@ -25,24 +22,21 @@
   z-index: 100;
 }
 
-/* Sidebar menú desplegable */
 .menu-dropdown .dropdown-menu {
-  background-color: #333; /* Fondo más oscuro para el dropdown */
+  background-color: #333;
 }
 
-/* Contenido principal */
 .main-content {
   flex: 1;
-  margin-left: 250px; /* Para evitar que el contenido se solape con el sidebar */
+  margin-left: 250px;
   padding: 20px;
   background-color: #f0f0f0;
   height: 100vh;
   overflow-y: auto;
 }
 
-/* Estilo del Header */
 .header {
-  background-color: #d32f2f; /* Rojo como en la imagen */
+  background-color: #d32f2f;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -51,7 +45,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 200; /* Asegura que el header quede por encima del contenido */
+  z-index: 200;
 }
 
 .header .logo h1 {
@@ -74,7 +68,6 @@
   background-color: #ddd;
 }
 
-/* Widget en el Dashboard */
 .widgets {
   display: flex;
   gap: 20px;
@@ -101,7 +94,6 @@
   color: #d32f2f;
 }
 
-/* Actividad reciente */
 .recent-activity {
   margin-top: 20px;
 }

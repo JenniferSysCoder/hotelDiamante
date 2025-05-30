@@ -49,7 +49,7 @@ namespace hotelDS2proyecto.Controllers
 
             await dbContext.Clientes.AddAsync(cliente);
             await dbContext.SaveChangesAsync();
-            return StatusCode(StatusCodes.Status200OK, new { mensaje = "Cliente guardado exitosamente" });
+            return StatusCode(StatusCodes.Status200OK, new { mensaje = "Cliente guardado correctamente" });
         }
 
 

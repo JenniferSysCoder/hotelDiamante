@@ -91,10 +91,9 @@ namespace hotelDS2proyecto.Controllers
                 .ThenBy(g => g.Mes)
                 .ToListAsync();
 
-            // Ahora que los datos están en memoria, puedes formatear
             var datos = datosRaw.Select(d => new
             {
-                mes = $"{d.Mes:D2}/{d.Año}", // Ej. 05/2024
+                mes = $"{d.Mes:D2}/{d.Año}", 
                 cantidadReservas = d.Cantidad
             });
 

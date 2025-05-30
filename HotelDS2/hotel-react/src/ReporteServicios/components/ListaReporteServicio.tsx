@@ -10,7 +10,7 @@ import {
   CardHeader,
   Button,
 } from "reactstrap";
-import logo from '../../../img/logoHotelDiamante.png';
+import logo from "../../../img/logoHotelDiamante.png";
 
 interface IReporteServicio {
   nombreServicio: string;
@@ -24,7 +24,9 @@ export function ListarReporteServicios() {
 
   const obtenerServicios = async () => {
     try {
-      const response = await fetch(`${appsettings.apiUrl}ReporteServicio/ServiciosSolicitados`);
+      const response = await fetch(
+        `${appsettings.apiUrl}ReporteServicio/ServiciosSolicitados`
+      );
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) {
@@ -43,7 +45,11 @@ export function ListarReporteServicios() {
   const generarPDF = () => {
     if (printRef.current) {
       const contenido = printRef.current.innerHTML;
-      const ventanaImpresion = window.open("", "_blank", "width=900,height=700");
+      const ventanaImpresion = window.open(
+        "",
+        "_blank",
+        "width=900,height=700"
+      );
       if (ventanaImpresion) {
         ventanaImpresion.document.write(`
           <html>
@@ -106,7 +112,9 @@ export function ListarReporteServicios() {
             </head>
             <body>
               <div class="header">
-                <img src="${window.location.origin}/logoHotelDiamante.png" alt="Logo del Hotel" />
+                <img src="${
+                  window.location.origin
+                }/logoHotelDiamante.png" alt="Logo del Hotel" />
                 <h2>Hotel <span>Diamante</span></h2>
               </div>
               <h3 class="titulo-detalle">Reporte de Servicios Más Solicitados</h3>
@@ -130,10 +138,18 @@ export function ListarReporteServicios() {
           <Col lg="10">
             <Card>
               <CardHeader className="d-flex align-items-center">
-                <img src={logo} alt="Logo" style={{ height: "30px", marginRight: "10px" }} />
+                <img
+                  src={logo}
+                  alt="Logo"
+                  style={{ height: "30px", marginRight: "10px" }}
+                />
                 <div>
-                  <h2 style={{ color: "gold", marginBottom: 0 }}>Hotel <span style={{ color: "#c82333" }}>Diamante</span></h2>
-                  <h6 className="text-muted">Reporte de Servicios Más Solicitados</h6>
+                  <h2 style={{ color: "gold", marginBottom: 0 }}>
+                    Hotel <span style={{ color: "#c82333" }}>Diamante</span>
+                  </h2>
+                  <h6 className="text-muted">
+                    Reporte de Servicios Más Solicitados
+                  </h6>
                 </div>
               </CardHeader>
               <CardBody>

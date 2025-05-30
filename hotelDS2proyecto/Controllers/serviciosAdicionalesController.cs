@@ -43,7 +43,6 @@ namespace hotelDS2proyecto.Controllers
         [Route("Nuevo")]
         public async Task<IActionResult> Nuevo([FromBody] ServiciosAdicionale servicio)
         {
-            // Aquí podrías validar si ya existe un servicio con el mismo nombre, por ejemplo
             var servicioExistente = await dbContext.ServiciosAdicionales
                 .FirstOrDefaultAsync(s => s.Nombre == servicio.Nombre);
 
@@ -64,7 +63,7 @@ namespace hotelDS2proyecto.Controllers
             try
             {
                 var servicioExistente = await dbContext.ServiciosAdicionales
-                    .AsNoTracking() // ← importante si usas Update()
+                    .AsNoTracking() 
                     .FirstOrDefaultAsync(s => s.IdServicio == servicio.IdServicio);
 
                 if (servicioExistente == null)
@@ -88,7 +87,7 @@ namespace hotelDS2proyecto.Controllers
             }
         }
 
-        // DELETE: api/ServiciosAdicionales/Eliminar/5
+        // DELETE: api/ServiciosAdicionales/Eliminar/
         [HttpDelete]
         [Route("Eliminar/{id:int}")]
         public async Task<IActionResult> Eliminar(int id)
