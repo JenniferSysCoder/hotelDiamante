@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaEmpleado() {
   const [empleados, setEmpleados] = useState<IEmpleado[]>([]);
@@ -107,7 +107,7 @@ export function ListaEmpleado() {
                 <th>Teléfono</th>
                 <th>Cargo</th>
                 <th>Hotel</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -119,17 +119,19 @@ export function ListaEmpleado() {
                   <td>{emp.telefono ?? "N/D"}</td>
                   <td>{emp.cargo}</td>
                   <td>{emp.nombreHotel ?? "N/D"}</td>
-                  <td>
+                  <td className="text-center">
                     <Link
                       className="btn btn-primary me-2"
                       to={`editarempleado/${emp.idEmpleado}`}
                     >
+                      <FaEdit className="me-1" />
                       Editar
                     </Link>
                     <Button
                       color="danger"
                       onClick={() => Eliminar(emp.idEmpleado)}
                     >
+                      <FaTrash className="me-1" />
                       Eliminar
                     </Button>
                   </td>

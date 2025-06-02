@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaReserva() {
   const [reservas, setReservas] = useState<IReserva[]>([]);
@@ -111,7 +111,7 @@ export function ListaReserva() {
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -123,17 +123,19 @@ export function ListaReserva() {
                   <td>{res.fechaInicio.slice(0, 10)}</td>
                   <td>{res.fechaFin.slice(0, 10)}</td>
                   <td>{res.estado ?? "N/D"}</td>
-                  <td>
+                  <td className="text-center">
                     <Link
                       className="btn btn-primary me-2"
                       to={`editarreserva/${res.idReserva}`}
                     >
+                      <FaEdit className="me-1" />
                       Editar
                     </Link>
                     <Button
                       color="danger"
                       onClick={() => Eliminar(res.idReserva)}
                     >
+                      <FaTrash className="me-1" />
                       Eliminar
                     </Button>
                   </td>

@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaServicios() {
   const [servicios, setServicios] = useState<IServicio[]>([]);
@@ -108,7 +108,7 @@ export function ListaServicios() {
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Precio</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -118,17 +118,32 @@ export function ListaServicios() {
                   <td>{servicio.nombre}</td>
                   <td>{servicio.descripcion ?? "N/A"}</td>
                   <td>${servicio.precio.toFixed(2)}</td>
-                  <td>
+                  <td
+                    className="text-center d-flex align-items-center justify-content-center gap-2"
+                    style={{ backgroundColor: "white" }}
+                  >
                     <Link
-                      className="btn btn-primary me-2"
+                      className="btn btn-primary"
                       to={`editarservicio/${servicio.idServicio}`}
+                      style={{
+                        padding: "0.25rem 0.5rem",
+                        fontSize: "0.85rem",
+                        lineHeight: 1,
+                      }}
                     >
+                      <FaEdit className="me-1" />
                       Editar
                     </Link>
                     <Button
                       color="danger"
                       onClick={() => Eliminar(servicio.idServicio)}
+                      style={{
+                        padding: "0.25rem 0.5rem",
+                        fontSize: "0.85rem",
+                        lineHeight: 1,
+                      }}
                     >
+                      <FaTrash className="me-1" />
                       Eliminar
                     </Button>
                   </td>

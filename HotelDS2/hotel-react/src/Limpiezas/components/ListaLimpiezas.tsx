@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaLimpieza() {
   const [limpiezas, setLimpiezas] = useState<ILimpieza[]>([]);
@@ -120,7 +120,7 @@ export function ListaLimpieza() {
                 <th>Observaciones</th>
                 <th>Habitación</th>
                 <th>Empleado</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -132,17 +132,19 @@ export function ListaLimpieza() {
                     <td>{limpieza.observaciones}</td>
                     <td>{limpieza.numeroHabitacion}</td>
                     <td>{limpieza.nombreEmpleado}</td>
-                    <td>
+                    <td className="text-center">
                       <Link
                         className="btn btn-primary me-2"
                         to={`editarlimpieza/${limpieza.idLimpieza}`}
                       >
+                        <FaEdit className="me-1" />
                         Editar
                       </Link>
                       <Button
                         color="danger"
                         onClick={() => Eliminar(limpieza.idLimpieza)}
                       >
+                        <FaTrash className="me-1" />
                         Eliminar
                       </Button>
                     </td>
@@ -150,7 +152,7 @@ export function ListaLimpieza() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="text-center">
+                  <td colSpan={6} className="text-center">
                     No se encontraron limpiezas
                   </td>
                 </tr>

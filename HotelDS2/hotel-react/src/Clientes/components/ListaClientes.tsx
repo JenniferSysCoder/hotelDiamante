@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaClientes() {
   const [clientes, setClientes] = useState<ICliente[]>([]);
@@ -111,7 +111,7 @@ export function ListaClientes() {
                 <th>Documento</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -123,17 +123,19 @@ export function ListaClientes() {
                   <td>{cliente.documento}</td>
                   <td>{cliente.correo ?? "N/A"}</td>
                   <td>{cliente.telefono ?? "N/A"}</td>
-                  <td>
+                  <td className="text-center">
                     <Link
                       className="btn btn-primary me-2"
                       to={`editarcliente/${cliente.idCliente}`}
                     >
+                      <FaEdit className="me-1" />
                       Editar
                     </Link>
                     <Button
                       color="danger"
                       onClick={() => Eliminar(cliente.idCliente!)}
                     >
+                      <FaTrash className="me-1" />
                       Eliminar
                     </Button>
                   </td>

@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\jennifer tatiana gf\\downloads\\diamantedaniel\\hotelds2proyecto\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\jennifer tatiana gf\\downloads\\diamantedaniel\\hotelds2proyecto\\controllers\\reservascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:controllers\\reservascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|c:\\users\\jennifer tatiana gf\\downloads\\diamantedaniel\\hotelds2proyecto\\modelsdtos\\reservadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC400C2B-9261-4FBF-B134-17E2FDDE1879}|hotelDS2proyecto.csproj|solutionrelative:modelsdtos\\reservadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 22,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -106,15 +110,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ClientesController.cs",
-              "DocumentMoniker": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Controllers\\ClientesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ClientesController.cs",
-              "ToolTip": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Controllers\\ClientesController.cs",
-              "RelativeToolTip": "Controllers\\ClientesController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAgwDMAAABmAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ReservaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\ModelsDTOs\\ReservaDTO.cs",
+              "RelativeDocumentMoniker": "ModelsDTOs\\ReservaDTO.cs",
+              "ToolTip": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\ModelsDTOs\\ReservaDTO.cs",
+              "RelativeToolTip": "ModelsDTOs\\ReservaDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T01:58:00.035Z",
+              "WhenOpened": "2025-06-01T23:01:27.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReservasController.cs",
+              "DocumentMoniker": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Controllers\\ReservasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ReservasController.cs",
+              "ToolTip": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\diamanteDaniel\\hotelDS2proyecto\\Controllers\\ReservasController.cs",
+              "RelativeToolTip": "Controllers\\ReservasController.cs",
+              "ViewState": "AgIAAKMAAAAAAAAAAAAAwLIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T21:19:18.81Z",
               "EditorCaption": ""
             }
           ]

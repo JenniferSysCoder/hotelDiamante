@@ -16,9 +16,11 @@ import {
   Button,
 } from "reactstrap";
 
+const today = new Date().toISOString().split("T")[0];
+
 const initialFactura: IFactura = {
   idFactura: 0,
-  fechaEmision: "",
+  fechaEmision: today,
   total: 0,
   idServicio: 0,
   idReserva: 0,
@@ -59,8 +61,7 @@ export function NuevaFactura() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setReservas(data);
-
-          // Extraer clientes únicos de reservas para combo clientes
+          
           const clientesUnicos = data.reduce(
             (acc: { idCliente: number; nombreCliente: string }[], reserva) => {
               if (!acc.some((c) => c.idCliente === reserva.idCliente)) {
@@ -228,12 +229,14 @@ export function NuevaFactura() {
             <FormGroup>
               <Label>Fecha de Emisión</Label>
               <Input
-                type="date"
+                type="text"
                 name="fechaEmision"
                 value={factura.fechaEmision}
-                onChange={inputChangeValue}
+                readOnly
+                disabled
               />
             </FormGroup>
+
             <FormGroup>
               <Label>Total</Label>
               <Input

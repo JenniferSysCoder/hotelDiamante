@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaPagos() {
   const [pagos, setPagos] = useState<IPago[]>([]);
@@ -119,7 +119,7 @@ export function ListaPagos() {
                 <th>Metodo Pago</th>
                 <th>Número-Factura</th>
                 <th>Cliente</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -132,17 +132,19 @@ export function ListaPagos() {
                     <td>{pago.metodoPago}</td>
                     <td>{pago.idFactura}</td>
                     <td>{pago.nombreCliente}</td>
-                    <td>
+                    <td className="text-center">
                       <Link
                         className="btn btn-primary me-2"
                         to={`editarpago/${pago.idPago}`}
                       >
+                        <FaEdit className="me-1" />
                         Editar
                       </Link>
                       <Button
                         color="danger"
                         onClick={() => Eliminar(pago.idPago)}
                       >
+                        <FaTrash className="me-1" />
                         Eliminar
                       </Button>
                     </td>

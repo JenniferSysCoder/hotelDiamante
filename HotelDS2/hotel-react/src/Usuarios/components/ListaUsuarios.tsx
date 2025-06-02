@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaUsuarios() {
   const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
@@ -112,14 +112,20 @@ export function ListaUsuarios() {
                   <td>{usuario.id}</td>
                   <td>{usuario.usuario1}</td>
                   <td>{usuario.contrasenia ?? "N/A"}</td>
-                  <td>
+                  <td className="text-center d-flex justify-content-center">
                     <Link
-                      className="btn btn-primary me-2"
+                      className="btn btn-primary me-2 d-inline-flex align-items-center"
                       to={`editarusuario/${usuario.id}`}
                     >
+                      <FaEdit className="me-1" />
                       Editar
                     </Link>
-                    <Button color="danger" onClick={() => eliminar(usuario.id)}>
+                    <Button
+                      color="danger"
+                      onClick={() => eliminar(usuario.id)}
+                      className="d-inline-flex align-items-center"
+                    >
+                      <FaTrash className="me-1" />
                       Eliminar
                     </Button>
                   </td>

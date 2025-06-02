@@ -144,9 +144,11 @@ namespace hotelDS2proyecto.Controllers
             if (habitacion != null)
             {
                 if (dto.Estado == "Reservada")
-                    habitacion.Estado = "Ocupada";  // Aquí se cambia a "Ocupada" para mantener la consistencia con la DB
+                    habitacion.Estado = "Ocupada"; 
                 else if (dto.Estado == "Cancelada" || dto.Estado == "Finalizada")
                     habitacion.Estado = "Disponible";
+
+                dbContext.Habitaciones.Update(habitacion);
             }
 
             await dbContext.SaveChangesAsync();
@@ -174,5 +176,6 @@ namespace hotelDS2proyecto.Controllers
 
             return Ok(new { mensaje = "Reserva eliminada correctamente y habitación liberada." });
         }
+
     }
 }

@@ -164,7 +164,7 @@ export function ListarReporteServicios() {
                       <tr>
                         <th>Servicio</th>
                         <th>Solicitudes</th>
-                        <th>Empleado Más Activo</th>
+                        <th>Cliente Más Activo</th>
                       </tr>
                     </thead>
                     <tbody>

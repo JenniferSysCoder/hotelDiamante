@@ -17,9 +17,11 @@ import type { IServicio } from "../../serviciosAdicionales/Interfaces/IServicio"
 import type { IReserva } from "../../Reservas/Interfaces/IReserva";
 import type { ICliente } from "../../Clientes/Interfaces/ICliente";
 
+const today = new Date().toISOString().split("T")[0];
+
 const initialFactura: IFactura & { idCliente: number } = {
   idFactura: 0,
-  fechaEmision: "",
+  fechaEmision: today,
   total: 0,
   idServicio: 0,
   idReserva: 0,
@@ -131,8 +133,8 @@ export function EditarFactura() {
         ...prev,
         idCliente: Number(value),
         nombreCliente: clienteSeleccionado?.nombre ?? "",
-        idReserva: 0, // reset reserva al cambiar cliente
-        numeroHabitacion: "", // reset habitación al cambiar cliente
+        idReserva: 0,
+        numeroHabitacion: "",
       }));
     } else if (name === "idReserva") {
       const reservaSeleccionada = reservas.find(
@@ -186,10 +188,11 @@ export function EditarFactura() {
             <FormGroup>
               <Label>Fecha de Emisión</Label>
               <Input
-                type="date"
+                type="text"
                 name="fechaEmision"
                 value={factura.fechaEmision}
-                onChange={inputChangeValue}
+                readOnly
+                disabled
               />
             </FormGroup>
             <FormGroup>

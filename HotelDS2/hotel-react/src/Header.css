@@ -3,7 +3,7 @@
   background-color: #d32f2f;
   color: white;
   display: flex;
-  justify-content: space-between; /* separa izquierda/derecha */
+  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   height: 60px;
@@ -15,20 +15,23 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo h1 {
-  font-size: 1.3em;
-  margin: 0;
-}
-
 .logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
   color: inherit;
 }
 
 .logo img {
-  border-radius: 8px; 
+  height: 40px;
+  border-radius: 8px;
 }
 
+.logo h1 {
+  font-size: 1.3em;
+  margin: 0;
+}
 
 .user-info {
   display: flex;
@@ -40,7 +43,11 @@
   font-weight: bold;
 }
 
+/* 🔴 Botón cerrar sesión: fondo blanco y letras rojas */
 .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background-color: #fff;
   border: none;
   padding: 6px 12px;
@@ -52,4 +59,58 @@
 
 .logout-btn:hover {
   background-color: #eee;
+}
+
+.notification-wrapper {
+  margin-right: 16px;
+}
+
+.badge-noti {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 4px 7px;
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.noti-dropdown {
+  min-width: 420px;
+  white-space: normal;
+  overflow-y: auto;
+  max-height: 500px;
+  padding: 10px;
+  font-size: 13px;
+  z-index: 1050;
+}
+
+.noti-header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.noti-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 4px;
+  word-break: break-word;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.noti-msg {
+  flex: 1;
+}
+
+.noti-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  white-space: nowrap;
 }

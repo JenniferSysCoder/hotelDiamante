@@ -11,5 +11,6 @@
 
         public string NombreCliente { get; set; } = null!;
         public string NumeroHabitacion { get; set; } = null!;
+
     }
 }

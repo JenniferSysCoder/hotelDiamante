@@ -3,6 +3,8 @@ import { appsettings } from "../../settings/appsettings";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import type { IFactura } from "../Interfaces/IFactura";
+import { FaEdit, FaTrash, FaFileInvoice } from "react-icons/fa";
+
 import {
   Container,
   Row,
@@ -113,44 +115,55 @@ export function ListaFacturas() {
           <Table bordered responsive>
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Fecha Emisión</th>
-                <th>Total</th>
-                <th>Servicio</th>
-                <th>Cliente</th>
-                <th>Habitación</th>
-                <th>Acciones</th>
+                <th className="text-center">Id</th>
+                <th className="text-center">Fecha Emisión</th>
+                <th className="text-center">Total</th>
+                <th className="text-center">Servicio</th>
+                <th className="text-center">Cliente</th>
+                <th className="text-center">Habitación</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {facturasFiltradas.length > 0 ? (
                 facturasFiltradas.map((factura) => (
                   <tr key={factura.idFactura}>
-                    <td>{factura.idFactura}</td>
-                    <td>{formatearFecha(factura.fechaEmision)}</td>
-                    <td>{factura.total.toFixed(2)}</td>
-                    <td>{factura.nombreServicio}</td>
-                    <td>{factura.nombreCliente}</td>
-                    <td>{factura.numeroHabitacion}</td>
-                    <td>
-                      <Link
-                        className="btn btn-primary me-2"
-                        to={`editarfactura/${factura.idFactura}`}
-                      >
-                        Editar
-                      </Link>
-                      <Button
-                        color="danger"
-                        onClick={() => Eliminar(factura.idFactura)}
-                      >
-                        Eliminar
-                      </Button>
-                      <Link
-                        className="btn btn-secondary me-2"
-                        to={`verfactura/${factura.idFactura}`}
-                      >
-                        Generar Factura
-                      </Link>
+                    <td className="text-center">{factura.idFactura}</td>
+                    <td className="text-center">
+                      {formatearFecha(factura.fechaEmision)}
+                    </td>
+                    <td className="text-center">{factura.total.toFixed(2)}</td>
+                    <td className="text-center">{factura.nombreServicio}</td>
+                    <td className="text-center">{factura.nombreCliente}</td>
+                    <td className="text-center">{factura.numeroHabitacion}</td>
+                    <td className="text-center">
+                      <div className="d-inline-flex justify-content-center align-items-center gap-1 flex-nowrap">
+                        <Link
+                          className="btn btn-primary px-2 py-1 d-inline-flex align-items-center"
+                          to={`editarfactura/${factura.idFactura}`}
+                          style={{ fontSize: "0.85rem", whiteSpace: "nowrap" }}
+                        >
+                          <FaEdit className="me-1" />
+                          Editar
+                        </Link>
+                        <Button
+                          color="danger"
+                          className="px-2 py-1 d-inline-flex align-items-center"
+                          onClick={() => Eliminar(factura.idFactura)}
+                          style={{ fontSize: "0.85rem", whiteSpace: "nowrap" }}
+                        >
+                          <FaTrash className="me-1" />
+                          Eliminar
+                        </Button>
+                        <Link
+                          className="btn btn-secondary px-2 py-1 d-inline-flex align-items-center"
+                          to={`verfactura/${factura.idFactura}`}
+                          style={{ fontSize: "0.85rem", whiteSpace: "nowrap" }}
+                        >
+                          <FaFileInvoice className="me-1" />
+                          Generar Factura
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))

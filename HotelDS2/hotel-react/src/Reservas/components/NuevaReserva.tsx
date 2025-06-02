@@ -86,6 +86,11 @@ export function NuevaReserva() {
 
       if (response.ok) {
         Swal.fire("Guardado", "Reserva creada correctamente", "success");
+        window.dispatchEvent(
+          new CustomEvent("nueva-reserva", {
+            detail: { numeroHabitacion: reserva.idHabitacion },
+          })
+        );
         navigate("/reservas");
       } else {
         let errorText = await response.text();

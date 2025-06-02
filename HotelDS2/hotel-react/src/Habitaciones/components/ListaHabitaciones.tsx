@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupText,
 } from "reactstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 
 export function ListaHabitacion() {
   const [habitaciones, setHabitaciones] = useState<IHabitacion[]>([]);
@@ -112,7 +112,7 @@ export function ListaHabitacion() {
                 <th>Precio por noche</th>
                 <th>Estado</th>
                 <th>Hotel</th>
-                <th>Acciones</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -124,17 +124,19 @@ export function ListaHabitacion() {
                   <td>${hab.precioNoche.toFixed(2)}</td>
                   <td>{hab.estado}</td>
                   <td>{hab.nombreHotel}</td>
-                  <td>
+                  <td className="text-center">
                     <Link
                       className="btn btn-primary me-2"
                       to={`editarhabitacion/${hab.idHabitacion}`}
                     >
+                      <FaEdit className="me-1" />
                       Editar
                     </Link>
                     <Button
                       color="danger"
                       onClick={() => Eliminar(hab.idHabitacion)}
                     >
+                      <FaTrash className="me-1" />
                       Eliminar
                     </Button>
                   </td>
