@@ -10,12 +10,15 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
 import { appsettings } from "../../settings/appsettings";
 import type { IFactura } from "../Interfaces/IFactura";
 import type { IServicio } from "../../serviciosAdicionales/Interfaces/IServicio";
 import type { IReserva } from "../../Reservas/Interfaces/IReserva";
 import type { ICliente } from "../../Clientes/Interfaces/ICliente";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -73,7 +76,6 @@ export function EditarFactura() {
         setReservas(reservasData);
         setClientes(clientesData);
 
-        // Buscar servicio, reserva y cliente para completar campos
         const servicioSeleccionado = serviciosData.find(
           (s: IServicio) => s.idServicio === facturaData.idServicio
         );
@@ -182,102 +184,196 @@ export function EditarFactura() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Factura</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Fecha de Emisión</Label>
-              <Input
-                type="text"
-                name="fechaEmision"
-                value={factura.fechaEmision}
-                readOnly
-                disabled
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Total</Label>
-              <Input
-                type="number"
-                name="total"
-                value={factura.total}
-                readOnly
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Servicio</Label>
-              <Input
-                type="select"
-                name="idServicio"
-                value={factura.idServicio}
-                onChange={inputChangeValue}
-              >
-                <option value={0}>Seleccione un servicio</option>
-                {servicios.map((servicio) => (
-                  <option key={servicio.idServicio} value={servicio.idServicio}>
-                    {servicio.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label>Cliente</Label>
-              <Input
-                type="select"
-                name="idCliente"
-                value={factura.idCliente}
-                onChange={inputChangeValue}
-              >
-                <option value={0}>Seleccione un cliente</option>
-                {clientes.map((cliente) => (
-                  <option key={cliente.idCliente} value={cliente.idCliente}>
-                    {cliente.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label>Reserva</Label>
-              <Input
-                type="select"
-                name="idReserva"
-                value={factura.idReserva}
-                onChange={inputChangeValue}
-                disabled={factura.idCliente === 0}
-              >
-                <option value={0}>Seleccione una reserva</option>
-                {reservasFiltradas.map((reserva) => (
-                  <option key={reserva.idReserva} value={reserva.idReserva}>
-                    {`Reserva #${reserva.idReserva} - Hab: ${reserva.numeroHabitacion}`}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label>Habitación</Label>
-              <Input
-                type="text"
-                name="numeroHabitacion"
-                value={factura.numeroHabitacion}
-                readOnly
-              />
-            </FormGroup>
-          </Form>
-          <Button
-            color="primary"
-            className="me-4"
-            onClick={guardar}
-            disabled={
-              factura.idServicio === 0 ||
-              factura.idReserva === 0 ||
-              !factura.fechaEmision
-            }
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
           >
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c", // Mismo color que el botón Guardar
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
+              >
+                <FaFileInvoiceDollar size={28} />
+                <h4 style={{ margin: 0 }}>Editar Factura</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Fecha de Emisión</Label>
+                      <Input
+                        type="text"
+                        name="fechaEmision"
+                        value={factura.fechaEmision}
+                        readOnly
+                        disabled
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#f3f3f3",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Total</Label>
+                      <Input
+                        type="number"
+                        name="total"
+                        value={factura.total}
+                        readOnly
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#f3f3f3",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Servicio</Label>
+                      <Input
+                        type="select"
+                        name="idServicio"
+                        value={factura.idServicio}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      >
+                        <option value={0}>Seleccione un servicio</option>
+                        {servicios.map((servicio) => (
+                          <option key={servicio.idServicio} value={servicio.idServicio}>
+                            {servicio.nombre}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Cliente</Label>
+                      <Input
+                        type="select"
+                        name="idCliente"
+                        value={factura.idCliente}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      >
+                        <option value={0}>Seleccione un cliente</option>
+                        {clientes.map((cliente) => (
+                          <option key={cliente.idCliente} value={cliente.idCliente}>
+                            {cliente.nombre}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Reserva</Label>
+                      <Input
+                        type="select"
+                        name="idReserva"
+                        value={factura.idReserva}
+                        onChange={inputChangeValue}
+                        disabled={factura.idCliente === 0}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      >
+                        <option value={0}>Seleccione una reserva</option>
+                        {reservasFiltradas.map((reserva) => (
+                          <option key={reserva.idReserva} value={reserva.idReserva}>
+                            {`Reserva #${reserva.idReserva} - Hab: ${reserva.numeroHabitacion}`}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Habitación</Label>
+                      <Input
+                        type="text"
+                        name="numeroHabitacion"
+                        value={factura.numeroHabitacion}
+                        readOnly
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#f3f3f3",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                  }}
+                  disabled={
+                    factura.idServicio === 0 ||
+                    factura.idReserva === 0 ||
+                    !factura.fechaEmision
+                  }
+                >
+                  Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                  }}
+                >
+                  Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

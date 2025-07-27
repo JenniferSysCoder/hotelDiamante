@@ -10,10 +10,13 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
 import { appsettings } from "../../settings/appsettings";
 import type { IEmpleado } from "../Interfaces/IEmpleado";
 import type { IHotel } from "../../Hotel/Interfaces/IHotel";
+import { FaUserEdit } from "react-icons/fa";
 
 const initialEmpleado: IEmpleado = {
   idEmpleado: 0,
@@ -122,68 +125,158 @@ export function EditarEmpleado() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Empleado</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Nombre</Label>
-              <Input
-                type="text"
-                name="nombre"
-                value={empleado.nombre}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Apellido</Label>
-              <Input
-                type="text"
-                name="apellido"
-                value={empleado.apellido}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Cargo</Label>
-              <Input
-                type="text"
-                name="cargo"
-                value={empleado.cargo}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Teléfono</Label>
-              <Input
-                type="text"
-                name="telefono"
-                value={empleado.telefono}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Hotel</Label>
-              <Input
-                type="select"
-                name="idHotel"
-                value={empleado.idHotel}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c",
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
               >
-                <option value={0}>Seleccione un hotel</option>
-                {hoteles.map((hotel) => (
-                  <option key={hotel.idHotel} value={hotel.idHotel}>
-                    {hotel.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <FaUserEdit size={28} />
+                <h4 style={{ margin: 0 }}>Editar Empleado</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Nombre</Label>
+                      <Input
+                        type="text"
+                        name="nombre"
+                        value={empleado.nombre}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Apellido</Label>
+                      <Input
+                        type="text"
+                        name="apellido"
+                        value={empleado.apellido}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Cargo</Label>
+                      <Input
+                        type="text"
+                        name="cargo"
+                        value={empleado.cargo}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Teléfono</Label>
+                      <Input
+                        type="text"
+                        name="telefono"
+                        value={empleado.telefono}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Hotel</Label>
+                      <Input
+                        type="select"
+                        name="idHotel"
+                        value={empleado.idHotel}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          fontWeight: "500",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #1976d211",
+                        }}
+                      >
+                        <option value={0}>Seleccione un hotel</option>
+                        {hoteles.map((hotel) => (
+                          <option key={hotel.idHotel} value={hotel.idHotel}>
+                            {hotel.nombre}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                  }}
+                >
+                  Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                  }}
+                >
+                  Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

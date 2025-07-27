@@ -12,8 +12,10 @@ import {
   Input,
   InputGroup,
   InputGroupText,
+  Card,
+  CardBody,
 } from "reactstrap";
-import { FaSearch, FaEdit, FaTrash } from "react-icons/fa";
+import { FaSearch, FaEdit, FaTrash, FaBroom } from "react-icons/fa";
 
 export function ListaLimpieza() {
   const [limpiezas, setLimpiezas] = useState<ILimpieza[]>([]);
@@ -24,18 +26,15 @@ export function ListaLimpieza() {
       const response = await fetch(`${appsettings.apiUrl}Limpiezas/Lista`);
       if (response.ok) {
         const data = await response.json();
-        console.log("Datos recibidos de la API:", data);
         if (Array.isArray(data)) {
           setLimpiezas(data);
         } else {
           Swal.fire("Error", "Formato de datos inesperado", "error");
         }
       } else {
-        console.error("Error al obtener limpiezas:", response.statusText);
         Swal.fire("Error", "No se pudo obtener la lista de limpiezas", "error");
       }
     } catch (error) {
-      console.error("Error de red al obtener limpiezas:", error);
       Swal.fire("Error", "Hubo un problema de conexión", "error");
     }
   };
@@ -78,7 +77,6 @@ export function ListaLimpieza() {
   const formatearFecha = (fecha: string) => {
     const fechaObj = new Date(fecha);
     if (isNaN(fechaObj.getTime())) {
-      console.error("Fecha inválida:", fecha);
       return "Fecha inválida";
     }
     return fechaObj.toLocaleDateString();
@@ -88,77 +86,153 @@ export function ListaLimpieza() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 10, offset: 1 }}>
-          <h4>Lista de Limpiezas</h4>
-          <hr />
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "18px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    color: "#23272f",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <FaBroom size={28} color="#b71c1c" />
+                  <h4 style={{ margin: 0 }}>Lista de Limpiezas</h4>
+                </div>
+                <Link
+                  className="btn btn-success"
+                  to="nuevalimpieza"
+                  style={{
+                    fontWeight: "bold",
+                    borderRadius: "24px",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                  }}
+                >
+                  Nueva Limpieza
+                </Link>
+              </div>
 
-          <Row className="mb-3 align-items-center">
-            <Col md="6">
-              <Link className="btn btn-success" to="nuevalimpieza">
-                Nueva Limpieza
-              </Link>
-            </Col>
-            <Col md="6" className="text-end">
-              <InputGroup style={{ maxWidth: "300px", marginLeft: "auto" }}>
-                <InputGroupText>
-                  <FaSearch />
-                </InputGroupText>
-                <Input
-                  type="text"
-                  placeholder="Buscar por habitación..."
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
-                />
-              </InputGroup>
-            </Col>
-          </Row>
+              <Row className="mb-3 align-items-center">
+                <Col md="6"></Col>
+                <Col md="6" className="text-end">
+                  <InputGroup style={{ maxWidth: "300px", marginLeft: "auto" }}>
+                    <InputGroupText style={{ background: "#fff" }}>
+                      <FaSearch color="#b71c1c" />
+                    </InputGroupText>
+                    <Input
+                      type="text"
+                      placeholder="Buscar por habitación..."
+                      value={busqueda}
+                      onChange={(e) => setBusqueda(e.target.value)}
+                      style={{
+                        borderRadius: "0 24px 24px 0",
+                        borderLeft: "none",
+                        background: "#fff",
+                      }}
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
 
-          <Table bordered responsive>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Fecha</th>
-                <th>Observaciones</th>
-                <th>Habitación</th>
-                <th>Empleado</th>
-                <th className="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {limpiezasFiltradas.length > 0 ? (
-                limpiezasFiltradas.map((limpieza) => (
-                  <tr key={limpieza.idLimpieza}>
-                    <td>{limpieza.idLimpieza}</td>
-                    <td>{formatearFecha(limpieza.fecha)}</td>
-                    <td>{limpieza.observaciones}</td>
-                    <td>{limpieza.numeroHabitacion}</td>
-                    <td>{limpieza.nombreEmpleado}</td>
-                    <td className="text-center">
-                      <Link
-                        className="btn btn-primary me-2"
-                        to={`editarlimpieza/${limpieza.idLimpieza}`}
-                      >
-                        <FaEdit className="me-1" />
-                        Editar
-                      </Link>
-                      <Button
-                        color="danger"
-                        onClick={() => Eliminar(limpieza.idLimpieza)}
-                      >
-                        <FaTrash className="me-1" />
-                        Eliminar
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={6} className="text-center">
-                    No se encontraron limpiezas
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </Table>
+              <div style={{ overflowX: "auto" }}>
+                <Table
+                  bordered
+                  responsive
+                  style={{
+                    background: "#fff",
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 12px #23272f22",
+                    overflow: "hidden",
+                  }}
+                >
+                  <thead style={{ background: "#b71c1c", color: "#fff" }}>
+                    <tr>
+                      <th>Id</th>
+                      <th>Fecha</th>
+                      <th>Observaciones</th>
+                      <th>Habitación</th>
+                      <th>Empleado</th>
+                      <th className="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {limpiezasFiltradas.length > 0 ? (
+                      limpiezasFiltradas.map((limpieza) => (
+                        <tr key={limpieza.idLimpieza}>
+                          <td>{limpieza.idLimpieza}</td>
+                          <td>{formatearFecha(limpieza.fecha)}</td>
+                          <td>{limpieza.observaciones}</td>
+                          <td>
+                            <span
+                              style={{
+                                background: "#fbe9e7",
+                                color: "#b71c1c",
+                                fontWeight: "bold",
+                                borderRadius: "8px",
+                                padding: "2px 10px",
+                                display: "inline-block",
+                              }}
+                            >
+                              {limpieza.numeroHabitacion}
+                            </span>
+                          </td>
+                          <td>{limpieza.nombreEmpleado}</td>
+                          <td className="text-center">
+                            <Link
+                              className="btn btn-primary me-2"
+                              to={`editarlimpieza/${limpieza.idLimpieza}`}
+                              style={{
+                                borderRadius: "18px",
+                                fontWeight: "bold",
+                                boxShadow: "0 2px 8px #23272f22",
+                              }}
+                            >
+                              <FaEdit className="me-1" />
+                              Editar
+                            </Link>
+                            <Button
+                              color="danger"
+                              onClick={() => Eliminar(limpieza.idLimpieza)}
+                              style={{
+                                borderRadius: "18px",
+                                fontWeight: "bold",
+                                boxShadow: "0 2px 8px #b71c1c22",
+                              }}
+                            >
+                              <FaTrash className="me-1" />
+                              Eliminar
+                            </Button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={6} className="text-center">
+                          No se encontraron limpiezas
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </Table>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

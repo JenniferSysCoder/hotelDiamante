@@ -10,9 +10,12 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
 import { appsettings } from "../../settings/appsettings";
 import type { IHabitacion } from "../Interfaces/IHabitacion";
+import { FaBed, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialHabitacion: IHabitacion = {
   numero: "",
@@ -27,9 +30,7 @@ const initialHabitacion: IHabitacion = {
 export function EditarHabitacion() {
   const { id } = useParams<{ id: string }>();
   const [habitacion, setHabitacion] = useState<IHabitacion>(initialHabitacion);
-  const [hoteles, setHoteles] = useState<{ idHotel: number; nombre: string }[]>(
-    []
-  );
+  const [hoteles, setHoteles] = useState<{ idHotel: number; nombre: string }[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -121,68 +122,160 @@ export function EditarHabitacion() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Habitación</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Número</Label>
-              <Input
-                type="text"
-                name="numero"
-                value={habitacion.numero}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Tipo</Label>
-              <Input
-                type="text"
-                name="tipo"
-                value={habitacion.tipo}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Precio por noche</Label>
-              <Input
-                type="number"
-                name="precioNoche"
-                value={habitacion.precioNoche}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Estado</Label>
-              <Input
-                type="text"
-                name="estado"
-                value={habitacion.estado}
-                disabled
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Hotel</Label>
-              <Input
-                type="select"
-                name="idHotel"
-                value={habitacion.idHotel}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c", // Mismo color rojo que el botón Guardar
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
               >
-                <option value={0}>Seleccione un hotel</option>
-                {hoteles.map((hotel) => (
-                  <option key={hotel.idHotel} value={hotel.idHotel}>
-                    {hotel.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <FaBed size={28} />
+                <h4 style={{ margin: 0 }}>Editar Habitación</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Número</Label>
+                      <Input
+                        type="text"
+                        name="numero"
+                        value={habitacion.numero}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Tipo</Label>
+                      <Input
+                        type="text"
+                        name="tipo"
+                        value={habitacion.tipo}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Precio por noche</Label>
+                      <Input
+                        type="number"
+                        name="precioNoche"
+                        value={habitacion.precioNoche}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Estado</Label>
+                      <Input
+                        type="text"
+                        name="estado"
+                        value={habitacion.estado}
+                        disabled
+                        style={{
+                          borderRadius: "12px",
+                          background: "#f5f5f5",
+                          color: "#888",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Hotel</Label>
+                      <Input
+                        type="select"
+                        name="idHotel"
+                        value={habitacion.idHotel}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      >
+                        <option value={0}>Seleccione un hotel</option>
+                        {hoteles.map((hotel) => (
+                          <option key={hotel.idHotel} value={hotel.idHotel}>
+                            {hotel.nombre}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  className="me-2"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

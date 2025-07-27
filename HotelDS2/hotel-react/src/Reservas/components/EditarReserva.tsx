@@ -10,11 +10,14 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
 import { appsettings } from "../../settings/appsettings";
 import type { IReserva } from "../Interfaces/IReserva";
 import type { ICliente } from "../../Clientes/Interfaces/ICliente";
 import type { IHabitacion } from "../../Habitaciones/Interfaces/IHabitacion";
+import { FaCalendarCheck, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialReserva: IReserva = {
   idReserva: 0,
@@ -137,81 +140,182 @@ export function EditarReserva() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Reserva</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Fecha Inicio</Label>
-              <Input
-                type="date"
-                name="fechaInicio"
-                value={reserva.fechaInicio}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Fecha Fin</Label>
-              <Input
-                type="date"
-                name="fechaFin"
-                value={reserva.fechaFin}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Estado</Label>
-              <Input
-                type="select"
-                name="estado"
-                value={reserva.estado}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c",
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
               >
-                <option value="">Seleccione un estado</option>
-                <option value="Reservada">Reservada</option>
-                <option value="Cancelada">Cancelada</option>
-                <option value="Finalizada">Finalizada</option>
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Cliente</Label>
-              <Input
-                type="select"
-                name="idCliente"
-                value={reserva.idCliente}
-                onChange={inputChangeValue}
-              >
-                <option value={0}>Seleccione un cliente</option>
-                {clientes.map((cliente) => (
-                  <option key={cliente.idCliente} value={cliente.idCliente}>
-                    {cliente.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label>Habitación</Label>
-              <Input
-                type="select"
-                name="idHabitacion"
-                value={reserva.idHabitacion}
-                onChange={inputChangeValue}
-              >
-                <option value={0}>Seleccione una habitación</option>
-                {habitaciones.map((h) => (
-                  <option key={h.idHabitacion} value={h.idHabitacion}>
-                    {h.numero}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <FaCalendarCheck size={28} />
+                <h4 style={{ margin: 0 }}>Editar Reserva</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Fecha Inicio
+                      </Label>
+                      <Input
+                        type="date"
+                        name="fechaInicio"
+                        value={reserva.fechaInicio}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Fecha Fin
+                      </Label>
+                      <Input
+                        type="date"
+                        name="fechaFin"
+                        value={reserva.fechaFin}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Estado
+                      </Label>
+                      <Input
+                        type="select"
+                        name="estado"
+                        value={reserva.estado}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      >
+                        <option value="">Seleccione un estado</option>
+                        <option value="Reservada">Reservada</option>
+                        <option value="Cancelada">Cancelada</option>
+                        <option value="Finalizada">Finalizada</option>
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Cliente
+                      </Label>
+                      <Input
+                        type="select"
+                        name="idCliente"
+                        value={reserva.idCliente}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      >
+                        <option value={0}>Seleccione un cliente</option>
+                        {clientes.map((cliente) => (
+                          <option key={cliente.idCliente} value={cliente.idCliente}>
+                            {cliente.nombre}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Habitación
+                      </Label>
+                      <Input
+                        type="select"
+                        name="idHabitacion"
+                        value={reserva.idHabitacion}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      >
+                        <option value={0}>Seleccione una habitación</option>
+                        {habitaciones.map((h) => (
+                          <option key={h.idHabitacion} value={h.idHabitacion}>
+                            {h.numero}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  className="me-2"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

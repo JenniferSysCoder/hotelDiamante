@@ -14,7 +14,10 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
+import { FaFileInvoiceDollar, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -61,7 +64,7 @@ export function NuevaFactura() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setReservas(data);
-          
+
           const clientesUnicos = data.reduce(
             (acc: { idCliente: number; nombreCliente: string }[], reserva) => {
               if (!acc.some((c) => c.idCliente === reserva.idCliente)) {
@@ -100,7 +103,6 @@ export function NuevaFactura() {
             ...prev,
             total: data.totalCalculado,
           }));
-        } else {
         }
       } catch (error) {
         console.error("Error al calcular total:", error);
@@ -223,101 +225,215 @@ export function NuevaFactura() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Nueva Factura</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Fecha de Emisión</Label>
-              <Input
-                type="text"
-                name="fechaEmision"
-                value={factura.fechaEmision}
-                readOnly
-                disabled
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Total</Label>
-              <Input
-                type="number"
-                name="total"
-                value={factura.total}
-                readOnly
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Servicio</Label>
-              <Input
-                type="select"
-                name="idServicio"
-                value={factura.idServicio}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "14px",
+              boxShadow: "0 6px 18px rgba(0, 0, 0, 0.08)",
+              border: "1px solid #e5e7eb",
+              backgroundColor: "#ffffff",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "20px",
+                }}
               >
-                <option value="0">Seleccione un servicio</option>
-                {servicios.map((servicio) => (
-                  <option key={servicio.idServicio} value={servicio.idServicio}>
-                    {servicio.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
+                <FaFileInvoiceDollar size={22} color="#b71c1c" />
+                <h4
+                  style={{
+                    margin: 0,
+                    fontWeight: 600,
+                    fontSize: "1.5rem",
+                    color: "#b71c1c",
+                  }}
+                >
+                  Nueva Factura
+                </h4>
+              </div>
+              <hr style={{ borderTop: "1px solid #e5e7eb" }} />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Fecha de Emisión
+                      </Label>
+                      <Input
+                        type="text"
+                        name="fechaEmision"
+                        value={factura.fechaEmision}
+                        readOnly
+                        disabled
+                        style={{
+                          borderRadius: "8px",
+                          backgroundColor: "#f3f4f6",
+                          border: "1px solid #d1d5db",
+                          color: "#6b7280",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Total
+                      </Label>
+                      <Input
+                        type="number"
+                        name="total"
+                        value={factura.total}
+                        readOnly
+                        style={{
+                          borderRadius: "8px",
+                          backgroundColor: "#f3f4f6",
+                          border: "1px solid #d1d5db",
+                          color: "#6b7280",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
 
-            <FormGroup>
-              <Label>Cliente</Label>
-              <Input
-                type="select"
-                name="idCliente"
-                value={
-                  clientes.find(
-                    (c) => c.nombreCliente === factura.nombreCliente
-                  )?.idCliente || 0
-                }
-                onChange={inputChangeValue}
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Servicio
+                  </Label>
+                  <Input
+                    type="select"
+                    name="idServicio"
+                    value={factura.idServicio}
+                    onChange={inputChangeValue}
+                    style={{
+                      borderRadius: "8px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <option value="0">Seleccione un servicio</option>
+                    {servicios.map((servicio) => (
+                      <option key={servicio.idServicio} value={servicio.idServicio}>
+                        {servicio.nombre}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>Cliente</Label>
+                  <Input
+                    type="select"
+                    name="idCliente"
+                    value={
+                      clientes.find(
+                        (c) => c.nombreCliente === factura.nombreCliente
+                      )?.idCliente || 0
+                    }
+                    onChange={inputChangeValue}
+                    style={{
+                      borderRadius: "8px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <option value={0}>Seleccione un cliente</option>
+                    {clientes.map((cliente) => (
+                      <option key={cliente.idCliente} value={cliente.idCliente}>
+                        {cliente.nombreCliente}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>Reserva</Label>
+                  <Input
+                    type="select"
+                    name="idReserva"
+                    value={factura.idReserva}
+                    onChange={inputChangeValue}
+                    disabled={factura.nombreCliente === ""}
+                    style={{
+                      borderRadius: "8px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: factura.nombreCliente === "" ? "#f3f4f6" : "#fff",
+                      color: factura.nombreCliente === "" ? "#6b7280" : "#000",
+                    }}
+                  >
+                    <option value={0}>Seleccione una reserva</option>
+                    {reservasFiltradas.map((reserva) => (
+                      <option key={reserva.idReserva} value={reserva.idReserva}>
+                        {`Reserva #${reserva.idReserva} - Hab: ${reserva.numeroHabitacion}`}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Habitación
+                  </Label>
+                  <Input
+                    type="text"
+                    name="numeroHabitacion"
+                    value={factura.numeroHabitacion}
+                    readOnly
+                    style={{
+                      borderRadius: "8px",
+                      backgroundColor: "#f3f4f6",
+                      border: "1px solid #d1d5db",
+                      color: "#6b7280",
+                    }}
+                  />
+                </FormGroup>
+              </Form>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  justifyContent: "flex-end",
+                  marginTop: "24px",
+                }}
               >
-                <option value={0}>Seleccione un cliente</option>
-                {clientes.map((cliente) => (
-                  <option key={cliente.idCliente} value={cliente.idCliente}>
-                    {cliente.nombreCliente}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Reserva</Label>
-              <Input
-                type="select"
-                name="idReserva"
-                value={factura.idReserva}
-                onChange={inputChangeValue}
-                disabled={factura.nombreCliente === ""}
-              >
-                <option value={0}>Seleccione una reserva</option>
-                {reservasFiltradas.map((reserva) => (
-                  <option key={reserva.idReserva} value={reserva.idReserva}>
-                    {`Reserva #${reserva.idReserva} - Hab: ${reserva.numeroHabitacion}`}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Habitación</Label>
-              <Input
-                type="text"
-                name="numeroHabitacion"
-                value={factura.numeroHabitacion}
-                readOnly
-              />
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <Button
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "8px",
+                    backgroundColor: "#b71c1c",
+                    border: "none",
+                    padding: "10px 18px",
+                    fontWeight: "600",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  onClick={volver}
+                  style={{
+                    borderRadius: "8px",
+                    backgroundColor: "#6b7280",
+                    border: "none",
+                    padding: "10px 18px",
+                    fontWeight: "600",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

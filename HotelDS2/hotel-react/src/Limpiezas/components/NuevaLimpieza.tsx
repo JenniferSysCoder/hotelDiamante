@@ -14,7 +14,10 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
+import { FaBroom, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialLimpieza: ILimpieza = {
   fecha: "",
@@ -133,69 +136,173 @@ export function NuevaLimpieza() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Nueva Limpieza</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Fecha</Label>
-              <Input
-                type="date"
-                name="fecha"
-                value={limpieza.fecha}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Observaciones</Label>
-              <Input
-                type="text"
-                name="observaciones"
-                value={limpieza.observaciones}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Habitación</Label>
-              <Input
-                type="select"
-                name="idHabitacion"
-                value={limpieza.idHabitacion}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "14px",
+              boxShadow: "0 6px 18px rgba(0, 0, 0, 0.08)",
+              border: "1px solid #e5e7eb",
+              backgroundColor: "#ffffff",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "20px",
+                  color: "#b71c1c",
+                }}
               >
-                <option value="0">Seleccione una habitación</option>
-                {habitaciones.map((habitacion) => (
-                  <option
-                    key={habitacion.idHabitacion}
-                    value={habitacion.idHabitacion}
+                <FaBroom size={22} />
+                <h4
+                  style={{
+                    margin: 0,
+                    fontWeight: 600,
+                    fontSize: "1.5rem",
+                    color: "#b71c1c",
+                  }}
+                >
+                  Nueva Limpieza
+                </h4>
+              </div>
+              <hr style={{ borderTop: "1px solid #e5e7eb" }} />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Fecha
+                      </Label>
+                      <Input
+                        type="date"
+                        name="fecha"
+                        value={limpieza.fecha}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #d1d5db",
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Observaciones
+                      </Label>
+                      <Input
+                        type="text"
+                        name="observaciones"
+                        value={limpieza.observaciones}
+                        onChange={inputChangeValue}
+                        placeholder="Opcional"
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #d1d5db",
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Habitación
+                  </Label>
+                  <Input
+                    type="select"
+                    name="idHabitacion"
+                    value={limpieza.idHabitacion}
+                    onChange={inputChangeValue}
+                    style={{
+                      borderRadius: "8px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: "#fff",
+                    }}
                   >
-                    {habitacion.numero}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label>Empleado</Label>
-              <Input
-                type="select"
-                name="idEmpleado"
-                value={limpieza.idEmpleado}
-                onChange={inputChangeValue}
+                    <option value={0}>Seleccione una habitación</option>
+                    {habitaciones.map((habitacion) => (
+                      <option
+                        key={habitacion.idHabitacion}
+                        value={habitacion.idHabitacion}
+                      >
+                        {habitacion.numero}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Empleado
+                  </Label>
+                  <Input
+                    type="select"
+                    name="idEmpleado"
+                    value={limpieza.idEmpleado}
+                    onChange={inputChangeValue}
+                    style={{
+                      borderRadius: "8px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <option value={0}>Seleccione un empleado</option>
+                    {empleados.map((empleado) => (
+                      <option key={empleado.idEmpleado} value={empleado.idEmpleado}>
+                        {empleado.nombre}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+              </Form>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  justifyContent: "flex-end",
+                  marginTop: "24px",
+                }}
               >
-                <option value="0">Seleccione un empleado</option>
-                {empleados.map((empleado) => (
-                  <option key={empleado.idEmpleado} value={empleado.idEmpleado}>
-                    {empleado.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <Button
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "8px",
+                    backgroundColor: "#b71c1c",
+                    border: "none",
+                    padding: "10px 18px",
+                    fontWeight: "600",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  onClick={volver}
+                  style={{
+                    borderRadius: "8px",
+                    backgroundColor: "#6b7280",
+                    border: "none",
+                    padding: "10px 18px",
+                    fontWeight: "600",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

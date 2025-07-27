@@ -14,11 +14,12 @@ import {
   FaBroom,
   FaCreditCard,
   FaFileInvoice,
-  FaChevronDown,
   FaInfoCircle,
   FaWrench,
   FaUser,
+  FaComments,
 } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -35,18 +36,58 @@ export default function Sidebar() {
     }));
   };
 
+  // Fondo negro sólido en todo el sidebar, sin textura ni patrón
+  const sidebarBg = {
+    background: "#111", // negro sólido
+    minHeight: "100vh",
+    boxShadow: "2px 0 16px #00000022",
+    padding: "0",
+    width: "220px",
+    transition: "width 0.2s",
+  };
+
+  const destacadoStyle = {
+    background: "#111",
+    color: "#fff",
+    boxShadow: "0 2px 8px #00000022",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontWeight: "bold",
+    fontSize: "1.1rem",
+    padding: "16px 20px",
+    marginBottom: "4px",
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    backdropFilter: "blur(2px)",
+  };
+
+  const flechaStyle = {
+    marginLeft: "auto",
+    fontSize: "1rem",
+    transition: "transform 0.2s",
+    color: "#fff",
+    alignSelf: "center",
+  };
+
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" style={sidebarBg}>
       <nav>
-        <ul>
-          <li>
+        <ul style={{ paddingTop: "90px" }}>
+          {/* Dashboard con fondo destacado */}
+          <li style={{ marginBottom: "16px" }}>
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
-                `menu-item ${isActive ? "active" : ""}`
+                `menu-item dashboard-link ${isActive ? "active" : ""}`
               }
+              style={destacadoStyle}
             >
-              <FaTachometerAlt className="icon" />
+              <FaTachometerAlt
+                className="icon"
+                style={{ fontSize: "1.5rem" }}
+              />
+              <span>Dashboard</span>
             </NavLink>
           </li>
 
@@ -55,37 +96,62 @@ export default function Sidebar() {
             <button
               className="menu-item dropdown-toggle"
               onClick={() => toggleMenu("controles")}
+              style={destacadoStyle}
             >
               <FaWrench className="icon" />
               <span>Controles</span>
               <FaChevronDown
-                className={`chevron ${openMenus.controles ? "rotate" : ""}`}
+                style={{
+                  ...flechaStyle,
+                  transform: openMenus.controles
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+                }}
               />
             </button>
-
             <ul className={`submenu ${openMenus.controles ? "show" : ""}`}>
               <li>
-                <NavLink to="/hotel" className="menu-item">
+                <NavLink
+                  to="/hotel"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaHotel className="icon" /> Hoteles
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/habitaciones" className="menu-item">
+                <NavLink
+                  to="/habitaciones"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaBed className="icon" /> Habitaciones
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/clientes" className="menu-item">
+                <NavLink
+                  to="/clientes"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaUserFriends className="icon" /> Clientes
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/empleados" className="menu-item">
+                <NavLink
+                  to="/empleados"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaUsersCog className="icon" /> Empleados
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/servicios" className="menu-item">
+                <NavLink
+                  to="/servicios"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaConciergeBell className="icon" /> Servicios
                 </NavLink>
               </li>
@@ -97,59 +163,93 @@ export default function Sidebar() {
             <button
               className="menu-item dropdown-toggle"
               onClick={() => toggleMenu("operaciones")}
+              style={destacadoStyle}
             >
               <FaTools className="icon" />
               <span>Operaciones</span>
               <FaChevronDown
-                className={`chevron ${openMenus.operaciones ? "rotate" : ""}`}
+                style={{
+                  ...flechaStyle,
+                  transform: openMenus.operaciones
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+                }}
               />
             </button>
-
             <ul className={`submenu ${openMenus.operaciones ? "show" : ""}`}>
               <li>
-                <NavLink to="/reservas" className="menu-item">
+                <NavLink
+                  to="/reservas"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaCalendarCheck className="icon" /> Reservas
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/limpiezas" className="menu-item">
+                <NavLink
+                  to="/limpiezas"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaBroom className="icon" /> Limpiezas
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/facturas" className="menu-item">
+                <NavLink
+                  to="/facturas"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaFileInvoice className="icon" /> Facturación
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/pagos" className="menu-item">
+                <NavLink
+                  to="/pagos"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaCreditCard className="icon" /> Pagos
                 </NavLink>
               </li>
             </ul>
           </li>
 
-          {/* Menú Informes con submenú */}
+          {/* Menú Informes */}
           <li>
             <button
               className="menu-item dropdown-toggle"
               onClick={() => toggleMenu("informes")}
+              style={destacadoStyle}
             >
               <FaFileAlt className="icon" />
               <span>Informes</span>
               <FaChevronDown
-                className={`chevron ${openMenus.informes ? "rotate" : ""}`}
+                style={{
+                  ...flechaStyle,
+                  transform: openMenus.informes
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+                }}
               />
             </button>
-
             <ul className={`submenu ${openMenus.informes ? "show" : ""}`}>
               <li>
-                <NavLink to="/ReporteReserva" className="menu-item">
+                <NavLink
+                  to="/ReporteReserva"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaFileAlt className="icon" /> Reporte Reservas
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/ReporteServicio" className="menu-item">
+                <NavLink
+                  to="/ReporteServicio"
+                  className="menu-item"
+                  style={destacadoStyle}
+                >
                   <FaFileAlt className="icon" /> Reporte Servicio
                 </NavLink>
               </li>
@@ -161,6 +261,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `menu-item ${isActive ? "active" : ""}`
               }
+              style={destacadoStyle}
             >
               <FaCalendarAlt className="icon" /> Calendario
             </NavLink>
@@ -171,8 +272,20 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `menu-item ${isActive ? "active" : ""}`
               }
+              style={destacadoStyle}
             >
               <FaUser className="icon" /> Usuarios
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/opiniones"
+              className={({ isActive }) =>
+                `menu-item ${isActive ? "active" : ""}`
+              }
+              style={destacadoStyle}
+            >
+              <FaComments className="icon" /> Opiniones
             </NavLink>
           </li>
           <li>
@@ -181,6 +294,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `menu-item ${isActive ? "active" : ""}`
               }
+              style={destacadoStyle}
             >
               <FaInfoCircle className="icon" /> Acerca De
             </NavLink>

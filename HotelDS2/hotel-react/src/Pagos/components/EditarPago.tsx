@@ -10,10 +10,13 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
 import { appsettings } from "../../settings/appsettings";
 import type { IPago } from "../Interfaces/IPago";
 import type { IFactura } from "../../Facturas/Interfaces/IFactura";
+import { FaMoneyCheckAlt, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialPago: IPago = {
   idPago: 0,
@@ -133,64 +136,150 @@ export function EditarPago() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Pago</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label htmlFor="fechaPago">Fecha de Pago</Label>
-              <Input
-                type="date"
-                id="fechaPago"
-                name="fechaPago"
-                value={pago.fechaPago}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="monto">Monto</Label>
-              <Input
-                type="number"
-                id="monto"
-                name="monto"
-                value={pago.monto}
-                readOnly
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="metodoPago">Método de Pago</Label>
-              <Input
-                type="text"
-                id="metodoPago"
-                name="metodoPago"
-                value={pago.metodoPago}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="idFactura">Factura</Label>
-              <Input
-                type="select"
-                id="idFactura"
-                name="idFactura"
-                value={pago.idFactura}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c",
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
               >
-                <option value={0}>Seleccione una factura</option>
-                {facturas.map((factura) => (
-                  <option key={factura.idFactura} value={factura.idFactura}>
-                    {factura.nombreCliente} - Factura #{factura.idFactura}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <FaMoneyCheckAlt size={28} />
+                <h4 style={{ margin: 0 }}>Editar Pago</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Fecha de Pago
+                      </Label>
+                      <Input
+                        type="date"
+                        name="fechaPago"
+                        value={pago.fechaPago}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Monto
+                      </Label>
+                      <Input
+                        type="number"
+                        name="monto"
+                        value={pago.monto}
+                        readOnly
+                        style={{
+                          borderRadius: "12px",
+                          background: "#f3f3f3",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Método de Pago
+                      </Label>
+                      <Input
+                        type="text"
+                        name="metodoPago"
+                        value={pago.metodoPago}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Factura
+                      </Label>
+                      <Input
+                        type="select"
+                        name="idFactura"
+                        value={pago.idFactura}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      >
+                        <option value={0}>Seleccione una factura</option>
+                        {facturas.map((factura) => (
+                          <option key={factura.idFactura} value={factura.idFactura}>
+                            {factura.nombreCliente} - Factura #{factura.idFactura}
+                          </option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  className="me-2"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

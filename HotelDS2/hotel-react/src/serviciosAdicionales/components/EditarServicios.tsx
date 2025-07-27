@@ -12,7 +12,10 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
+import { FaConciergeBell, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialServicio: IServicio = {
   idServicio: 0,
@@ -45,7 +48,7 @@ export function EditarServicios() {
   const inputChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     const inputName = event.target.name;
     const inputValue = event.target.value;
-    setServicio({ ...servicio, [inputName]: inputValue });
+    setServicio({ ...servicio, [inputName]: inputName === "precio" ? Number(inputValue) : inputValue });
   };
 
   const guardar = async () => {
@@ -96,45 +99,121 @@ export function EditarServicios() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Servicio</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Nombre</Label>
-              <Input
-                type="text"
-                name="nombre"
-                onChange={inputChangeValue}
-                value={servicio.nombre}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Descripción</Label>
-              <Input
-                type="text"
-                name="descripcion"
-                onChange={inputChangeValue}
-                value={servicio.descripcion}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Precio</Label>
-              <Input
-                type="number"
-                name="precio"
-                onChange={inputChangeValue}
-                value={servicio.precio}
-                min="0"
-                step="0.01"
-              />
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c",
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
+              >
+                <FaConciergeBell size={28} />
+                <h4 style={{ margin: 0 }}>Editar Servicio</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Nombre</Label>
+                      <Input
+                        type="text"
+                        name="nombre"
+                        onChange={inputChangeValue}
+                        value={servicio.nombre}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Descripción</Label>
+                      <Input
+                        type="text"
+                        name="descripcion"
+                        onChange={inputChangeValue}
+                        value={servicio.descripcion}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>Precio</Label>
+                      <Input
+                        type="number"
+                        name="precio"
+                        onChange={inputChangeValue}
+                        value={servicio.precio}
+                        min="0"
+                        step="0.01"
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  className="me-2"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

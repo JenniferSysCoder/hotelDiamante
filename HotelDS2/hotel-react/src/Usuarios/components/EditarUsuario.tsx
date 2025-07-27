@@ -12,7 +12,10 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
+import { FaUserEdit, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialUsuario: IUsuario = {
   id: 0,
@@ -85,34 +88,105 @@ export function EditarUsuario() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Editar Usuario</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Usuario</Label>
-              <Input
-                type="text"
-                name="usuario1"
-                onChange={inputChangeValue}
-                value={usuario.usuario1}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Contraseña</Label>
-              <Input
-                type="password"
-                name="contrasenia"
-                onChange={inputChangeValue}
-                value={usuario.contrasenia}
-              />
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+          <Card
+            style={{
+              borderRadius: "18px",
+              boxShadow: "0 4px 24px #23272f33",
+              border: "none",
+              background: "linear-gradient(135deg, #f8fafc 80%, #e3e3e3 100%)",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "#b71c1c",
+                  fontWeight: "bold",
+                  fontSize: "1.4rem",
+                }}
+              >
+                <FaUserEdit size={28} />
+                <h4 style={{ margin: 0 }}>Editar Usuario</h4>
+              </div>
+              <hr />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Usuario
+                      </Label>
+                      <Input
+                        type="text"
+                        name="usuario1"
+                        onChange={inputChangeValue}
+                        value={usuario.usuario1}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#23272f" }}>
+                        Contraseña
+                      </Label>
+                      <Input
+                        type="password"
+                        name="contrasenia"
+                        onChange={inputChangeValue}
+                        value={usuario.contrasenia}
+                        style={{
+                          borderRadius: "12px",
+                          background: "#fff",
+                          boxShadow: "0 2px 8px #b71c1c11",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <div className="d-flex justify-content-end gap-3 mt-4">
+                <Button
+                  color="danger"
+                  className="me-2"
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #b71c1c22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  color="secondary"
+                  onClick={volver}
+                  style={{
+                    borderRadius: "24px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px #23272f22",
+                    padding: "8px 24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>

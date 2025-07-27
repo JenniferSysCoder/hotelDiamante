@@ -13,7 +13,10 @@ import {
   Label,
   Input,
   Button,
+  Card,
+  CardBody,
 } from "reactstrap";
+import { FaBed, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const initialHabitacion: IHabitacion = {
   numero: "",
@@ -85,69 +88,182 @@ export function NuevaHabitacion() {
     <Container className="mt-5">
       <Row>
         <Col sm={{ size: 8, offset: 2 }}>
-          <h4>Nueva Habitación</h4>
-          <hr />
-          <Form>
-            <FormGroup>
-              <Label>Número</Label>
-              <Input
-                type="text"
-                name="numero"
-                value={habitacion.numero}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Tipo</Label>
-              <Input
-                type="text"
-                name="tipo"
-                value={habitacion.tipo}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Precio por noche</Label>
-              <Input
-                type="number"
-                name="precioNoche"
-                value={habitacion.precioNoche}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Estado</Label>
-              <Input
-                type="text"
-                name="estado"
-                value={habitacion.estado}
-                disabled
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Hotel</Label>
-              <Input
-                type="select"
-                name="idHotel"
-                value={habitacion.idHotel}
-                onChange={inputChangeValue}
+          <Card
+            style={{
+              borderRadius: "14px",
+              boxShadow: "0 6px 18px rgba(0, 0, 0, 0.08)",
+              border: "1px solid #e5e7eb",
+              backgroundColor: "#ffffff",
+            }}
+          >
+            <CardBody>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "20px",
+                }}
               >
-                <option value="0">Seleccione un hotel</option>
-                {hoteles.map((hotel) => (
-                  <option key={hotel.idHotel} value={hotel.idHotel}>
-                    {hotel.nombre}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <Button color="primary" className="me-4" onClick={guardar}>
-            Guardar
-          </Button>
-          <Button color="secondary" onClick={volver}>
-            Volver
-          </Button>
+                <FaBed size={22} color="#b71c1c" />
+                <h4
+                  style={{
+                    margin: 0,
+                    fontWeight: 600,
+                    fontSize: "1.5rem",
+                    color: "#b71c1c",
+                  }}
+                >
+                  Nueva Habitación
+                </h4>
+              </div>
+              <hr style={{ borderTop: "1px solid #e5e7eb" }} />
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Número
+                      </Label>
+                      <Input
+                        type="text"
+                        name="numero"
+                        value={habitacion.numero}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #d1d5db",
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Tipo
+                      </Label>
+                      <Input
+                        type="text"
+                        name="tipo"
+                        value={habitacion.tipo}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #d1d5db",
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Precio por noche
+                      </Label>
+                      <Input
+                        type="number"
+                        name="precioNoche"
+                        value={habitacion.precioNoche}
+                        onChange={inputChangeValue}
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #d1d5db",
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label style={{ fontWeight: "bold", color: "#333" }}>
+                        Estado
+                      </Label>
+                      <Input
+                        type="text"
+                        name="estado"
+                        value={habitacion.estado}
+                        disabled
+                        style={{
+                          borderRadius: "8px",
+                          backgroundColor: "#f3f4f6",
+                          color: "#6b7280",
+                          border: "1px solid #d1d5db",
+                        }}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <FormGroup>
+                  <Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Hotel
+                  </Label>
+                  <Input
+                    type="select"
+                    name="idHotel"
+                    value={habitacion.idHotel}
+                    onChange={inputChangeValue}
+                    style={{
+                      borderRadius: "8px",
+                      border: "1px solid #d1d5db",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <option value="0">Seleccione un hotel</option>
+                    {hoteles.map((hotel) => (
+                      <option key={hotel.idHotel} value={hotel.idHotel}>
+                        {hotel.nombre}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+              </Form>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  justifyContent: "flex-end",
+                  marginTop: "24px",
+                }}
+              >
+                <Button
+                  onClick={guardar}
+                  style={{
+                    borderRadius: "8px",
+                    backgroundColor: "#b71c1c",
+                    border: "none",
+                    padding: "10px 18px",
+                    fontWeight: "600",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <FaSave /> Guardar
+                </Button>
+                <Button
+                  onClick={volver}
+                  style={{
+                    borderRadius: "8px",
+                    backgroundColor: "#6b7280",
+                    border: "none",
+                    padding: "10px 18px",
+                    fontWeight: "600",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <FaArrowLeft /> Volver
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>
