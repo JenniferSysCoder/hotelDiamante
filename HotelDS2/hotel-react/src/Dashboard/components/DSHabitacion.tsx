@@ -14,17 +14,20 @@ import {
   Cell,
 } from "recharts";
 
-// Paleta moderna y profesional
-const coloresModernos: Record<string, string> = {
-  presidencial: "#23272f", // Gris oscuro
-  suite: "#00b894",        // Verde profesional
-  doble: "#636e72",        // Gris medio
-  individual: "#0984e3",   // Azul moderno
-};
+// Paleta moderna y profesional - colores únicos para cada barra
+const coloresUnicos = [
+  "#D32F2F", // Rojo corporativo elegante
+  "#7B1FA2", // Púrpura ejecutivo
+  "#455A64", // Gris azulado corporativo
+  "#00695C", // Verde esmeralda profesional
+  "#E65100", // Naranja corporativo profundo
+  "#3F51B5", // Índigo corporativo
+  "#795548", // Marrón corporativo
+  "#607D8B", // Gris azulado claro
+];
 
-const getColorPorTipo = (tipo: string) => {
-  const key = tipo.toLowerCase();
-  return coloresModernos[key] || "#b2bec3"; // Gris claro por defecto
+const getColorPorIndice = (index: number) => {
+  return coloresUnicos[index % coloresUnicos.length];
 };
 
 export function DashboardHabitaciones() {
@@ -49,69 +52,126 @@ export function DashboardHabitaciones() {
   }, []);
 
   return (
-    <Col md="6">
-      <Card style={{ border: "none", boxShadow: "0 2px 12px #23272f14" }}>
+    <Col xs="12" sm="12" md="6" lg="6" xl="6">
+      <Card style={{
+        border: "none",
+        borderRadius: "12px",
+        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+        background: "#ffffff",
+        transition: "all 0.3s ease",
+        overflow: "hidden",
+        position: "relative",
+        minHeight: "450px"
+      }}>
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "4px",
+          background: "linear-gradient(90deg, #D32F2F 0%, #7B1FA2 100%)"
+        }} />
         <CardHeader style={{
-          background: "#23272f",
-          color: "#fff",
-          fontWeight: "bold",
-          fontSize: "1.1rem",
-          letterSpacing: "1px"
+          background: "#ffffff",
+          color: "#2c3e50",
+          fontWeight: "600",
+          fontSize: "1rem",
+          borderBottom: "1px solid #f1f3f4",
+          padding: "20px 24px 16px",
+          display: "flex",
+          alignItems: "center"
         }}>
-          <span role="img" aria-label="bed">🛏️</span> Habitaciones Más Reservadas
+          <div style={{
+            background: "linear-gradient(135deg, #D32F2F 0%, #7B1FA2 100%)",
+            borderRadius: "8px",
+            padding: "8px",
+            marginRight: "12px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "32px",
+            height: "32px"
+          }}>
+            <div style={{
+              width: "16px",
+              height: "12px",
+              background: "#ffffff",
+              borderRadius: "2px"
+            }} />
+          </div>
+          Habitaciones Más Reservadas
         </CardHeader>
-        <CardBody style={{ height: "400px", background: "#f6f7f9", padding: "24px" }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={datos}
-              margin={{ top: 30, right: 40, left: 10, bottom: 20 }}
-              barCategoryGap="30%"
-            >
-              <CartesianGrid stroke="#e0e3e8" strokeDasharray="3 3" />
-              <XAxis
-                dataKey="nombreTipoHabitacion"
-                tick={{ fontSize: 13, fill: "#23272f" }}
-                axisLine={{ stroke: "#b2bec3" }}
-                tickLine={{ stroke: "#b2bec3" }}
-              />
-              <YAxis
-                allowDecimals={false}
-                tick={{ fontSize: 13, fill: "#23272f" }}
-                axisLine={{ stroke: "#b2bec3" }}
-                tickLine={{ stroke: "#b2bec3" }}
-              />
-              <Tooltip
-                formatter={(value: any, _name: any, _props: any) => [
-                  value,
-                  "Reservas",
-                ]}
-                labelStyle={{ fontWeight: "bold", color: "#00b894" }}
-                contentStyle={{ backgroundColor: "#23272f", color: "#fff", borderColor: "#00b894" }}
-                itemStyle={{ color: "#00b894" }}
-                cursor={{ fill: "#00b894", opacity: 0.1 }}
-              />
-              <Legend
-                wrapperStyle={{
-                  fontSize: "1rem",
-                  color: "#23272f",
-                  marginBottom: "10px"
-                }}
-              />
-              <Bar
-                dataKey="cantidadReservas"
-                name="Reservas"
-                radius={[8, 8, 0, 0]}
-                barSize={38}
+        <CardBody style={{
+          height: "400px",
+          background: "#ffffff",
+          padding: "16px 20px 20px",
+          display: "flex",
+          flexDirection: "column"
+        }}>
+          <div style={{ flex: 1, minHeight: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={datos}
+                margin={{ top: 20, right: 30, left: 10, bottom: 40 }}
+                barCategoryGap="20%"
               >
-                {datos.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={getColorPorTipo(entry.nombreTipoHabitacion)}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+                <CartesianGrid stroke="#f0f2f5" strokeDasharray="2 2" />
+                <XAxis
+                  dataKey="nombreTipoHabitacion"
+                  tick={{ fontSize: 11, fill: "#546e7a" }}
+                  axisLine={{ stroke: "#e0e4e7" }}
+                  tickLine={{ stroke: "#e0e4e7" }}
+                  angle={-45}
+                  textAnchor="end"
+                  height={80}
+                />
+                <YAxis
+                  allowDecimals={false}
+                  tick={{ fontSize: 11, fill: "#546e7a" }}
+                  axisLine={{ stroke: "#e0e4e7" }}
+                  tickLine={{ stroke: "#e0e4e7" }}
+                />
+                <Tooltip
+                  formatter={(value: any, _name: any, _props: any) => [
+                    value,
+                    "Reservas",
+                  ]}
+                  labelStyle={{ fontWeight: "600", color: "#2c3e50", fontSize: "0.9rem" }}
+                  contentStyle={{
+                    backgroundColor: "#ffffff",
+                    color: "#2c3e50",
+                    border: "1px solid #e0e4e7",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                    fontWeight: "500"
+                  }}
+                  itemStyle={{ color: "#D32F2F" }}
+                  cursor={{ fill: "#D32F2F", opacity: 0.08 }}
+                />
+                <Legend
+                  wrapperStyle={{
+                    fontSize: "0.9rem",
+                    color: "#2c3e50",
+                    marginBottom: "10px",
+                    fontWeight: "500"
+                  }}
+                />
+                <Bar
+                  dataKey="cantidadReservas"
+                  name="Reservas"
+                  radius={[4, 4, 0, 0]}
+                  barSize={40}
+                >
+                  {datos.map((_entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={getColorPorIndice(index)}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </CardBody>
       </Card>
     </Col>

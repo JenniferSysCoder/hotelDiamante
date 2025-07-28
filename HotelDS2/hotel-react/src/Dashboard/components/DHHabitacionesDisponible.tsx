@@ -28,71 +28,153 @@ export function ContadorHabitaciones() {
   }, []);
 
   return (
-    <Col xs="12" md="4">
-      <Card style={{
-        border: "none",
-        boxShadow: "0 2px 12px #23272f14",
-        background: "#23272f"
-      }}>
-        <CardHeader style={{
-          background: "transparent",
-          color: "#fff",
-          fontWeight: "bold",
-          fontSize: "1.1rem",
-          letterSpacing: "1px",
-          borderBottom: "none"
-        }}>
-          <FaBed size={28} style={{ marginRight: 8, verticalAlign: "middle" }} />
-          Habitaciones Disponibles
-        </CardHeader>
-        <CardBody style={{
-          background: "transparent",
-          color: "#fff",
-          padding: "32px 24px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
-        }}>
-          {loading && <Spinner color="light" />}
-          {error && <Alert color="danger">{error}</Alert>}
-          {!loading && !error && (
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "12px"
-            }}>
-              <div style={{
-                background: "#fff",
-                borderRadius: "50%",
-                boxShadow: "0 2px 8px #23272f22",
-                padding: "18px",
+    <Col xs="12" sm="6" md="4" lg="2" style={{ padding: "6px", minWidth: "180px", maxWidth: "240px" }}>
+      <Card
+        style={{
+          border: "none",
+          borderRadius: "12px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+          background: "#fff",
+          transition: "all 0.3s ease-in-out",
+          cursor: "pointer",
+          overflow: "hidden",
+          position: "relative",
+          minHeight: "clamp(120px, 16vw, 160px)",
+          fontFamily: "Inter, sans-serif",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-4px)";
+          e.currentTarget.style.boxShadow = "0 12px 24px rgba(33, 150, 243, 0.25)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)";
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "4px",
+            background: "linear-gradient(90deg, #2196F3 0%, #21CBF3 100%)",
+          }}
+        />
+        <CardHeader
+          style={{
+            background: "#fff",
+            color: "#1565C0",
+            fontWeight: 600,
+            fontSize: "0.9rem",
+            borderBottom: "1px solid #bbdefb",
+            padding: "12px 14px 10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            fontFamily: "Inter, sans-serif",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                background: "linear-gradient(135deg, #2196F3 0%, #21CBF3 100%)",
+                borderRadius: "8px",
+                padding: "5px",
+                marginRight: "8px",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
-              }}>
-                <FaBed size={40} color="#23272f" />
+                justifyContent: "center",
+              }}
+            >
+              <FaBed size={13} color="#ffffff" />
+            </div>
+            Habitaciones Disponibles
+          </div>
+        </CardHeader>
+        <CardBody
+          style={{
+            background: "#fff",
+            color: "#1565C0",
+            padding: "12px 10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "60px",
+            fontFamily: "Inter, sans-serif",
+          }}
+        >
+          {loading && <Spinner color="primary" size="sm" />}
+          {error && (
+            <Alert
+              color="danger"
+              style={{ borderRadius: "8px", fontSize: "0.85rem", width: "100%" }}
+            >
+              {error}
+            </Alert>
+          )}
+          {!loading && !error && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "10px",
+                width: "100%",
+              }}
+            >
+              <div
+                style={{
+                  background: "#f0f7ff",
+                  border: "1px solid #bbdefb",
+                  borderRadius: "10px",
+                  padding: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "36px",
+                  height: "36px",
+                }}
+              >
+                <FaBed size={18} color="#2196F3" />
               </div>
-              <h3 style={{
-                fontSize: "2.8rem",
-                fontWeight: "bold",
-                margin: 0,
-                color: "#00b894",
-                letterSpacing: "2px",
-                textShadow: "0 2px 8px #23272f22"
-              }}>
-                {total}
-              </h3>
-              <span style={{
-                fontSize: "1rem",
-                color: "#fff",
-                opacity: 0.8,
-                fontWeight: 500,
-                marginTop: "4px"
-              }}>
-                Habitaciones disponibles
-              </span>
+              <div style={{ textAlign: "center" }}>
+                <h1
+                  style={{
+                    fontSize: "1.6rem",
+                    fontWeight: 700,
+                    margin: 0,
+                    color: "#1565C0",
+                    letterSpacing: "-1px",
+                    lineHeight: "1",
+                  }}
+                >
+                  {total}
+                </h1>
+                <div
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "#546e7a",
+                    fontWeight: 500,
+                    marginTop: "4px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  Habitaciones
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "#78909c",
+                    fontWeight: 400,
+                    marginTop: "2px",
+                  }}
+                >
+                  Disponibles
+                </div>
+              </div>
             </div>
           )}
         </CardBody>

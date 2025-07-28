@@ -51,18 +51,17 @@ const PuntoProyeccion = (props: any) => {
       <circle
         cx={cx}
         cy={cy}
-        r={14}
-        fill="#23272f"
-        opacity={0.9}
-        style={{ filter: "drop-shadow(0px 2px 8px #23272f)" }}
+        r={12}
+        fill="#ffffff"
+        stroke="#607D8B"
+        strokeWidth={3}
+        style={{ filter: "drop-shadow(0px 2px 8px rgba(96, 125, 139, 0.3))" }}
       />
       <circle
         cx={cx}
         cy={cy}
-        r={8}
-        stroke="#00b894"
-        strokeWidth={3}
-        fill="#00b894"
+        r={6}
+        fill="#607D8B"
         opacity={1}
       />
     </>
@@ -106,42 +105,88 @@ export function DashboardProyeccionReservas() {
 
   return (
     <Col xs="12" md="6" lg="6">
-      <Card style={{ border: "none", boxShadow: "0 2px 12px #23272f14" }}>
+      <Card style={{
+        border: "none",
+        borderRadius: "12px",
+        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+        background: "#ffffff",
+        transition: "all 0.3s ease",
+        overflow: "hidden",
+        position: "relative"
+      }}>
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "4px",
+          background: "linear-gradient(90deg, #607D8B 0%, #90A4AE 100%)"
+        }} />
         <CardHeader style={{
-          background: "#23272f",
-          color: "#fff",
-          fontWeight: "bold",
-          fontSize: "1.2rem",
-          letterSpacing: "1px"
+          background: "#ffffff",
+          color: "#2c3e50",
+          fontWeight: "600",
+          fontSize: "1rem",
+          borderBottom: "1px solid #f1f3f4",
+          padding: "20px 24px 16px",
+          display: "flex",
+          alignItems: "center"
         }}>
-          <span role="img" aria-label="chart">📊</span> Reservas Mensuales con Proyección
+          <div style={{
+            background: "linear-gradient(135deg, #607D8B 0%, #90A4AE 100%)",
+            borderRadius: "8px",
+            padding: "8px",
+            marginRight: "12px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "32px",
+            height: "32px"
+          }}>
+            <div style={{
+              width: "16px",
+              height: "16px",
+              background: "#ffffff",
+              borderRadius: "2px"
+            }} />
+          </div>
+          Reservas Mensuales con Proyección
         </CardHeader>
         <CardBody style={{
-          height: "280px",
-          minHeight: "220px",
-          background: "#f6f7f9",
-          padding: "16px"
+          height: "320px",
+          minHeight: "280px",
+          background: "#ffffff",
+          padding: "24px"
         }}>
-          {loading && <Spinner color="dark" />}
-          {error && <Alert color="danger">{error}</Alert>}
+          {loading && (
+            <div style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%"
+            }}>
+              <Spinner color="primary" size="sm" />
+            </div>
+          )}
+          {error && <Alert color="danger" style={{ borderRadius: "8px", fontSize: "0.85rem" }}>{error}</Alert>}
           {!loading && !error && (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={datos}
-                margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
+                margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
               >
-                <CartesianGrid stroke="#e0e3e8" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#f0f2f5" strokeDasharray="2 2" />
                 <XAxis
                   dataKey="mes"
-                  tick={{ fontSize: 12, fill: "#23272f" }}
-                  axisLine={{ stroke: "#b2bec3" }}
-                  tickLine={{ stroke: "#b2bec3" }}
+                  tick={{ fontSize: 11, fill: "#546e7a" }}
+                  axisLine={{ stroke: "#e0e4e7" }}
+                  tickLine={{ stroke: "#e0e4e7" }}
                 />
                 <YAxis
                   allowDecimals={false}
-                  tick={{ fontSize: 12, fill: "#23272f" }}
-                  axisLine={{ stroke: "#b2bec3" }}
-                  tickLine={{ stroke: "#b2bec3" }}
+                  tick={{ fontSize: 11, fill: "#546e7a" }}
+                  axisLine={{ stroke: "#e0e4e7" }}
+                  tickLine={{ stroke: "#e0e4e7" }}
                 />
                 <Tooltip
                   formatter={(value: any, name: any, props: any) => {
@@ -150,16 +195,23 @@ export function DashboardProyeccionReservas() {
                     }
                     return [value, name];
                   }}
-                  labelStyle={{ fontWeight: "bold", color: "#00b894" }}
-                  contentStyle={{ backgroundColor: "#23272f", color: "#fff", borderColor: "#00b894" }}
-                  itemStyle={{ color: "#00b894" }}
-                  cursor={{ stroke: "#23272f", strokeWidth: 2 }}
+                  labelStyle={{ fontWeight: "600", color: "#2c3e50", fontSize: "0.9rem" }}
+                  contentStyle={{
+                    backgroundColor: "#ffffff",
+                    color: "#2c3e50",
+                    border: "1px solid #e0e4e7",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)"
+                  }}
+                  itemStyle={{ color: "#607D8B", fontWeight: "500" }}
+                  cursor={{ stroke: "#607D8B", strokeWidth: 1, strokeDasharray: "2 2" }}
                 />
                 <Legend
                   wrapperStyle={{
-                    fontSize: "1rem",
-                    color: "#23272f",
-                    marginBottom: "10px"
+                    fontSize: "0.9rem",
+                    color: "#2c3e50",
+                    marginBottom: "10px",
+                    fontWeight: "500"
                   }}
                 />
                 {ultimoMes && mesProyeccion && (
@@ -167,23 +219,24 @@ export function DashboardProyeccionReservas() {
                     x1={ultimoMes}
                     x2={mesProyeccion}
                     strokeOpacity={0}
-                    fill="#00b894"
-                    fillOpacity={0.08}
+                    fill="#607D8B"
+                    fillOpacity={0.06}
                   />
                 )}
                 <Line
                   type="linear"
                   dataKey="cantidadReservas"
                   name="Reservas"
-                  stroke="#23272f"
-                  strokeWidth={4}
+                  stroke="#1565C0"
+                  strokeWidth={3}
                   dot={false}
                   isAnimationActive={true}
+                  strokeLinecap="round"
                 />
                 <Scatter
                   data={historico}
                   dataKey="cantidadReservas"
-                  fill="#636e72"
+                  fill="#455A64"
                   name="Histórico"
                   shape="circle"
                   legendType="circle"

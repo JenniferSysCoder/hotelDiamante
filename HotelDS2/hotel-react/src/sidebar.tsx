@@ -96,7 +96,23 @@ export default function Sidebar() {
             <button
               className="menu-item dropdown-toggle"
               onClick={() => toggleMenu("controles")}
-              style={destacadoStyle}
+              style={{
+                ...destacadoStyle,
+                borderRadius: "32px",
+                boxShadow: openMenus.controles ? "0 4px 24px #1e293b" : destacadoStyle.boxShadow,
+                background: openMenus.controles ? "#1e293b" : destacadoStyle.background,
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "#1e293b";
+                e.currentTarget.style.boxShadow = "0 4px 24px #1e293b";
+                e.currentTarget.style.borderRadius = "32px";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = destacadoStyle.background;
+                e.currentTarget.style.boxShadow = destacadoStyle.boxShadow;
+                e.currentTarget.style.borderRadius = "32px";
+              }}
             >
               <FaWrench className="icon" />
               <span>Controles</span>
@@ -163,7 +179,23 @@ export default function Sidebar() {
             <button
               className="menu-item dropdown-toggle"
               onClick={() => toggleMenu("operaciones")}
-              style={destacadoStyle}
+              style={{
+                ...destacadoStyle,
+                borderRadius: "32px",
+                boxShadow: openMenus.operaciones ? "0 4px 24px #1e293b" : destacadoStyle.boxShadow,
+                background: openMenus.operaciones ? "#1e293b" : destacadoStyle.background,
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "#1e293b";
+                e.currentTarget.style.boxShadow = "0 4px 24px #1e293b";
+                e.currentTarget.style.borderRadius = "32px";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = destacadoStyle.background;
+                e.currentTarget.style.boxShadow = destacadoStyle.boxShadow;
+                e.currentTarget.style.borderRadius = "32px";
+              }}
             >
               <FaTools className="icon" />
               <span>Operaciones</span>
@@ -221,7 +253,23 @@ export default function Sidebar() {
             <button
               className="menu-item dropdown-toggle"
               onClick={() => toggleMenu("informes")}
-              style={destacadoStyle}
+              style={{
+                ...destacadoStyle,
+                borderRadius: "32px",
+                boxShadow: openMenus.informes ? "0 4px 24px #1e293b" : destacadoStyle.boxShadow,
+                background: openMenus.informes ? "#1e293b" : destacadoStyle.background,
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "#1e293b";
+                e.currentTarget.style.boxShadow = "0 4px 24px #1e293b";
+                e.currentTarget.style.borderRadius = "32px";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = destacadoStyle.background;
+                e.currentTarget.style.boxShadow = destacadoStyle.boxShadow;
+                e.currentTarget.style.borderRadius = "32px";
+              }}
             >
               <FaFileAlt className="icon" />
               <span>Informes</span>

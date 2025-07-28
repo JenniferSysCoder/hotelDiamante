@@ -63,24 +63,25 @@ export default function Header() {
 
   return (
     <header className="header" style={{
-      background: "#b71c1c", // Rojo más oscuro
-      boxShadow: "0 2px 12px #7f1d1d22",
-      padding: "6px 24px",
+      background: "#18181b", // Negro más profundo
+      boxShadow: "0 2px 16px #00000033",
+      borderBottom: "2px solid #23272f",
+      padding: "8px 28px",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      minHeight: "54px"
+      minHeight: "58px"
     }}>
       <div className="logo" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
         <Link to="/dashboard" className="logo-link" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none" }}>
-          <img src={logo} alt="Hotel Diamante Logo" style={{ height: "38px", width: "38px", borderRadius: "8px", boxShadow: "0 2px 8px #7f1d1d22" }} />
+          <img src={logo} alt="Hotel Diamante Logo" style={{ height: "38px", width: "38px", borderRadius: "8px", boxShadow: "0 2px 8px #00000022" }} />
           <h1 style={{
             fontSize: "1.2rem",
             fontWeight: "bold",
             color: "#fff",
             letterSpacing: "2px",
             margin: 0,
-            textShadow: "0 2px 8px #7f1d1d44"
+            textShadow: "0 2px 8px #00000044"
           }}>Hotel Diamante</h1>
         </Link>
       </div>
@@ -99,11 +100,11 @@ export default function Header() {
                   top: "-6px",
                   right: "-6px",
                   background: "#fff",
-                  color: "#b71c1c",
+                  color: "#23272f",
                   fontWeight: "bold",
                   borderRadius: "50%",
                   fontSize: "0.8rem",
-                  boxShadow: "0 2px 8px #7f1d1d22"
+                  boxShadow: "0 2px 8px #00000022"
                 }}>
                   {noLeidas}
                 </Badge>
@@ -112,20 +113,20 @@ export default function Header() {
             <DropdownMenu className="noti-dropdown" style={{
               minWidth: "260px",
               background: "#fff",
-              border: "1px solid #b71c1c",
-              boxShadow: "0 2px 12px #7f1d1d22",
+              border: "1px solid #23272f",
+              boxShadow: "0 2px 12px #00000022",
               padding: "0.5rem"
             }}>
               <DropdownItem header className="noti-header" style={{
                 fontWeight: "bold",
-                color: "#b71c1c",
+                color: "#23272f",
                 background: "#fff",
-                borderBottom: "1px solid #b71c1c"
+                borderBottom: "1px solid #23272f"
               }}>
                 Notificaciones
               </DropdownItem>
               {notificaciones.length === 0 ? (
-                <DropdownItem disabled className="noti-item" style={{ color: "#7f1d1d" }}>
+                <DropdownItem disabled className="noti-item" style={{ color: "#23272f" }}>
                   No hay notificaciones
                 </DropdownItem>
               ) : (
@@ -135,8 +136,8 @@ export default function Header() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      background: n.leida ? "#f8f8f8" : "#ffebee",
-                      color: "#7f1d1d",
+                      background: n.leida ? "#f8f8f8" : "#23272f22",
+                      color: "#23272f",
                       fontWeight: n.leida ? "normal" : "bold",
                       borderRadius: "6px",
                       marginBottom: "4px",
@@ -153,7 +154,7 @@ export default function Header() {
                             color="link"
                             onClick={() => marcarComoLeida(n.id)}
                             title="Marcar como leída"
-                            style={{ color: "#b71c1c", fontWeight: "bold" }}
+                            style={{ color: "#23272f", fontWeight: "bold" }}
                           >
                             ✔
                           </Button>
@@ -163,7 +164,7 @@ export default function Header() {
                           color="link"
                           onClick={() => cerrarNotificacion(n.id)}
                           title="Eliminar notificación"
-                          style={{ color: "#7f1d1d", fontWeight: "bold" }}
+                          style={{ color: "#23272f", fontWeight: "bold" }}
                         >
                           ✖
                         </Button>
@@ -172,7 +173,7 @@ export default function Header() {
                   ))}
                   <DropdownItem divider />
                   <DropdownItem onClick={marcarTodasComoLeidas} className="noti-item" style={{
-                    color: "#b71c1c",
+                    color: "#23272f",
                     fontWeight: "bold",
                     textAlign: "center"
                   }}>
@@ -190,9 +191,9 @@ export default function Header() {
           background: "#fff",
           borderRadius: "24px",
           padding: "4px 12px",
-          boxShadow: "0 2px 8px #7f1d1d22"
+          boxShadow: "0 2px 8px #00000022"
         }}>
-          <FaUser size={16} color="#b71c1c" title={username} />
+          <FaUser size={16} color="#23272f" title={username} />
           <span className="username" style={{
             fontWeight: "bold",
             color: "#23272f",
@@ -207,13 +208,13 @@ export default function Header() {
           }}
           style={{
             background: "#fff",
-            color: "#b71c1c",
+            color: "#23272f",
             border: "none",
             borderRadius: "24px",
             padding: "4px 12px",
             fontWeight: "bold",
             fontSize: "0.95rem",
-            boxShadow: "0 2px 8px #7f1d1d22",
+            boxShadow: "0 2px 8px #00000022",
             display: "flex",
             alignItems: "center",
             gap: "6px",
