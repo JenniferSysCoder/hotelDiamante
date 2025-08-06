@@ -20,4 +20,6 @@ public partial class Empleado
     public virtual Hotele IdHotelNavigation { get; set; } = null!;
 
     public virtual ICollection<Limpieza> Limpiezas { get; set; } = new List<Limpieza>();
+
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

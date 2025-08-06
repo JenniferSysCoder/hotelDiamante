@@ -35,22 +35,34 @@ namespace hotelDS2proyecto.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         [Route("Nuevo")]
         public async Task<IActionResult> Nuevo([FromBody] Cliente cliente)
         {
-            var clienteExistente = await dbContext.Clientes
-                .FirstOrDefaultAsync(c => c.Documento == cliente.Documento);
-
-            if (clienteExistente != null)
+            if (cliente == null ||
+                string.IsNullOrWhiteSpace(cliente.Nombre) ||
+                string.IsNullOrWhiteSpace(cliente.Apellido) ||
+                string.IsNullOrWhiteSpace(cliente.Documento) ||
+                string.IsNullOrWhiteSpace(cliente.Correo) ||
+                string.IsNullOrWhiteSpace(cliente.Telefono))
             {
-                // Si el cliente ya existe, devolvemos un mensaje de error
-                return StatusCode(StatusCodes.Status400BadRequest, new { mensaje = "Ya existe un cliente con el mismo documento." });
+                return BadRequest(new { mensaje = "Todos los campos son obligatorios." });
             }
 
-            await dbContext.Clientes.AddAsync(cliente);
+            var existe = await dbContext.Clientes
+                .AnyAsync(c => c.Documento == cliente.Documento);
+
+            if (existe)
+            {
+                return BadRequest(new { mensaje = "Ya existe un cliente con ese documento." });
+            }
+
+            dbContext.Clientes.Add(cliente);
             await dbContext.SaveChangesAsync();
-            return StatusCode(StatusCodes.Status200OK, new { mensaje = "Cliente guardado correctamente" });
+
+            return Ok(new { mensaje = "Cliente guardado correctamente." });
         }
+
 
 
         // PUT: api/Clientes/Editar
@@ -58,10 +70,30 @@ namespace hotelDS2proyecto.Controllers
         [Route("Editar")]
         public async Task<IActionResult> Editar([FromBody] Cliente cliente)
         {
-            dbContext.Clientes.Update(cliente);
+            if (cliente == null || cliente.IdCliente == 0)
+                return BadRequest(new { mensaje = "Datos inválidos." });
+
+            var clienteExistente = await dbContext.Clientes.FindAsync(cliente.IdCliente);
+            if (clienteExistente == null)
+                return NotFound(new { mensaje = "Cliente no encontrado." });
+
+            var documentoRepetido = await dbContext.Clientes
+                .AnyAsync(c => c.Documento == cliente.Documento && c.IdCliente != cliente.IdCliente);
+
+            if (documentoRepetido)
+                return BadRequest(new { mensaje = "Ya existe otro cliente con ese documento." });
+
+            clienteExistente.Nombre = cliente.Nombre;
+            clienteExistente.Apellido = cliente.Apellido;
+            clienteExistente.Documento = cliente.Documento;
+            clienteExistente.Correo = cliente.Correo;
+            clienteExistente.Telefono = cliente.Telefono;
+
             await dbContext.SaveChangesAsync();
-            return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok" });
+            return Ok(new { mensaje = "Cliente actualizado correctamente." });
         }
+
+
 
         // DELETE: api/Clientes/Eliminar
         [HttpDelete]

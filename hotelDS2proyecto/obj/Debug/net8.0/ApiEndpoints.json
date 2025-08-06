@@ -121,6 +121,16 @@
   },
   {
     "ContainingType": "hotelDS2proyecto.Controllers.DashboardController",
+    "Method": "GetReservasRecientes",
+    "RelativePath": "api/Dashboard/reservasRecientes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.DashboardController",
     "Method": "GetServiciosPopulares",
     "RelativePath": "api/Dashboard/serviciosPopulares",
     "HttpMethod": "GET",
@@ -631,6 +641,80 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "hotelDS2proyecto.Controllers.PermisosController",
+    "Method": "Editar",
+    "RelativePath": "api/Permisos/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permiso",
+        "Type": "hotelDS2proyecto.Models.Permiso",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PermisosController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Permisos/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PermisosController",
+    "Method": "Get",
+    "RelativePath": "api/Permisos/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PermisosController",
+    "Method": "Nuevo",
+    "RelativePath": "api/Permisos/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permiso",
+        "Type": "hotelDS2proyecto.Models.Permiso",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.PermisosController",
+    "Method": "Get",
+    "RelativePath": "api/Permisos/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "hotelDS2proyecto.Controllers.ReporteReservaController",
     "Method": "GetReporteReservas",
     "RelativePath": "api/ReporteReserva/Reservas",
@@ -712,6 +796,96 @@
     "ContainingType": "hotelDS2proyecto.Controllers.ReservasController",
     "Method": "Get",
     "RelativePath": "api/Reservas/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.RolesController",
+    "Method": "Editar",
+    "RelativePath": "api/Roles/Editar",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rol",
+        "Type": "hotelDS2proyecto.Models.Role",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.RolesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Roles/Eliminar/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.RolesController",
+    "Method": "Get",
+    "RelativePath": "api/Roles/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.RolesController",
+    "Method": "Nuevo",
+    "RelativePath": "api/Roles/Nuevo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rol",
+        "Type": "hotelDS2proyecto.Models.Role",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.RolesController",
+    "Method": "Get",
+    "RelativePath": "api/Roles/Obtener/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "hotelDS2proyecto.Controllers.RolesController",
+    "Method": "ObtenerConPermisos",
+    "RelativePath": "api/Roles/ObtenerConPermisos/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -807,8 +981,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "objeto",
-        "Type": "hotelDS2proyecto.Models.Usuario",
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.Models.DTOs.UsuarioDTO",
         "IsRequired": true
       }
     ],
@@ -849,8 +1023,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "objeto",
-        "Type": "hotelDS2proyecto.Models.Usuario",
+        "Name": "dto",
+        "Type": "hotelDS2proyecto.Models.DTOs.UsuarioDTO",
         "IsRequired": true
       }
     ],

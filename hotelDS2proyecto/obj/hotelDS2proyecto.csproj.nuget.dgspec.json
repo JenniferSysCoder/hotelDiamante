@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jennifer Tatiana GF\\Downloads\\hotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj": {}
+    "C:\\Users\\Jennifer Tatiana GF\\Downloads\\pruebasHotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jennifer Tatiana GF\\Downloads\\hotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj": {
+    "C:\\Users\\Jennifer Tatiana GF\\Downloads\\pruebasHotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\hotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
+        "projectUniqueName": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\pruebasHotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
         "projectName": "hotelDS2proyecto",
-        "projectPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\hotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
+        "projectPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\pruebasHotelDiamante\\hotelDS2proyecto\\hotelDS2proyecto.csproj",
         "packagesPath": "C:\\Users\\Jennifer Tatiana GF\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\hotelDiamante\\hotelDS2proyecto\\obj\\",
+        "outputPath": "C:\\Users\\Jennifer Tatiana GF\\Downloads\\pruebasHotelDiamante\\hotelDS2proyecto\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

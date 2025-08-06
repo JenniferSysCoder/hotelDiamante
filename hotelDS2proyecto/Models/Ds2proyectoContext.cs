@@ -29,14 +29,20 @@ public partial class Ds2proyectoContext : DbContext
 
     public virtual DbSet<Pago> Pagos { get; set; }
 
+    public virtual DbSet<Permiso> Permisos { get; set; }
+
     public virtual DbSet<Reserva> Reservas { get; set; }
+
+    public virtual DbSet<RolPermiso> RolPermisos { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<ServiciosAdicionale> ServiciosAdicionales { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=ds2proyecto;Trusted_Connection=True;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=.;Database=ds2proyecto;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -205,6 +211,23 @@ public partial class Ds2proyectoContext : DbContext
                 .HasConstraintName("FK__Pagos__idFactura__3B40CD36");
         });
 
+        modelBuilder.Entity<Permiso>(entity =>
+        {
+            entity.HasKey(e => e.IdPermiso).HasName("PK__Permisos__06A58486965C35BE");
+
+            entity.HasIndex(e => e.Nombre, "UQ__Permisos__72AFBCC6A6262E01").IsUnique();
+
+            entity.Property(e => e.IdPermiso).HasColumnName("idPermiso");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+        });
+
         modelBuilder.Entity<Reserva>(entity =>
         {
             entity.HasKey(e => e.IdReserva).HasName("PK__Reservas__94D104C878D3D60D");
@@ -230,6 +253,44 @@ public partial class Ds2proyectoContext : DbContext
                 .HasConstraintName("FK__Reservas__idHabi__31B762FC");
         });
 
+        modelBuilder.Entity<RolPermiso>(entity =>
+        {
+            entity.HasKey(e => e.IdRolPermiso).HasName("PK__RolPermi__461A148572A02EB2");
+
+            entity.HasIndex(e => new { e.IdRol, e.IdPermiso }, "UQ_RolPermiso").IsUnique();
+
+            entity.Property(e => e.IdRolPermiso).HasColumnName("idRolPermiso");
+            entity.Property(e => e.IdPermiso).HasColumnName("idPermiso");
+            entity.Property(e => e.IdRol).HasColumnName("idRol");
+
+            entity.HasOne(d => d.IdPermisoNavigation).WithMany(p => p.RolPermisos)
+                .HasForeignKey(d => d.IdPermiso)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RolPermisos_Permisos");
+
+            entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.RolPermisos)
+                .HasForeignKey(d => d.IdRol)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RolPermisos_Roles");
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.IdRol).HasName("PK__Roles__3C872F7659ACA7A5");
+
+            entity.HasIndex(e => e.Nombre, "UQ__Roles__72AFBCC66835D64E").IsUnique();
+
+            entity.Property(e => e.IdRol).HasColumnName("idRol");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+        });
+
         modelBuilder.Entity<ServiciosAdicionale>(entity =>
         {
             entity.HasKey(e => e.IdServicio).HasName("PK__servicio__CEB98119DAB63E30");
@@ -251,14 +312,30 @@ public partial class Ds2proyectoContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC077DF40696");
+            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuarios__645723A60BE8CD9B");
 
-            entity.Property(e => e.Contrasenia)
-                .HasMaxLength(255)
-                .IsUnicode(false);
+            entity.HasIndex(e => e.Usuario1, "UQ__Usuarios__9AFF8FC6D4A07047").IsUnique();
+
+            entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
+            entity.Property(e => e.Contrasena)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("contrasena");
+            entity.Property(e => e.IdEmpleado).HasColumnName("idEmpleado");
+            entity.Property(e => e.IdRol).HasColumnName("idRol");
             entity.Property(e => e.Usuario1)
                 .HasMaxLength(100)
-                .HasColumnName("Usuario");
+                .IsUnicode(false)
+                .HasColumnName("usuario");
+
+            entity.HasOne(d => d.IdEmpleadoNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdEmpleado)
+                .HasConstraintName("FK_Usuarios_Empleados");
+
+            entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdRol)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Usuarios_Roles");
         });
 
         OnModelCreatingPartial(modelBuilder);

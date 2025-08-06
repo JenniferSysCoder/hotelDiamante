@@ -34,36 +34,43 @@ namespace hotelDS2proyecto.Controllers
         [HttpPost("Validar")]
         public async Task<IActionResult> Validar([FromBody] LoginDTO dto)
         {
-            if (dto == null || string.IsNullOrEmpty(dto.Usuario) || string.IsNullOrEmpty(dto.Contrasenia))
+            if (dto == null || string.IsNullOrEmpty(dto.Usuario1) || string.IsNullOrEmpty(dto.Contrasena))
                 return BadRequest(new { mensaje = "Usuario y contraseña son obligatorios." });
 
-            string passEncriptada = Encriptar(dto.Contrasenia);
+            string passEncriptada = Encriptar(dto.Contrasena);
 
             var usuario = await dbContext.Usuarios
-                .FirstOrDefaultAsync(u => u.Usuario1 == dto.Usuario && u.Contrasenia == passEncriptada);
+                .Include(u => u.IdRolNavigation) // 👈 para obtener el nombre del rol
+                .FirstOrDefaultAsync(u => u.Usuario1 == dto.Usuario1 && u.Contrasena == passEncriptada);
 
             if (usuario == null)
                 return Unauthorized(new { mensaje = "Credenciales incorrectas." });
 
-            return Ok(new { mensaje = "Login exitoso", usuario = usuario.Usuario1 });
+            // 👇 Se incluye el nombre del rol en la respuesta
+            return Ok(new
+            {
+                mensaje = "Login exitoso",
+                usuario = usuario.Usuario1,
+                rol = usuario.IdRolNavigation?.Nombre  // importante para el frontend
+            });
         }
+
 
         // POST: api/Login/Registrar
         [HttpPost("Registrar")]
         public async Task<IActionResult> Registrar([FromBody] LoginDTO dto)
         {
-            if (dto == null || string.IsNullOrEmpty(dto.Usuario) || string.IsNullOrEmpty(dto.Contrasenia))
+            if (dto == null || string.IsNullOrEmpty(dto.Usuario1) || string.IsNullOrEmpty(dto.Contrasena))
                 return BadRequest(new { mensaje = "Usuario y contraseña son obligatorios." });
 
-            // Verificar si el usuario ya existe
-            bool existe = await dbContext.Usuarios.AnyAsync(u => u.Usuario1 == dto.Usuario);
+            bool existe = await dbContext.Usuarios.AnyAsync(u => u.Usuario1 == dto.Usuario1);
             if (existe)
                 return Conflict(new { mensaje = "El usuario ya existe." });
 
             var nuevoUsuario = new Usuario
             {
-                Usuario1 = dto.Usuario,
-                Contrasenia = Encriptar(dto.Contrasenia) 
+                Usuario1 = dto.Usuario1,
+                Contrasena = Encriptar(dto.Contrasena)
             };
 
             dbContext.Usuarios.Add(nuevoUsuario);
@@ -71,5 +78,6 @@ namespace hotelDS2proyecto.Controllers
 
             return StatusCode(StatusCodes.Status201Created, new { mensaje = "Usuario registrado correctamente." });
         }
+
     }
 }
