@@ -45,6 +45,7 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
     { idCliente: number; nombreCliente: string }[]
   >([]);
   const [reservasFiltradas, setReservasFiltradas] = useState<IReserva[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchServicios = async () => {
@@ -72,14 +73,38 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
     fetchReservas();
   }, []);
 
+  // ---- helpers API
+  const existePorReserva = async (idReserva: number) => {
+    if (!idReserva) return false;
+    try {
+      const resp = await fetch(`${appsettings.apiUrl}Facturas/ExistePorReserva/${idReserva}`);
+      if (!resp.ok) return false; // si no existe el endpoint, dejamos que el backend valide en POST
+      const data = await resp.json();
+      return typeof data === "boolean" ? data : !!data.existe;
+    } catch {
+      return false;
+    }
+  };
+
   const calcularTotal = async (idReserva: number, idServicio: number) => {
     if (idReserva > 0 && idServicio > 0) {
-      const response = await fetch(
-        `${appsettings.apiUrl}Facturas/CalcularTotal?idReserva=${idReserva}&idServicio=${idServicio}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setFactura((prev) => ({ ...prev, total: data.totalCalculado }));
+      try {
+        const response = await fetch(
+          `${appsettings.apiUrl}Facturas/CalcularTotal?idReserva=${idReserva}&idServicio=${idServicio}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFactura((prev) => ({
+            ...prev,
+            total: Number(data.totalCalculado ?? prev.total),
+            // opcional: sincroniza campos retornados
+            numeroHabitacion: data.numeroHabitacion ?? prev.numeroHabitacion,
+            nombreCliente: data.nombreCliente ?? prev.nombreCliente,
+            nombreServicio: data.nombreServicio ?? prev.nombreServicio,
+          }));
+        }
+      } catch {
+        // silencioso
       }
     }
   };
@@ -107,15 +132,15 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
     const numericValue =
       name === "idServicio" || name === "idReserva" ? Number(value) : value;
 
-    let updatedFactura = {
+    let updatedFactura: IFactura = {
       ...factura,
-      [name]: numericValue,
+      [name]: numericValue as any,
     };
 
     if (name === "idReserva") {
       const reservaSeleccionada = reservas.find((r) => r.idReserva === numericValue);
       updatedFactura.numeroHabitacion = reservaSeleccionada?.numeroHabitacion ?? "";
-      updatedFactura.nombreCliente = reservaSeleccionada?.nombreCliente ?? "";
+      updatedFactura.nombreCliente = reservaSeleccionada?.nombreCliente ?? factura.nombreCliente;
     }
 
     setFactura(updatedFactura);
@@ -134,6 +159,13 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
       return;
     }
 
+    // 🔒 Pre-chequeo anti-duplicados por reserva
+    const dup = await existePorReserva(factura.idReserva);
+    if (dup) {
+      Swal.fire("No permitido", "Ya existe una factura para esta reserva.", "warning");
+      return;
+    }
+
     const facturaData = {
       fechaEmision: factura.fechaEmision,
       total: factura.total,
@@ -142,17 +174,33 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
       numeroHabitacion: factura.numeroHabitacion,
     };
 
-    const response = await fetch(`${appsettings.apiUrl}Facturas/Nueva`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(facturaData),
-    });
+    try {
+      setLoading(true);
+      const response = await fetch(`${appsettings.apiUrl}Facturas/Nueva`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(facturaData),
+      });
 
-    if (response.ok) {
-      Swal.fire("Éxito", "Factura registrada correctamente", "success");
-      onClose();
-    } else {
+      if (response.ok) {
+        Swal.fire("Éxito", "Factura registrada correctamente", "success");
+        onClose();
+        return;
+      }
+
+      // Manejo fino de errores
+      if (response.status === 409) {
+        const txt = await response.text();
+        Swal.fire("Conflicto", txt || "Ya existe una factura para esta reserva.", "error");
+        return;
+      }
+
+      const txt = await response.text();
+      Swal.fire("Error", txt || "No se pudo guardar la factura", "error");
+    } catch {
       Swal.fire("Error", "No se pudo guardar la factura", "error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -193,6 +241,7 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
               name="idServicio"
               value={factura.idServicio}
               onChange={inputChangeValue}
+              disabled={loading}
             >
               <option value="0">Seleccione un servicio</option>
               {servicios.map((s) => (
@@ -212,6 +261,7 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
                 clientes.find((c) => c.nombreCliente === factura.nombreCliente)?.idCliente || 0
               }
               onChange={inputChangeValue}
+              disabled={loading}
             >
               <option value={0}>Seleccione un cliente</option>
               {clientes.map((c) => (
@@ -229,7 +279,7 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
               name="idReserva"
               value={factura.idReserva}
               onChange={inputChangeValue}
-              disabled={factura.nombreCliente === ""}
+              disabled={loading || factura.nombreCliente === ""}
             >
               <option value={0}>Seleccione una reserva</option>
               {reservasFiltradas.map((r) => (
@@ -247,10 +297,10 @@ export function NuevaFacturaModal({ isOpen, onClose }: Props) {
         </Form>
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={guardar}>
+        <Button color="primary" onClick={guardar} disabled={loading}>
           Guardar
         </Button>{" "}
-        <Button color="secondary" onClick={onClose}>
+        <Button color="secondary" onClick={onClose} disabled={loading}>
           Cancelar
         </Button>
       </ModalFooter>

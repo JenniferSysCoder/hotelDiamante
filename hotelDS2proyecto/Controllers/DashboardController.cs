@@ -163,6 +163,146 @@ namespace hotelDS2proyecto.Controllers
             return Ok(reservas);
         }
 
+        // GET: api/Dashboard/ganancias/resumen?from=2025-01-01&to=2025-01-31
+        [HttpGet("ganancias/resumen")]
+        public async Task<IActionResult> GetGananciasResumen([FromQuery] DateTime? from, [FromQuery] DateTime? to)
+        {
+            // Rango por defecto: último mes
+            var desde = (from ?? DateTime.Today.AddMonths(-1)).Date;
+            var hasta = (to ?? DateTime.Today).Date.AddDays(1).AddTicks(-1); // inclusivo al día
+
+            // Emitidos (por FechaEmision en Facturas)
+            var emitidos = await _context.Facturas
+                .Where(f => f.FechaEmision >= desde && f.FechaEmision <= hasta)
+                .SumAsync(f => (decimal?)f.Total) ?? 0m;
+
+            var cantidadFacturas = await _context.Facturas
+                .CountAsync(f => f.FechaEmision >= desde && f.FechaEmision <= hasta);
+
+            // Cobrados (por FechaPago en Pagos)
+            var cobrados = await _context.Pagos
+                .Where(p => p.FechaPago >= desde && p.FechaPago <= hasta)
+                .SumAsync(p => (decimal?)p.Monto) ?? 0m;
+
+            var pendientes = emitidos - cobrados;
+            if (pendientes < 0) pendientes = 0;
+
+            return Ok(new
+            {
+                ingresosEmitidos = emitidos,
+                ingresosCobrados = cobrados,
+                pendientesCobro = pendientes,
+                cantidadFacturas,
+                ticketPromedio = cantidadFacturas > 0 ? Math.Round(emitidos / cantidadFacturas, 2) : 0m,
+                desde,
+                hasta
+            });
+        }
+
+        // GET: api/Dashboard/ganancias/serie?from=2025-01-01&to=2025-03-31&groupBy=month
+        [HttpGet("ganancias/serie")]
+        public async Task<IActionResult> GetGananciasSerie([FromQuery] DateTime? from, [FromQuery] DateTime? to, [FromQuery] string? groupBy = "month")
+        {
+            var desde = (from ?? DateTime.Today.AddMonths(-3)).Date;
+            var hasta = (to ?? DateTime.Today).Date.AddDays(1).AddTicks(-1);
+            var gb = (groupBy ?? "month").ToLowerInvariant();
+            if (gb != "day" && gb != "month") gb = "month";
+
+            if (gb == "day")
+            {
+                var emit = await _context.Facturas
+                    .Where(f => f.FechaEmision >= desde && f.FechaEmision <= hasta)
+                    .GroupBy(f => f.FechaEmision.Date)
+                    .Select(g => new { Clave = g.Key, Emitido = g.Sum(x => (decimal)x.Total) })
+                    .ToListAsync();
+
+                var cob = await _context.Pagos
+                    .Where(p => p.FechaPago >= desde && p.FechaPago <= hasta)
+                    .GroupBy(p => p.FechaPago.Date)
+                    .Select(g => new { Clave = g.Key, Cobrado = g.Sum(x => (decimal)x.Monto) })
+                    .ToListAsync();
+
+                // Merge por fecha
+                var mapa = new SortedDictionary<DateTime, (decimal Emitido, decimal Cobrado)>();
+                foreach (var e in emit) mapa[e.Clave] = (e.Emitido, 0m);
+                foreach (var c in cob)
+                {
+                    if (mapa.TryGetValue(c.Clave, out var val)) mapa[c.Clave] = (val.Emitido, val.Cobrado + c.Cobrado);
+                    else mapa[c.Clave] = (0m, c.Cobrado);
+                }
+
+                var puntos = mapa.Select(kv => new
+                {
+                    clave = kv.Key.ToString("yyyy-MM-dd"),
+                    emitido = kv.Value.Emitido,
+                    cobrado = kv.Value.Cobrado
+                }).ToList();
+
+                return Ok(new { groupBy = "day", puntos });
+            }
+            else
+            {
+                var emit = await _context.Facturas
+                    .Where(f => f.FechaEmision >= desde && f.FechaEmision <= hasta)
+                    .GroupBy(f => new { f.FechaEmision.Year, f.FechaEmision.Month })
+                    .Select(g => new { g.Key.Year, g.Key.Month, Emitido = g.Sum(x => (decimal)x.Total) })
+                    .ToListAsync();
+
+                var cob = await _context.Pagos
+                    .Where(p => p.FechaPago >= desde && p.FechaPago <= hasta)
+                    .GroupBy(p => new { p.FechaPago.Year, p.FechaPago.Month })
+                    .Select(g => new { g.Key.Year, g.Key.Month, Cobrado = g.Sum(x => (decimal)x.Monto) })
+                    .ToListAsync();
+
+                var mapa = new SortedDictionary<string, (decimal Emitido, decimal Cobrado)>();
+                foreach (var e in emit)
+                {
+                    var key = $"{e.Year:D4}-{e.Month:D2}";
+                    mapa[key] = (e.Emitido, 0m);
+                }
+                foreach (var c in cob)
+                {
+                    var key = $"{c.Year:D4}-{c.Month:D2}";
+                    if (mapa.TryGetValue(key, out var val)) mapa[key] = (val.Emitido, val.Cobrado + c.Cobrado);
+                    else mapa[key] = (0m, c.Cobrado);
+                }
+
+                var puntos = mapa.Select(kv => new
+                {
+                    clave = kv.Key,
+                    emitido = kv.Value.Emitido,
+                    cobrado = kv.Value.Cobrado
+                }).ToList();
+
+                return Ok(new { groupBy = "month", puntos });
+            }
+        }
+
+        // GET: api/Dashboard/ganancias/por-servicio?from=...&to=...
+        [HttpGet("ganancias/por-servicio")]
+        public async Task<IActionResult> GetGananciasPorServicio([FromQuery] DateTime? from, [FromQuery] DateTime? to)
+        {
+            var desde = (from ?? DateTime.Today.AddMonths(-1)).Date;
+            var hasta = (to ?? DateTime.Today).Date.AddDays(1).AddTicks(-1);
+
+            var data = await _context.Facturas
+                .Include(f => f.IdServicioNavigation)
+                .Where(f => f.FechaEmision >= desde && f.FechaEmision <= hasta)
+                .GroupBy(f => f.IdServicioNavigation.Nombre)
+                .Select(g => new
+                {
+                    servicio = g.Key,
+                    totalEmitido = g.Sum(x => (decimal)x.Total),
+                    cantidad = g.Count(),
+                    ticketPromedio = g.Count() > 0 ? Math.Round(g.Sum(x => (decimal)x.Total) / g.Count(), 2) : 0m
+                })
+                .OrderByDescending(x => x.totalEmitido)
+                .ToListAsync();
+
+            return Ok(data);
+        }
+
+
 
 
     }

@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { appsettings } from "../../../settings/appsettings";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { Card, CardHeader, CardBody, Col, Spinner, Alert } from "reactstrap";
+  Card,
+  CardHeader,
+  CardBody,
+  Col,
+  Spinner,
+  Alert,
+  ListGroup,
+  ListGroupItem,
+} from "reactstrap";
 
 export interface IServicioPop {
   nombreServicio: string;
   cantidad: number;
 }
 
-// Paleta de colores armónica y profesional (colores planos, suaves y modernos)
-const coloresArmoniosos = [
-  "#3b82f6", // Azul medio
-  "#10b981", // Verde menta
-  "#f59e0b", // Amarillo mostaza
-  "#8b5cf6", // Morado pastel
-  "#f97316", // Naranja suave
-  "#2563eb", // Azul royal
-  "#14b8a6", // Verde azulado
-  "#a78bfa", // Lila suave
+// Paleta “enterprise”: neutros azul/gris, consistentes y sobrios
+const PALETTE = [
+  "#1f4f82",
+  "#2d6aa3",
+  "#3b83be",
+  "#5b9bd5",
+  "#7aaada",
+  "#9dbfe5",
+  "#bcd1ec",
+  "#d5e2f3",
 ];
 
 export function DashboardServicios() {
@@ -32,160 +34,241 @@ export function DashboardServicios() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const total = useMemo(
+    () => datos.reduce((acc, d) => acc + Number(d.cantidad || 0), 0),
+    [datos]
+  );
+
   useEffect(() => {
     const obtenerDatos = async () => {
       try {
-        const response = await fetch(
+        setLoading(true);
+        const res = await fetch(
           `${appsettings.apiUrl}Dashboard/serviciosPopulares`
         );
-        if (!response.ok) throw new Error("Error al cargar servicios");
-        const data = await response.json();
-        setDatos(data);
-      } catch (error: any) {
-        setError(error.message || "Error desconocido");
+        if (!res.ok) throw new Error("No se pudo cargar Servicios Populares");
+        const data = (await res.json()) as IServicioPop[];
+        setDatos(Array.isArray(data) ? data : []);
+      } catch (e: any) {
+        setError(e?.message || "Error desconocido");
       } finally {
         setLoading(false);
       }
     };
-
     obtenerDatos();
   }, []);
 
-  return (
-    <Col xs="12" sm="12" md="6" lg="6" xl="6">
-      <Card
-        style={{
-          border: "none",
-          borderRadius: "12px",
-          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
-          background: "#ffffff",
-          transition: "all 0.3s ease",
-          overflow: "hidden",
-          position: "relative",
-          minHeight: "450px",
-        }}
-      >
-        {/* Si no quieres la barra superior colorida, elimina este div */}
-        {/* <div
+  // Etiqueta central (total) para el donut
+  const CenterLabel = () => {
+    return (
+      <foreignObject x="35%" y="35%" width="30%" height="30%">
+        <div
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "4px",
-            background: "linear-gradient(90deg, #1565C0 0%, #2E7D32 100%)",
-          }}
-        /> */}
-        <CardHeader
-          style={{
-            background: "#ffffff",
-            color: "#2c3e50",
-            fontWeight: "600",
-            fontSize: "1rem",
-            borderBottom: "1px solid #f1f3f4",
-            padding: "20px 24px 16px",
+            height: "100%",
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            color: "#1f2937",
+            lineHeight: 1.1,
           }}
         >
-          Servicios Más Populares
+          <div>
+            <div style={{ fontSize: 12, color: "#6b7280" }}>Total</div>
+            <div style={{ fontSize: 20, fontWeight: 700 }}>{total}</div>
+          </div>
+        </div>
+      </foreignObject>
+    );
+  };
+
+  // Formateador de tooltip: “Servicio — 12 (34.5%)”
+  const tooltipFormatter = (value: any, _name: any, props: any) => {
+    const cnt = Number(value || 0);
+    const pct = total > 0 ? `${((cnt / total) * 100).toFixed(1)}%` : "0%";
+    return [`${cnt} (${pct})`, props?.payload?.nombreServicio ?? "Servicio"];
+  };
+
+  // Vista “enterprise”: bordes suaves, sin sombras fuertes, tipografía compacta
+  return (
+    <Col xs="12" md="6" lg="6" xl="6">
+      <Card
+        style={{
+          border: "1px solid #e5e7eb",
+          borderRadius: 12,
+          background: "#fff",
+        }}
+      >
+        <CardHeader
+          style={{
+            background: "#fff",
+            borderBottom: "1px solid #e5e7eb",
+            padding: "12px 16px",
+            fontWeight: 600,
+            fontSize: 14,
+            color: "#111827",
+          }}
+        >
+          Servicios más populares
         </CardHeader>
+
         <CardBody
           style={{
-            height: "400px",
-            background: "#ffffff",
-            padding: "16px 20px 20px",
+            padding: 12,
             display: "flex",
-            flexDirection: "column",
+            gap: 12,
+            alignItems: "stretch",
+            minHeight: 320,
           }}
         >
-          {loading && (
+          {/* Zona izquierda: gráfico */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            {loading ? (
+              <div
+                style={{
+                  height: 300,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Spinner size="sm" color="primary" />
+              </div>
+            ) : error ? (
+              <Alert color="danger" style={{ fontSize: 13, margin: 0 }}>
+                {error}
+              </Alert>
+            ) : datos.length === 0 ? (
+              <Alert color="secondary" style={{ fontSize: 13, margin: 0 }}>
+                No hay datos para mostrar en este periodo.
+              </Alert>
+            ) : (
+              <div style={{ height: 300 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={datos}
+                      dataKey="cantidad"
+                      nameKey="nombreServicio"
+                      cx="50%"
+                      cy="50%"
+                      innerRadius="45%"
+                      outerRadius="72%"
+                      paddingAngle={1.5}
+                      labelLine={false} // 👈 Se mantiene desactivado
+                      stroke="#fff"
+                      strokeWidth={1}
+                    >
+                      {datos.map((_d, i) => (
+                        <Cell key={i} fill={PALETTE[i % PALETTE.length]} />
+                      ))}
+                    </Pie>
+
+                    <CenterLabel />
+                    <Tooltip
+                      formatter={tooltipFormatter as any}
+                      contentStyle={{
+                        background: "#fff",
+                        border: "1px solid #e5e7eb",
+                        borderRadius: 8,
+                        boxShadow: "0 4px 12px rgba(0,0,0,.06)",
+                        fontSize: 12,
+                      }}
+                      itemStyle={{ color: "#111827" }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+          </div>
+
+          {/* Zona derecha: leyenda/tabla compacta */}
+          <div
+            style={{
+              width: 240,
+              minWidth: 200,
+              borderLeft: "1px solid #f3f4f6",
+              paddingLeft: 12,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                flex: 1,
+                fontSize: 12,
+                color: "#6b7280",
+                marginBottom: 6,
+                fontWeight: 600,
               }}
             >
-              <Spinner color="primary" size="sm" />
+              Detalle
             </div>
-          )}
-          {error && (
-            <Alert
-              color="danger"
-              style={{ borderRadius: "8px", fontSize: "0.85rem" }}
-            >
-              {error}
-            </Alert>
-          )}
-          {!loading && !error && (
-            <div style={{ flex: 1, minHeight: 0 }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={datos}
-                    dataKey="cantidad"
-                    nameKey="nombreServicio"
-                    cx="50%"
-                    cy="45%"
-                    innerRadius="25%"
-                    outerRadius="65%"
-                    label={({ nombreServicio, percent }) => {
-                      if (percent > 0.05) {
-                        return `${nombreServicio} (${(percent * 100).toFixed(1)}%)`;
-                      }
-                      return "";
-                    }}
-                    labelLine={false}
-                    stroke="#ffffff"
-                    strokeWidth={2}
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    {datos.map((_entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={coloresArmoniosos[index % coloresArmoniosos.length]}
+            <div style={{ overflowY: "auto", maxHeight: 260 }}>
+              <ListGroup flush>
+                {datos.map((d, i) => {
+                  const color = PALETTE[i % PALETTE.length];
+                  const pct =
+                    total > 0 ? ((d.cantidad / total) * 100).toFixed(1) : "0.0";
+                  return (
+                    <ListGroupItem
+                      key={i}
+                      style={{
+                        padding: "8px 8px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        fontSize: 13,
+                        border: "none",
+                        borderBottom: "1px solid #f3f4f6",
+                      }}
+                    >
+                      <span
+                        style={{
+                          display: "inline-block",
+                          width: 10,
+                          height: 10,
+                          borderRadius: 2,
+                          background: color,
+                          flex: "0 0 auto",
+                        }}
+                        aria-hidden
                       />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    formatter={(value: any, _name: any, props: any) => [
-                      value,
-                      props.payload.nombreServicio,
-                    ]}
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      color: "#2c3e50",
-                      border: "1px solid #e0e4e7",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                      fontWeight: "500",
-                      fontSize: "0.85rem",
-                    }}
-                    itemStyle={{ color: "#3b82f6" }}
-                  />
-                  <Legend
-                    verticalAlign="bottom"
-                    iconType="circle"
-                    wrapperStyle={{
-                      fontSize: "0.8rem",
-                      color: "#2c3e50",
-                      marginTop: "8px",
-                      fontWeight: "500",
-                      lineHeight: "1.2",
-                    }}
-                    layout="horizontal"
-                    align="center"
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "100%",
+                          gap: 8,
+                        }}
+                        title={d.nombreServicio}
+                      >
+                        <span
+                          style={{
+                            color: "#111827",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            maxWidth: 120,
+                          }}
+                        >
+                          {d.nombreServicio}
+                        </span>
+                        <span style={{ color: "#374151" }}>
+                          {d.cantidad}{" "}
+                          <span style={{ color: "#6b7280" }}>({pct}%)</span>
+                        </span>
+                      </div>
+                    </ListGroupItem>
+                  );
+                })}
+                {!loading && !error && datos.length === 0 && (
+                  <ListGroupItem style={{ fontSize: 13, color: "#6b7280" }}>
+                    Sin registros.
+                  </ListGroupItem>
+                )}
+              </ListGroup>
             </div>
-          )}
+          </div>
         </CardBody>
       </Card>
     </Col>

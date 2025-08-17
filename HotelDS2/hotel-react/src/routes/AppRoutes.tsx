@@ -23,6 +23,7 @@ import { DashboardHabitaciones } from "../pages/Dashboard/components/DSHabitacio
 import { DashboardServicios } from "../pages/Dashboard/components/DHServicio";
 import { DashboardProyeccionReservas } from "../pages/Dashboard/components/DHProyeccionReservas";
 import CalendarioReservas from "../pages/Calendario/CalendarioReservas";
+import DashboardGanancias from "../pages/Dashboard/components/DashboardGanancias";
 import AppUsuario from "../pages/Usuarios/routes/RouteUsuarios";
 import AcercaDe from "../pages/AcercaDe/AcercaDe";
 import AppRol from "../pages/Roles/routes/RouteRoles";
@@ -103,17 +104,19 @@ export default function AppRoutes() {
                       <Route path="/ReporteReserva/*" element={<PrivateRoute rolesPermitidos={["Administrador"]}><AppReporteReservas /></PrivateRoute>} />
                       <Route path="/ReporteServicio/*" element={<PrivateRoute rolesPermitidos={["Administrador"]}><AppReporteServicios /></PrivateRoute>} />
                       <Route path="/proyeccionReservas" element={<PrivateRoute rolesPermitidos={["Administrador", "Recepcionista"]}><DashboardProyeccionReservas /></PrivateRoute>} />
-                      <Route 
-                        path="/analisis-completo" 
+                      <Route path="/ganancias" element={<PrivateRoute rolesPermitidos={["Administrador", "Recepcionista"]}><DashboardGanancias /></PrivateRoute>} />
+                      <Route
+                        path="/analisis-completo"
                         element={
                           <div className="container-fluid py-4">
                             <h2 className="mb-4 fw-bold">Análisis y Proyecciones</h2>
                             <Row className="mb-4">
                               <DashboardProyeccionReservas />
+                              <DashboardServicios />
+                              
                             </Row>
                             <Row>
-                              <DashboardHabitaciones />
-                              <DashboardServicios />
+                              <DashboardGanancias />
                             </Row>
                           </div>
                         } 

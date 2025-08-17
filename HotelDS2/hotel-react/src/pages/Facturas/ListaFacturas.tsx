@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { appsettings } from "../../settings/appsettings";
 import Swal from "sweetalert2";
 import type { IFactura } from "../../Interfaces/IFactura";
@@ -11,6 +11,7 @@ import {
   Input,
   InputGroup,
   InputGroupText,
+  Spinner,
 } from "reactstrap";
 import {
   FaSearch,
@@ -37,25 +38,28 @@ export function ListaFacturas() {
   const [paginaActual, setPaginaActual] = useState(1);
   const [facturasPorPagina, setFacturasPorPagina] = useState(5);
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const obtenerFacturas = async () => {
+  const obtenerFacturas = useCallback(async () => {
     try {
+      setLoading(true);
       const response = await fetch(`${appsettings.apiUrl}Facturas/Lista`);
-      if (response.ok) {
-        const data = await response.json();
-        setFacturas(data);
-      } else {
-        Swal.fire("Error", "No se pudo obtener la lista de facturas", "error");
-      }
-    } catch {
-      Swal.fire("Error", "Hubo un problema de conexión", "error");
+      if (!response.ok) throw new Error("No se pudo obtener la lista de facturas");
+      const data = await response.json();
+      if (Array.isArray(data)) setFacturas(data);
+      else setFacturas([]);
+    } catch (e: any) {
+      Swal.fire("Error", e?.message || "Hubo un problema de conexión", "error");
+    } finally {
+      setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     obtenerFacturas();
-  }, []);
+  }, [obtenerFacturas]);
 
   const Eliminar = (id: number) => {
     Swal.fire({
@@ -67,39 +71,64 @@ export function ListaFacturas() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
     }).then(async (result) => {
-      if (result.isConfirmed) {
-        const response = await fetch(
-          `${appsettings.apiUrl}Facturas/Eliminar/${id}`,
-          { method: "DELETE" }
-        );
-        if (response.ok) {
-          await obtenerFacturas();
-          Swal.fire("Eliminado", "La factura ha sido eliminada", "success");
-        } else {
-          Swal.fire("Error", "No se pudo eliminar la factura", "error");
-        }
+      if (!result.isConfirmed) return;
+      const response = await fetch(`${appsettings.apiUrl}Facturas/Eliminar/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        await obtenerFacturas();
+        Swal.fire("Eliminado", "La factura ha sido eliminada", "success");
+      } else {
+        const txt = await response.text();
+        Swal.fire("Error", txt || "No se pudo eliminar la factura", "error");
       }
     });
   };
 
-  // Lógica de búsqueda y paginación
-  const facturasFiltradas = facturas.filter((f) =>
-    `${f.nombreCliente} ${f.nombreServicio}`
-      .toLowerCase()
-      .includes(busqueda.toLowerCase())
+  // ---- Formateadores seguros
+  const fmtMoney = useMemo(
+    () =>
+      new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+      }),
+    []
   );
+
+  const fmtDate = (d: string | Date) => {
+    const date = typeof d === "string" ? new Date(d) : d;
+    return isNaN(date.getTime()) ? "-" : date.toLocaleDateString();
+  };
+
+  // ---- Debounce de búsqueda
+  const [entradaBusqueda, setEntradaBusqueda] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setBusqueda(entradaBusqueda.trim()), 250);
+    return () => clearTimeout(t);
+  }, [entradaBusqueda]);
+
+  // ---- Filtro y paginación
+  const facturasFiltradas = useMemo(() => {
+    if (!busqueda) return facturas;
+    const q = busqueda.toLowerCase();
+    return facturas.filter((f) => {
+      const texto = `${f.idFactura} ${f.nombreCliente} ${f.nombreServicio} ${f.numeroHabitacion}`.toLowerCase();
+      return texto.includes(q);
+    });
+  }, [facturas, busqueda]);
 
   const indexUltimo = paginaActual * facturasPorPagina;
   const indexPrimero = indexUltimo - facturasPorPagina;
   const facturasActuales = facturasFiltradas.slice(indexPrimero, indexUltimo);
-  const totalPaginas = Math.ceil(facturasFiltradas.length / facturasPorPagina);
+  const totalPaginas = Math.max(1, Math.ceil(facturasFiltradas.length / facturasPorPagina));
 
   const siguientePagina = () => {
-    if (paginaActual < totalPaginas) setPaginaActual(paginaActual + 1);
+    if (paginaActual < totalPaginas) setPaginaActual((p) => p + 1);
   };
 
   const paginaAnterior = () => {
-    if (paginaActual > 1) setPaginaActual(paginaActual - 1);
+    if (paginaActual > 1) setPaginaActual((p) => p - 1);
   };
 
   useEffect(() => {
@@ -140,13 +169,15 @@ export function ListaFacturas() {
               <h2 className="fw-bold mb-0">Gestión de Facturas</h2>
               <p className="text-muted mb-0">Administra las facturas emitidas</p>
             </div>
-            <Button
-              color="primary"
-              className="rounded-pill fw-bold shadow-sm"
-              onClick={() => setMostrarNuevo(true)}
-            >
-              + Nueva Factura
-            </Button>
+            <div className="d-flex gap-2">
+              <Button
+                color="primary"
+                className="rounded-pill fw-bold shadow-sm"
+                onClick={() => setMostrarNuevo(true)}
+              >
+                + Nueva Factura
+              </Button>
+            </div>
           </div>
 
           <Row className="mb-3">
@@ -156,15 +187,15 @@ export function ListaFacturas() {
                   <FaSearch />
                 </InputGroupText>
                 <Input
-                  placeholder="Buscar por cliente o servicio..."
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
+                  placeholder="Buscar por ID, cliente, servicio o habitación..."
+                  value={entradaBusqueda}
+                  onChange={(e) => setEntradaBusqueda(e.target.value)}
                 />
               </InputGroup>
             </Col>
             <Col md="6" className="text-end">
               <small className="text-muted">
-                Mostrando {facturasActuales.length} de {facturasFiltradas.length} facturas encontradas
+                {loading ? "Cargando..." : <>Mostrando {facturasActuales.length} de {facturasFiltradas.length} facturas encontradas</>}
               </small>
             </Col>
           </Row>
@@ -183,7 +214,13 @@ export function ListaFacturas() {
                 </tr>
               </thead>
               <tbody>
-                {facturasActuales.length > 0 ? (
+                {loading ? (
+                  <tr>
+                    <td colSpan={7} className="text-center">
+                      <Spinner size="sm" /> &nbsp;Cargando facturas...
+                    </td>
+                  </tr>
+                ) : facturasActuales.length > 0 ? (
                   facturasActuales.map((f) => (
                     <tr key={f.idFactura}>
                       <td>{f.idFactura}</td>
@@ -197,17 +234,15 @@ export function ListaFacturas() {
                           </div>
                           <div>
                             <div className="fw-bold">{f.nombreCliente}</div>
-                            <div className="text-muted small">
-                              Factura #{f.idFactura}
-                            </div>
+                            <div className="text-muted small">Factura #{f.idFactura}</div>
                           </div>
                         </div>
                       </td>
                       <td>{f.nombreServicio}</td>
-                      <td>{f.numeroHabitacion}</td>
-                      <td>{new Date(f.fechaEmision).toLocaleDateString()}</td>
+                      <td>{f.numeroHabitacion || "N/A"}</td>
+                      <td>{fmtDate(f.fechaEmision)}</td>
                       <td className="fw-bold text-success">
-                        ${f.total.toFixed(2)}
+                        {fmtMoney.format(Number(f.total || 0))}
                       </td>
                       <td className="text-center">
                         <div className="d-flex justify-content-center gap-2">
@@ -262,11 +297,11 @@ export function ListaFacturas() {
             </Table>
           </div>
 
-          {/* Controles de paginación - EXACTAMENTE IGUAL QUE ListaClientes */}
+          {/* Controles de paginación */}
           <div className="d-flex justify-content-between align-items-center mt-3">
             <div>
               <small className="text-muted">
-                Mostrando {facturasActuales.length} de {facturasFiltradas.length} facturas encontradas
+                {loading ? " " : <>Mostrando {facturasActuales.length} de {facturasFiltradas.length} facturas encontradas</>}
               </small>
             </div>
             <div className="d-flex align-items-center gap-3">
@@ -320,16 +355,10 @@ export function ListaFacturas() {
             />
           )}
           {mostrarEditar && facturaEditarId && (
-            <EditarFacturaModal
-              idFactura={facturaEditarId}
-              onClose={cerrarEditar}
-            />
+            <EditarFacturaModal idFactura={facturaEditarId} onClose={cerrarEditar} />
           )}
           {mostrarDetalle && facturaDetalleId && (
-            <VerDetallesFactura
-              idFactura={facturaDetalleId}
-              onClose={cerrarDetalle}
-            />
+            <VerDetallesFactura idFactura={facturaDetalleId} onClose={cerrarDetalle} />
           )}
         </Col>
       </Row>
